@@ -1,0 +1,30 @@
+# .gitignore
+
+# .gitignore
+
+
+
+# git repo파일들 pull 방지 위함
+
+.war
+**/.war
+
+README.md
+
+MusicProject.zip
+
+
+
+# DB설정
+
+aws_db_ip.txt
+
+
+
+# 레퍼런스 파일
+
+References/*
+
+References/
+
+

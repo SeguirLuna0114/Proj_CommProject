@@ -7,21 +7,18 @@
 	<!-- resultType 속성: 쿼리 결과를 매핑할 DTO 클래스의 경로 -->
 
 	<!-- member(userId) & prBoard(userId) => UserInfoVO클래스 객체 
-		: id값이 같은 유저 정보 가져옴(From prBoard pr LEFT OUTER JOIN member us)
-		  단, 두 테이블에 작성한 전공명이 다른 경우에도 가져옴 -->
+		: id값이 같은 유저 정보 가져옴(From prBoard pr LEFT OUTER JOIN member us) -->
 	<select id="findUser" resultType="userInfo">
-		SELECT pr.userId, pr.prSub, pr.prText, pr.prRcount,
-		pr.prMajor, pr.prLoc, pr.prCareer, pr.prVideo,
-		pr.prFile, pr.prHash, pr.prDelYn,
-		us.userPw, us.userName, us.userPhone, us.userEmail,
-		us.userGru, us.userDelYn
+		SELECT pr.prNo, pr.userId, pr.prSub, pr.prText, pr.prRcount, 
+			pr.prLoc, pr.prCareer, pr.prVideo, 
+			pr.prFile, pr.prHash, pr.prDelYn,
+			us.userMajor, us.userPw, us.userName, us.userPhone,
+			us.userEmail, us.userGru, us.userDelYn
 		FROM prBoard pr
 		LEFT OUTER JOIN member us
-		ON pr.userId = us.userId
-		AND (pr.prMajor = us.userMajor
-		OR pr.prMajor IS NULL OR us.userMajor IS NULL)
+		ON pr.userId = us.userId 
 		WHERE us.userId = #{id}
-		AND pr.prDelYn != 'Y' AND us.userDelYn != 'Y'
+		   	AND pr.prDelYn != 'Y' AND us.userDelYn != 'Y'
 	</select>
 	<!-- 삭제되지 않은 데이터만 가져옴 -->
 
