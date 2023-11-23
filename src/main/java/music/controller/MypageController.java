@@ -22,3 +22,11 @@ public class MypageController {
 		return "/mypage/mypage";
 	}
 }
+
+
+//@GetMapping("/mypage/{id}")
+//public String getMyPage(@PathVariable Integer id, Model model) {
+//    InfoAllDto infoAllDto = myPageService.viewMyPage(id);
+//    model.addAttribute("infoAllDto", infoAllDto);
+//    return "mypage/myPage";
+//}
