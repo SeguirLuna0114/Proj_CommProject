@@ -10,7 +10,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music Insite</title>
+    <title>MusicInsite</title>
 
     <!-- Favicon 설정 -->
     <link
@@ -54,7 +54,7 @@
 
 		<!-- 홈페이지 처음(index페이지)으로 이동-->
         <h1 class="logo">
-          <a href="#">Music Insite</a>
+          <a href="#">MusicInsite</a>
         </h1>
 
         <ul class="gnb">
