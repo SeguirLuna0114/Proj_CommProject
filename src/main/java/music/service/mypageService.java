@@ -2,10 +2,11 @@ package music.service;
 
 import java.util.List;
 
-import music.model.UserInfoVO;
+import music.model.StatusInfoVO;
 
 public interface mypageService {
 	
-	List<UserInfoVO> findUser(String id);
+	// 구인게시판에 작성한 글 전체목록 출력
+	List<StatusInfoVO> stat_viewAll(String id);
 	
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import music.mapper.mypageDao;
-import music.model.UserInfoVO;
+import music.model.StatusInfoVO;
 
 @Service
 public class mypageSerciveImpl implements mypageService{
@@ -15,8 +15,9 @@ public class mypageSerciveImpl implements mypageService{
 	private mypageDao dao;
 	
 	@Override
-	public List<UserInfoVO> findUser(String id) {
-		return dao.findUser(id);
+	public List<StatusInfoVO> stat_viewAll(String id) {
+		// 구인게시판에 작성한 글 전체목록 출력
+		return dao.findjob(id);
 	}
 	
 	

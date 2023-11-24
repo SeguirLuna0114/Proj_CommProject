@@ -2,15 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
-<configuration>
 
+<configuration>
+	<!-- DTO클래스의 별칭 설정 -->
 	<typeAliases>
 		<!-- pr(자기홍보)관련 DTO클래스 별칭 설정 -->
 		<typeAlias alias="pr" type="music.model.prVO" />
 		
 		<!-- mypage관련 DTO클래스 별칭 설정 -->		
+		<typeAlias alias="StatusInfo" type="music.model.AppStatusInfoDao"/>
+		
 		<!-- member(userId) & prBoard(userId) => UserInfoVO클래스  -->
-		<typeAlias alias="userInfo" type="music.model.UserInfoVO"/>
 		
 		
 		

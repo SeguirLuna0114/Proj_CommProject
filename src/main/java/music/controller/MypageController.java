@@ -16,13 +16,15 @@ public class MypageController {
 //	public String prList() {
 //		return "home";
 //	}
-	
+
+// 	페이지 이동 관련
 	// 마이페이지 메인으로 이동
 	@RequestMapping("mypage.do")
 	public String mypageMain() {
 		return "/mypage/mypage";
 	}
 
+// 구인 페이지 관련
 	// 지원완료 페이지로 이동(모든 진행상태)
 	@RequestMapping("applyStatusAll.do")
 	public String mypage_appAll() {
