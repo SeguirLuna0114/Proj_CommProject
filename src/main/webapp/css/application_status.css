@@ -208,6 +208,8 @@ body {
     color: #33ffcc;
 }
 
+/* 대기중 */
 .as_table td .waiting {
-    color: #333333;
+  color: #0f0f0f;
 }
+

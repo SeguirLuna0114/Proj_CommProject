@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Project</title>
+
+    <!-- Favicon 설정 -->
+    <link
+      rel="shortcut icon"
+      href="./static/favicon/music_icon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- CSS 설정 -->
+    <link href="./static/css/reset.css" rel="stylesheet" />
+    <link href="./static/css/header.css" rel="stylesheet" />
+    <link href="./static/css/footer.css" rel="stylesheet" />
+    <link href="./static/css/main.css" rel="stylesheet" />
+    <link href="./static/css/wanted.css" rel="stylesheet" />
+    <link href="./static/css/wanted-detail.css" rel="stylesheet" />
+    <link href="./static/css/company-detail.css" rel="stylesheet" />
+
+    <!-- 지원현황 페이지 - 전체 지원현황 css 설정 -->
+    <link href="./static/css/application_status_all.css" rel="stylesheet" />
+
+    <script
+      src="https://kit.fontawesome.com/e264982194.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- 지원현황 관련 js파일 -->
+    <script src="./static/js/applicationStatus.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header_inner">
+        <div class="menu">
+          <button class="btn_menu">포지션</button>
+          <ul class="dropdown_menu">
+            <li class="menu_top">포지션 목록</li>
+            <li><a class="dropdown_item" href="#">포지션1</a></li>
+            <li><a class="dropdown_item" href="#">포지션2</a></li>
+            <li><a class="dropdown_item" href="#">포지션3</a></li>
+            <li class="menu_bottom">음악관련 전공자 구인공고 사이트</li>
+          </ul>
+        </div>
+
+        <h1 class="logo">
+          <a href="/index">행사 구인구직</a>
+        </h1>
+
+        <ul class="gnb">
+          <li><a href="#">구인</a></li>
+          <li><a href="#">홍보</a></li>
+          <li><a href="#">커뮤니티</a></li>
+        </ul>
+        <ul class="login">
+          <li><a href="/loginpage">로그인/회원가입</a></li>
+        </ul>
+        <ul class="companyservice">
+          <li><a href="#">구인단체 서비스</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- 지원현황 페이지 - 전체 지원현황 -->
+
+    <div id="wrap">
+      <div id="asa_wrap">
+        <div class="asa_menu">
+          <p class="asa_title">지원 현황</p>
+          <ul>
+            <li class="asa_position"><a href="#">지원한 포지션</a></li>
+            <li class="asa_proposal"><a href="#">받은 요청</a></li>
+          </ul>
+        </div>
+
+        <div class="asa_contents">
+          <div class="asa_counts">
+            <div class="asa_count_all">
+              <a href="./applyStatusAll.html">
+                <p class="asa_all_count">12</p>
+                <p class="asa_all_text">전체</p>
+              </a>
+            </div>
+            <div class="asa_count_c">
+              <a href="./applyStatus.html">
+                <p class="asa_count">4</p>
+                <p class="asa_text">지원 완료</p>
+              </a>
+            </div>
+            <div class="asa_count_final">
+              <a href="./applyStatusFin.html">
+                <p class="asa_final_count">4</p>
+                <p class="asa_final_text">최종합격</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="asa_search">
+            <form name="searchAll" action="#">
+              <input
+                id="keyword"
+                placeholder="회사명 검색"
+                type="text"
+                name="keyword"
+                value="키워드"
+              />
+              <button class="btn_search" type="submit"></button>
+            </form>
+          </div>
+
+          <div>
+            <table class="asa_table">
+              <thead>
+                <tr>
+                  <th>지원 회사</th>
+                  <th>지원 포지션</th>
+                  <th>작성 시간</th>
+                  <th>진행 상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="#">지원회사1</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="waiting">대기중</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a href="#">지원회사2</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="pass">합격</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a href="#">지원회사3</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="fail">불합격</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a href="#">지원회사4</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="pass">합격</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a href="#">지원회사5</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="waiting">대기중</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a href="#">지원회사6</a>
+                  </td>
+                  <td>지원 포지션1</td>
+                  <td>2023-11-24</td>
+                  <td>
+                    <p class="fail">불합격</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="footer_inner">
+        <div class="top">
+          <ul class="gnb">
+            <li class="logo">구해줘용</li>
+            <li><a href="#">기업소개</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객센터</a></li>
+          </ul>
+        </div>
+        <div class="bottom">
+          <p>
+            (주)Music Insite (대표이사:한국인) | 서울특별시 강남구 어디로 5953
+            역삼동 삼거리빌딩 6층 | 통신판매번호 : 제 강남-8282호
+          </p>
+          <p>
+            유료파견업체등록번호 : (국내) 제2023-231215-125-3-00001호 | (국외)
+            유럽가고싶부-유-2023-1 | 사업자등록번호 : 012-34-56789 | FAX :
+            02-123-4567
+          </p>
+          <p>© 2023 by MusicApp INSTITUTE, All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/js/webSocket.js"></script>
+  </body>
+</html>
