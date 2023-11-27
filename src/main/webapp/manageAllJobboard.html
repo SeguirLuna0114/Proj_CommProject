@@ -16,6 +16,7 @@
     <link href="./css/header.css" rel="stylesheet" />
     <link href="./css/footer.css" rel="stylesheet" />
     <link href="./css/main.css" rel="stylesheet" />
+    <link href="./css/mypage.css" rel="stylesheet" />
     <link href="./css/wanted.css" rel="stylesheet" />
     <link href="./css/wanted-detail.css" rel="stylesheet" />
     <link href="./css/company-detail.css" rel="stylesheet" />
@@ -32,6 +33,9 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script> -->
     <!-- <script src="./js/webSocket.js"></script> -->
+
+    <!-- select option에 따른 page shift -->
+    <script src="./js/mypageShift.js"></script>
   </head>
 
   <body>
@@ -107,42 +111,59 @@
       </div>
     </header>
 
-    <div id="wrapper">
-      <div id="cp_wrap">
-        <div class="companypage">
-          <p class="companypage_title">Company Page</p>
+    <div id="wrap">
+      <div id="mp_wrap">
+        <div class="mypage">
+          <p class="mypage_title">My Page</p>
 
-          <div class="cp_info">
-            <div class="cp_account">
-              <div class="cp_img"></div>
-              <div class="cp_acc">
-                <p class="name">이름</p>
-                <p class="email">이메일</p>
+          <div class="mp_info">
+            <div class="mp_account">
+              <div class="mp_img"></div>
+              <div class="mp_acc">
+                <p class="mp_name">Username</p>
+                <p class="mp_call">phoneNumber</p>
+                <p class="mp_email">E-mail Address</p>
               </div>
-              <div class="cp_acc_setting">
+              <div class="mp_acc_setting">
                 <button>
                   <a href="#">계정 설정하기</a>
                 </button>
               </div>
             </div>
+
+            <!-- JobBoard에 작성한/지원한 공고 -->
             <div class="cp_menu">
-              <select name="cp_option">
-                <option value="지원자 관리">지원자 관리</option>
-                <option value="채용중인 포지션" selected="selected">
-                  채용중인 포지션
+              <select
+                name="cp_option"
+                id="cp_option_select"
+                onchange="changePage()"
+              >
+                <option value="applyStatus_main">지원 공고 관리</option>
+                <option value="recruitStatus_main" selected="selected">
+                  작성 공고 관리
                 </option>
               </select>
             </div>
+
             <div class="cp_status">
               <ul>
                 <li>
-                  <a href="#">
-                    <div class="cp_status_li1"><span>채용관리</span></div>
+                  <a href="./writeJobStatusAll.html">
+                    <div class="cp_status_li2"><span>구인 현황</span></div>
+                    <div>21</div>
                   </a>
                 </li>
                 <li>
-                  <a href="companypage_company_detail.html">
-                    <div class="cp_status_li2"><span>회사정보</span></div>
+                  <a href="./likeListsPR.html">
+                    <div class="cp_status_li2"><span>PR 좋아요</span></div>
+                    <div>4</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="./messagebox.html">
+                    <div class="mp_status_li3"><span>쪽지함</span></div>
+                    <p class="proposal_notifications"></p>
+                    <div>4</div>
                   </a>
                 </li>
               </ul>
