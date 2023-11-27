@@ -5,9 +5,11 @@ import java.util.List;
 // Mapper클래스 사용
 import org.apache.ibatis.annotations.Mapper;
 
+// DTO클래스 사용
 import music.model.StatusInfoVO;
 import music.model.UserInfoVO;
 
+// Mapper 인터페이스 작성
 @Mapper
 public interface mypageDao {
 

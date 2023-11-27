@@ -4,16 +4,21 @@
 
 
 <configuration>
-	<!-- DTO클래스의 별칭 설정 -->
+	<!-- DTO(VO)클래스의 별칭 설정 -->
 	<typeAliases>
 		<!-- pr(자기홍보)관련 DTO클래스 별칭 설정 -->
 		<typeAlias alias="pr" type="music.model.prVO" />
 		
 		<!-- mypage관련 DTO클래스 별칭 설정 -->		
-		<typeAlias alias="StatusInfo" type="music.model.AppStatusInfoDao"/>
+		<!-- 1) member(userId) & prBoard(userId) => UserInfoVO클래스  -->
+		<typeAlias alias="UserInfo" type="music.model.UserInfoVO"/>
+		<!-- 2) jobBoard(jobNo) & jobApp(jobNo) => JobInfoVO클래스  -->
+		<typeAlias alias="JobInfo" type="music.model.jobInfoVO"/>
+
+		<typeAlias alias="CommInfo" type="music.model.commInfoVO"/>
 		
-		<!-- member(userId) & prBoard(userId) => UserInfoVO클래스  -->
 		
+		<typeAlias alias="InfoCount" type="music.model.InfoCountVO"/>
 		
 		
 	</typeAliases>

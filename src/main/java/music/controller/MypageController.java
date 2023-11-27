@@ -9,6 +9,7 @@ import music.service.mypageService;
 @Controller
 public class MypageController {
 	
+	// 서비스 인터페이스(마이페이지와 관련된 비즈니스 로직 처리)
 	@Autowired
 	private mypageService service;
 	
@@ -21,14 +22,14 @@ public class MypageController {
 	// 마이페이지 메인으로 이동
 	@RequestMapping("mypage.do")
 	public String mypageMain() {
-		return "/mypage/mypage";
+		return "mypage/mypage";
 	}
 
 // 구인 페이지 관련
 	// 지원완료 페이지로 이동(모든 진행상태)
 	@RequestMapping("applyStatusAll.do")
 	public String mypage_appAll() {
-		return "/mypage/applyStatusAll";
+		return "mypage/applyStatusAll";
 	}
 	
 	// 지원완료 페이지로 이동(진행상태 = 대기중)
