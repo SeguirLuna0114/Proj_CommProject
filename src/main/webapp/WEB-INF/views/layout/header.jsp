@@ -99,9 +99,9 @@
 					<a href="#">프로필</a>
 						<ul class="profile_list">
 							<li><a class="profile_item_mypage" href="mypage.do?id=${principal.id}">My page</a></li>
-							<li><a class="profile_item" href="applyStatusAll.do?id=${principal.id}">지원 현황</a></li>
-							<li><a class="profile_item" href="proposal.do?id=${principal.id}">제안받기 현황</a></li>
-							<li><a class="profile_item" href="likeList.do?id=${principal.id}">PR 좋아요 현황</a></li>
+							<li><a class="profile_item" href="applyStatusAll.do?id=${principal.id}">공고 지원 현황</a></li>
+							<li><a class="profile_item" href="proposal.do?id=${principal.id}">공고 구인 현황</a></li>
+							<li><a class="profile_item" href="likeList.do?id=${principal.id}">좋아요</a></li>
 							<li><a class="profile_item" href="comList.do?id=${id}">커뮤니티</a></li>
 							<li><a class="profile_item_logout" href="logout.do?id=${id }">로그아웃</a></li>
 						</ul>

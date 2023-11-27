@@ -14,16 +14,16 @@
     />
 
     <!-- CSS 설정 -->
-    <link href="./static/css/reset.css" rel="stylesheet" />
-    <link href="./static/css/header.css" rel="stylesheet" />
-    <link href="./static/css/footer.css" rel="stylesheet" />
-    <link href="./static/css/main.css" rel="stylesheet" />
-    <link href="./static/css/wanted.css" rel="stylesheet" />
-    <link href="./static/css/wanted-detail.css" rel="stylesheet" />
-    <link href="./static/css/company-detail.css" rel="stylesheet" />
+    <link href="./css/reset.css" rel="stylesheet" />
+    <link href="./css/header.css" rel="stylesheet" />
+    <link href="./css/footer.css" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <link href="./css/wanted.css" rel="stylesheet" />
+    <link href="./css/wanted-detail.css" rel="stylesheet" />
+    <link href="./css/company-detail.css" rel="stylesheet" />
 
     <!-- 지원현황 페이지 - 최종 지원현황 css 설정 -->
-    <link href="./static/css/application_status_final.css" rel="stylesheet" />
+    <link href="./css/application_status_final.css" rel="stylesheet" />
 
     <script
       src="https://kit.fontawesome.com/e264982194.js"
@@ -32,7 +32,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- 지원현황 관련 js파일 -->
-    <script src="./static/js/applicationStatus.js"></script>
+    <script src="./js/applicationStatus.js"></script>
   </head>
 
   <body>
@@ -59,10 +59,51 @@
           <li><a href="#">커뮤니티</a></li>
         </ul>
         <ul class="login">
-          <li><a href="/loginpage">로그인/회원가입</a></li>
+          <li class="alert">
+            <a href="/mypage/id">알림</a>
+
+            <ul class="alert_item_list">
+              <li>
+                <a class="alert_item">
+                  <div class="messages"></div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p class="notifications"></p>
+          </li>
+
+          <li class="profile">
+            <a href="#">프로필</a>
+            <ul class="profile_list">
+              <li>
+                <a class="profile_item_mypage" href="/mypage/principal.id"
+                  >My page</a
+                >
+              </li>
+              <li>
+                <a
+                  class="profile_item"
+                  href="/applicationstatusall/principal.id"
+                  >지원 현황</a
+                >
+              </li>
+              <li>
+                <a class="profile_item" href="/proposal/principal.id"
+                  >제안받기 현황</a
+                >
+              </li>
+              <li><a class="profile_item" href="#">좋아요</a></li>
+              <li><a class="profile_item" href="/subscribes/id">구독</a></li>
+              <li>
+                <a class="profile_item_logout" href="/logout">로그아웃</a>
+              </li>
+            </ul>
+          </li>
         </ul>
         <ul class="companyservice">
-          <li><a href="#">구인단체 서비스</a></li>
+          <li><a href="#">기업 서비스</a></li>
         </ul>
       </div>
     </header>
@@ -71,10 +112,12 @@
     <div id="wrap">
       <div id="asf_wrap">
         <div class="asf_menu">
-          <p class="asf_title">지원 현황</p>
+          <p class="asf_title">구인 게시판</p>
           <ul>
-            <li class="asf_position"><a href="#">지원한 포지션</a></li>
-            <li class="asf_proposal"><a href="#">받은 요청</a></li>
+            <li class="asf_position"><a href="#">지원 현황</a></li>
+            <li class="asf_proposal">
+              <a href="./writeJobStateAll.html">구인 현황</a>
+            </li>
           </ul>
         </div>
 
@@ -95,14 +138,14 @@
             <div class="asf_count_final">
               <a href="./applyStatusFin.html">
                 <p class="asf_final_count">4</p>
-                <p class="asf_final_text">최종합격</p>
+                <p class="asf_final_text">최종 컨택</p>
               </a>
             </div>
           </div>
 
           <div class="asf_search">
             <form name="searchFinal" action="#">
-              <input type="text" placeholder="회사명 검색" name="keyword" />
+              <input type="text" placeholder="공고 제목 검색" name="keyword" />
               <button class="btn_search" type="submit"></button>
             </form>
           </div>
@@ -111,9 +154,9 @@
             <table class="asf_table">
               <thead>
                 <tr>
-                  <th>지원 회사</th>
-                  <th>지원 포지션</th>
-                  <th>작성 시간</th>
+                  <th>게시판 제목</th>
+                  <th>지원 유형</th>
+                  <th>모집마감일</th>
                   <th>진행 상태</th>
                 </tr>
               </thead>
@@ -201,7 +244,7 @@
       <div class="footer_inner">
         <div class="top">
           <ul class="gnb">
-            <li class="logo">구해줘용</li>
+            <li class="logo">구인구직</li>
             <li><a href="#">기업소개</a></li>
             <li><a href="#">이용약관</a></li>
             <li><a href="#">개인정보 처리방침</a></li>

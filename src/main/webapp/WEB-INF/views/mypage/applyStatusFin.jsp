@@ -13,9 +13,9 @@
 <div id="wrap">
 	<div id="asf_wrap">
 		<div class="asf_menu">
-			<p class="asf_title">지원 현황</p>
+			<p class="asf_title">구인 게시판</p>
 			<ul>
-				<li class="asf_position"><a href="/applicationstatusall/${principal.id}">지원한 포지션</a></li>
+				<li class="asf_position"><a href="/applyStatusAll/${principal.id}">지원 현황</a></li>
 				<li class="asf_proposal"><a href="/proposal/${principal.id}">받은 요청</a></li>
 			</ul>
 		</div>
@@ -24,29 +24,29 @@
 			<div class="asf_counts">
 				<c:forEach var="statusCountDtos" items="${statusFinalDto.statusCountDtos}">
 					<div class="asf_count_all">
-						<a href="/applicationstatusall/${principal.id}">
+						<a href="/applyStatuAll/${principal.id}">
 							<p class="asf_all_count">${statusCountDtos.statusAll}</p>
 							<p class="asf_all_text">전체</p>
 						</a>
 					</div>
 					<div class="asf_count_c">
-						<a href="/applicationstatus/${principal.id}">
+						<a href="/applyStatus/${principal.id}">
 							<p class="asf_count">${statusCountDtos.statusC}</p>
 							<p class="asf_text">지원 완료</p>
 						</a>
 					</div>
 					<div class="asf_count_final">
-						<a href="/applicationstatusfinal/${principal.id}">
+						<a href="/applyStatusFin/${principal.id}">
 							<p class="asf_final_count">${statusCountDtos.statusFinal}</p>
-							<p class="asf_final_text">최종합격</p>
+							<p class="asf_final_text">최종 컨택</p>
 						</a>
 					</div>
 				</c:forEach>
 			</div>
 
 			<div class="asf_search">
-				<form name="searchFinal" action="/applicationstatusfinal/${statusFinalDto.id}">
-					<input type="text" placeholder="회사명 검색" name="keyword" value="${statusFinalDto.keyword}">
+				<form name="searchFinal" action="/applyStatusFin/${statusFinalDto.id}">
+					<input type="text" placeholder="공고 제목 검색" name="keyword" value="${statusFinalDto.keyword}">
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>
@@ -56,23 +56,25 @@
 				<table class="asf_table">
 					<thead>
 						<tr>
-							<th>지원 회사</th>
-							<th>지원 포지션</th>
-							<th>작성 시간</th>
+							<th>게시판 제목</th>
+							<th>지원 유형</th>
+							<th>모집마감일</th>
 							<th>진행 상태</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="statusFinalInfoDtos" items="${statusFinalDto.statusFinalInfoDtos}">
 							<tr>
-								<!-- 지원한 회사 명 -->
-								<td><a href="#">${statusFinalInfoDtos.companyName}</a></td>
-								<!-- 지원한 포지션 명 -->
-								<td>${statusFinalInfoDtos.positionCodeName}</td>
-								<!-- 지원 일자 -->
-								<td>${statusFinalInfoDtos.created}</td>
+								<!-- 지원한 구인공고 제목 -->
+								<!-- ** 구인공고로 이동하는 링크 설정 필요 -->
+								<td><a href="#">${statusWaitingInfoDtos.jobSub}</a></td>
+								<!-- 지원한 구인공고 분류 -->
+								<td>${statusWaitingInfoDtos.jobCd}</td>
+								<!-- 지원한 공고 마감일 -->
+								<td>${statusWaitingInfoDtos.jobEndDate}</td>
+								<!-- 진행 상태가 appCheck="1"(승인) -->
 								<td>
-									<p class="pass">합격</p>
+									<p class="pass">승인</p>
 								</td>
 							</tr>
 						</c:forEach>

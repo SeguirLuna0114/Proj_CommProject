@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Project</title>
+    <!-- Favicon 설정 -->
+    <link
+      rel="shortcut icon"
+      href="./favicon/music_icon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- CSS 설정 -->
+    <link href="./css/reset.css" rel="stylesheet" />
+    <link href="./css/header.css" rel="stylesheet" />
+    <link href="./css/footer.css" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <link href="./css/wanted.css" rel="stylesheet" />
+    <link href="./css/wanted-detail.css" rel="stylesheet" />
+    <link href="./css/company-detail.css" rel="stylesheet" />
+    <link href="./css/likes.css" rel="stylesheet" />
+
+    <script
+      src="https://kit.fontawesome.com/e264982194.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header_inner">
+        <div class="menu">
+          <button class="btn_menu">포지션</button>
+          <ul class="dropdown_menu">
+            <li class="menu_top">포지션 목록</li>
+            <li><a class="dropdown_item" href="#">포지션1</a></li>
+            <li><a class="dropdown_item" href="#">포지션2</a></li>
+            <li><a class="dropdown_item" href="#">포지션3</a></li>
+            <li class="menu_bottom">음악관련 전공자 구인공고 사이트</li>
+          </ul>
+        </div>
+
+        <h1 class="logo">
+          <a href="/index">행사 구인구직</a>
+        </h1>
+
+        <ul class="gnb">
+          <li><a href="#">구인</a></li>
+          <li><a href="#">홍보</a></li>
+          <li><a href="#">커뮤니티</a></li>
+        </ul>
+        <ul class="login">
+          <li class="alert">
+            <a href="/mypage/id">알림</a>
+
+            <ul class="alert_item_list">
+              <li>
+                <a class="alert_item">
+                  <div class="messages"></div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p class="notifications"></p>
+          </li>
+
+          <li class="profile">
+            <a href="#">프로필</a>
+            <ul class="profile_list">
+              <li>
+                <a class="profile_item_mypage" href="/mypage/principal.id"
+                  >My page</a
+                >
+              </li>
+              <li>
+                <a
+                  class="profile_item"
+                  href="/applicationstatusall/principal.id"
+                  >지원 현황</a
+                >
+              </li>
+              <li>
+                <a class="profile_item" href="/proposal/principal.id"
+                  >제안받기 현황</a
+                >
+              </li>
+              <li><a class="profile_item" href="#">좋아요</a></li>
+              <li><a class="profile_item" href="/subscribes/id">구독</a></li>
+              <li>
+                <a class="profile_item_logout" href="/logout">로그아웃</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="companyservice">
+          <li><a href="#">기업 서비스</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <input id="id" type="hidden" value="likesliststates" />
+
+    <div class="container">
+      <!-- 공고진행중 -->
+      <div class="photosetting">
+        <div class="liketitle">♥ 커뮤니티 좋아요한 글</div>
+        <!-- for each 반목되는 기준이 되는  -->
+        <!-- 첫번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 두번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 세번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 두번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 첫번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 두번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 세번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 두번째 -->
+        <div class="replay_box">
+          <div class="full_setting">
+            <div class="photocompany">
+              <!-- <img src="/img/${comBoard.commFile}" class="img-thumbnail"/>-->
+              <!--  ${likes.photo} 이미지 들어오면 src자리에 넣기-->
+              <a href="#"
+                ><img
+                  class="companyphoto"
+                  src="https://picsum.photos/250/250"
+                  alt="커뮤니티 첨부 파일"
+              /></a>
+            </div>
+            <div class="company_story">
+              <div class="contect_title">좋아요 글 제목1</div>
+              <div class="explanation">
+                <div class="explanation_text">
+                  좋아요 내부 디테일1 내용 내용 띄어쓰기
+                </div>
+              </div>
+
+              <div class="company_image">
+                <div class="test">
+                  <!-- 작성자가 설정한 본인 profile이미지로 설정 -->
+                  <a
+                    ><img
+                      class="conpany_min_iphoto"
+                      src="https://picsum.photos/250/250"
+                      alt="커뮤니티 첨부 파일"
+                      width="25"
+                      height="25"
+                  /></a>
+                  <a class="test2">작성자명</a>
+                </div>
+              </div>
+              <!-- <div class="like_deadline">마감</div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- photosetting-->
+
+    <!--container-->
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="footer_inner">
+        <div class="top">
+          <ul class="gnb">
+            <li class="logo">구인구직</li>
+            <li><a href="#">기업소개</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보 처리방침</a></li>
+            <li><a href="#">고객센터</a></li>
+          </ul>
+        </div>
+        <div class="bottom">
+          <p>
+            (주)Music Insite (대표이사:한국인) | 서울특별시 강남구 어디로 5953
+            역삼동 삼거리빌딩 6층 | 통신판매번호 : 제 강남-8282호
+          </p>
+          <p>
+            유료파견업체등록번호 : (국내) 제2023-231215-125-3-00001호 | (국외)
+            유럽가고싶부-유-2023-1 | 사업자등록번호 : 012-34-56789 | FAX :
+            02-123-4567
+          </p>
+          <p>© 2023 by MusicApp INSTITUTE, All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

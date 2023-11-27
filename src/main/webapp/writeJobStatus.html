@@ -22,8 +22,8 @@
     <link href="./css/wanted-detail.css" rel="stylesheet" />
     <link href="./css/company-detail.css" rel="stylesheet" />
 
-    <!-- 지원현황 페이지 - 전체 지원현황 css 설정 -->
-    <link href="./css/application_status_all.css" rel="stylesheet" />
+    <!-- 구인 현황 페이지 css 설정 -->
+    <link href="./css/application_status.css" rel="stylesheet" />
 
     <script
       src="https://kit.fontawesome.com/e264982194.js"
@@ -31,8 +31,8 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!-- 지원현황 관련 js파일 -->
-    <script src="./static/js/applicationStatus.js"></script>
+    <!-- 구인 현황 관련 js파일 -->
+    <script src="./js/writejobstatus.js"></script>
   </head>
 
   <body>
@@ -86,16 +86,18 @@
                 <a
                   class="profile_item"
                   href="/applicationstatusall/principal.id"
-                  >지원 현황</a
+                  >공고 지원 현황</a
                 >
               </li>
               <li>
-                <a class="profile_item" href="/proposal/principal.id"
-                  >제안받기 현황</a
+                <a class="profile_item" href="/writeJobStatusAll/principal.id"
+                  >공고 구인 현황</a
                 >
               </li>
               <li><a class="profile_item" href="#">좋아요</a></li>
-              <li><a class="profile_item" href="/subscribes/id">구독</a></li>
+              <li>
+                <a class="profile_item" href="/subscribes/id">커뮤니티</a>
+              </li>
               <li>
                 <a class="profile_item_logout" href="/logout">로그아웃</a>
               </li>
@@ -108,60 +110,57 @@
       </div>
     </header>
 
-    <!-- 지원현황 페이지 - 전체 지원현황 -->
+    <!-- 구인현황 페이지 - 미컨택 -->
 
     <div id="wrap">
-      <div id="asa_wrap">
-        <div class="asa_menu">
-          <p class="asa_title">구인 게시판</p>
+      <div id="as_wrap">
+        <div class="as_menu">
+          <p class="as_title">구인 게시판</p>
           <ul>
-            <li class="asa_position"><a>지원 현황</a></li>
-            <li class="asa_proposal">
+            <li class="as_proposal">
+              <a href="./applyStatusAll.html">지원 현황</a>
+            </li>
+            <li class="as_position">
               <a href="./writeJobStatusAll.html">구인 현황</a>
             </li>
           </ul>
         </div>
 
-        <div class="asa_contents">
-          <div class="asa_counts">
-            <div class="asa_count_all">
-              <a href="./applyStatusAll.html">
-                <p class="asa_all_count">12</p>
-                <p class="asa_all_text">전체</p>
+        <div class="as_contents">
+          <div class="as_counts">
+            <div class="as_count_all">
+              <a href="./writeJobStatusAll.html">
+                <p class="as_all_count">21</p>
+                <p class="as_all_text">전체</p>
               </a>
             </div>
-            <div class="asa_count_c">
-              <a href="./applyStatus.html">
-                <p class="asa_count">4</p>
-                <p class="asa_text">지원 완료</p>
+            <div class="as_count_c">
+              <a href="./writeJobStatus.html">
+                <p class="as_count">4</p>
+                <p class="as_text">진행중</p>
               </a>
             </div>
-            <div class="asa_count_final">
-              <a href="./applyStatusFin.html">
-                <p class="asa_final_count">4</p>
-                <p class="asa_final_text">최종 컨택</p>
+            <div class="as_count_final">
+              <a href="./writeJobStatusFin.html">
+                <p class="as_final_count">8</p>
+                <p class="as_final_text">컨택 완료</p>
               </a>
             </div>
           </div>
 
-          <div class="asa_search">
-            <form name="searchAll" action="#">
-              <input
-                id="keyword"
-                placeholder="공고 제목 검색"
-                type="text"
-                name="keyword"
-              />
+          <div class="as_search">
+            <form name="search" action="#">
+              <input type="text" placeholder="공고 제목 검색" name="keyword" />
               <button class="btn_search" type="submit"></button>
             </form>
           </div>
 
           <div>
-            <table class="asa_table">
+            <table class="as_table">
               <thead>
                 <tr>
-                  <th>게시판 제목</th>
-                  <th>지원 유형</th>
+                  <th>공고 제목</th>
+                  <th>신청자 이름</th>
                   <th>모집마감일</th>
                   <th>진행 상태</th>
                 </tr>
@@ -185,7 +184,7 @@
                   <td>지원 포지션1</td>
                   <td>2023-11-24</td>
                   <td>
-                    <p class="pass">승인</p>
+                    <p class="waiting">대기중</p>
                   </td>
                 </tr>
 
@@ -196,7 +195,7 @@
                   <td>지원 포지션1</td>
                   <td>2023-11-24</td>
                   <td>
-                    <p class="fail">불합격</p>
+                    <p class="waiting">대기중</p>
                   </td>
                 </tr>
 
@@ -207,7 +206,7 @@
                   <td>지원 포지션1</td>
                   <td>2023-11-24</td>
                   <td>
-                    <p class="pass">승인</p>
+                    <p class="waiting">대기중</p>
                   </td>
                 </tr>
 
@@ -229,7 +228,7 @@
                   <td>지원 포지션1</td>
                   <td>2023-11-24</td>
                   <td>
-                    <p class="fail">불합격</p>
+                    <p class="waiting">대기중</p>
                   </td>
                 </tr>
               </tbody>
