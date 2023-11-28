@@ -15,7 +15,7 @@
 
 		pr.prNo, pr.prSub, pr.prText, pr.prRcount, pr.prMajor,
 		pr.prLoc, pr.prCareer, pr.prVideo,
-		pr.prFile, pr.prHash, pr.prUpdate
+		pr.prFile, pr.prHash, pr.prUpdate,
 		<!-- 회원 테이블 기준 -->
 		FROM member us
 		LEFT OUTER JOIN prBoard pr
@@ -30,42 +30,27 @@
 	<!-- 특정 사용자(#{id})에 대한 여러 정보 count를 조회 -->
 	<select id="InfoCountById" resultType="InfoCount">
 		SELECT 
-			<!-- user가 지원한 구인공고 갯수 count -->
-			COUNT(CASE WHEN jappst.appDelYn = 'N' THEN 1 ELSE NULL END) AS AppjobCount,		
-			<!-- user가 구인게시판 글 작성한 갯수 count -->
-			(SELECT COUNT(CASE WHEN jobapp.jobDelYn = 'N' THEN 1 END) AS writejobCount
-			FROM jobBoard jobapp
-			WHERE jobapp.userId = #{id}) AS writejobCount,
-			
-			<!-- PR게시판에 좋아요 한 횟수 -->
-			(SELECT COUNT(NVL(prlik.prLike, 0)) AS prlikesCount
-			FROM prLike prlik
-			WHERE prlik.userId = #{id}) AS prlikesCount,			
-			<!-- 본인의 PR 게시물이 받은 좋아요 횟수 -->
-			(SELECT COUNT(NVL(like.prLike, 0)) AS getprlikesCount
-			FROM prLike like
-			INNER JOIN prBoard pr ON pr.prNo = like.prNo
-			WHERE pr.userId = #{id}) AS getprlikesCount,
-			
-			<!-- 커뮤니티 게시판에 좋아요 한 횟수 -->
-			(SELECT COUNT(NVL(comlik.commLike, 0)) AS comlikesCount
-			FROM comLike comlik
-			WHERE comlik.userId = #{id}) AS comlikesCount,
-			<!-- 본인의 커뮤니티 게시물이 받은 좋아요 횟수 -->
-			(SELECT COUNT(NVL(like.commLike, 0)) AS getcomlikesCount
-			FROM comLike like
-			INNER JOIN comBoard com ON like.commNo = com.commNo
-			WHERE com.userId = #{id}) AS getcomlikesCount
+			COUNT(IFNULL(appst.state, 0)) AS statusAll,
+			(SELECT COUNT(IFNULL(lik.wanted_id, 0)) AS likesCount
+			FROM likes lik
+			WHERE lik.user_id = #{id}) AS likesCount,
+			(SELECT COUNT(IFNULL(subs.company_id, 0)) AS subscribesCount
+			FROM subscribes subs
+			WHERE subs.user_id = #{id}) AS subscribesCount,
+			(SELECT COUNT(IFNULL(req.wanted_id, 0)) AS requestsCount
+			FROM requests req
+			INNER JOIN resumes res ON req.resume_id = res.id
+			WHERE res.user_id = #{id}) AS requestsCount
 		FROM 
-			jobApp jappst
+			application_status appst
+			INNER JOIN resumes res ON appst.resume_id = res.id
 		WHERE 
-			jappst.userId = #{id}
+			res.user_id = #{id}
 	</select>
 
 
-
 <!-- 구인게시판 -->
-	<!-- 인기있는(지원자 수 많은) 구인공고(job) List "4개" 추천 -->
+	<!-- 인기있는 구인공고(job) List 추천 -->
 	<select id="recJob" resultType="JobInfo">
 		SELECT job.jobNo, job.jobCd, job.jobSpace, job.jobAddress,
 		job.jobPlace, job.jobEndDate, job.jobConcert, job.jobSub,
@@ -79,7 +64,6 @@
 		INNER JOIN jobApp japp
 		ON job.jobNo = japp.jobNo
 
-		<!-- 구직게시판에 작성된 전공 컬럼 = user의 전공 : user의 전공과 같은 공고만 보여줄 경우 -->
 		<!-- LEFT OUTER JOIN member us
 		ON job. = us.userMajor -->
 
@@ -96,63 +80,47 @@
 	</select>
 
 
-	<!-- 구인게시판에 "작성한" 글 전체 목록 + 해당 글 작성된 댓글수 + 신청자 수 출력
+
+
+	<!-- 구인게시판에 글/댓글 작성 전체 목록 출력
 		 구인게시판(jobBoard :job)와 구인게시판댓글(jobReply: apps)을 Join, userId로 회원 조회 -->
-	<select id="findJobAllByid" resultType="JobInfo">
-		SELECT wrjob.jobNo, wrjob.jobCd, wrjob.jobFin, 
-		wrjob.jobSub, wrjob.jobRcount, wrjob.jobDate,
-		wrjob.jobConcert, wrjob.jobPlace, wrjob.jobEndDate
+	<select id="findAll" resultType="music.model.StatusInfoDto">
+		SELECT apps.id id, apps.wanted_id wantedId,
+		apps.resume_id resumeId,
+		apps.state state,
+		apps.created created, wan.position_code_id
+		positionCodeId,
+		wan.company_id companyId, com.company_name
+		companyName,
+		poco.name positionCodeName,
+		res.user_id userId
 		
-		<!-- 구인게시판 글에 작성된 댓글 갯수 count -->
-		(SELECT COUNT(CASE WHEN jreply.jobReDelYn = 'N' THEN 1 END) AS replyCount
-		FROM jobReply jreply
-		INNER JOIN jobBoard wrjob ON wrjob.jobNo = jreply.jobNo
-		WHERE wrjob.userId = #{id}) AS replyCount,
+		<!-- 지원(jobReply) 테이블 기준 -->
+		FROM jobReply apps
 		
-		<!-- 구인게시판 글에 지원한 신청자 수 count -->
-		(SELECT COUNT(CASE WHEN japp.appDelYn = 'N' THEN 1 END) AS appCount
-		FROM jobApp japp
-		INNER JOIN jobBoard wrjob ON wrjob.jobNo = japp.jobNo
-		WHERE wrjob.userId = #{id}) AS appCount,	
+		<!-- 테이블 Join -->
+		INNER JOIN wanteds
+		wan
+		ON apps.wanted_id = wan.id
+		INNER JOIN companys com
+		ON wan.company_id = com.id
+		INNER JOIN positions_code poco
+		ON wan.position_code_id = poco.id
+		INNER jobApp apps
+		JOIN resumes res
+		ON apps.resume_id = res.id
 		
-		<!-- 구인(jobBoard) 테이블 기준 -->
-		FROM jobBoard wrjob
-						
-		<!-- 구인게시판 작성 유저 id = 현재 조회를 시도하는 유저의 id -->
-		WHERE wrjob.userId = #{id}
+		<!-- 지원테이블 유저 id = 현재 조회를 시도하는 유저의 id -->
+		WHERE apps.user_id = #{id}
 		
-		<!-- 만일, 검색창의 키워드 값이 존재한다면, 해당 값을 활용하여 글 제목 조회 -->
+		<!-- 만일, 검색창의 키워드 값이 존재한다면, 해당 값을 활용하여 조회 -->
 		<if test="keyword != null">
-			AND wrjob.jobSub LIKE CONCAT('%',#{keyword},'%')
+			AND com.company_name LIKE CONCAT('%',#{keyword},'%')
 		</if>
-		<!-- 해당 글을 구인글에 최근에 작성한 글 순으로 정렬 -->
-		ORDER BY wrjob.jobDate DESC
+		<!-- 해당 글을 구인글에 최근에 작성한 댓글 순으로 정렬 -->
+		ORDER BY apps.jobReDate DESC
 	</select>
 
-	
-	<!-- 구인게시판에서 "신청한" 글 전체 목록 + 신청 현황 -->
-	<select id="findAppJobByid" resultType="JobInfo">
-		SELECT jboard.jobNo, jboard.jobCd, jboard.jobFin, 
-		jboard.jobSub, jboard.jobRcount, jboard.jobDate,
-		jboard.jobConcert, jboard.jobPlace, jboard.jobEndDate,
-		
-		japp.appCheck, japp.appDone
-		
-		<!-- 구인(jobBoard) 테이블 기준 -->
-		FROM jobApp japp
-		INNER JOIN jobBoard jboard
-		ON japp.jobNo = jboard.jobNo
-						
-		<!-- 신청한 유저 id = 현재 조회를 시도하는 유저의 id -->
-		WHERE japp.userId = #{id} AND japp.appDelYn = 'N'
-		
-		<!-- 만일, 검색창의 키워드 값이 존재한다면, 해당 값을 활용하여 글 제목 조회 -->
-		<if test="keyword != null">
-			AND jboard.jobSub LIKE CONCAT('%',#{keyword},'%')
-		</if>
-		<!-- 최근에 신청한 글 순으로 정렬 -->
-		ORDER BY japp.appNo DESC
-	</select>
 
 
 

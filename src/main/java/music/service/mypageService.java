@@ -1,13 +1,11 @@
 package music.service;
 
-import java.util.List;
-
-import music.model.StatusInfoVO;
+import music.model.InfoAllVO;
 
 // 서비스 인터페이스 설계
 public interface mypageService {
 	
-	// 구인게시판에 작성한 글 전체목록 출력
-	List<StatusInfoVO> stat_viewAll(String id);
+	// 회원 관련 모든 정보 가져오는 메소드
+	public InfoAllVO viewMyPage(String id);
 	
 }

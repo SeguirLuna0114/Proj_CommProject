@@ -10,5 +10,3 @@ select * from member;
 insert into member 
 values ('test2', '1234', '홍길순', '01012341234',
 		 'hong@naver.com', '축가', 'Y', sysdate, sysdate, 'N');
-
-

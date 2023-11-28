@@ -2,8 +2,11 @@ package music.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import music.model.InfoAllVO;
 import music.service.mypageService;
 
 @Controller
@@ -11,19 +14,21 @@ public class MypageController {
 	
 	// 서비스 인터페이스(마이페이지와 관련된 비즈니스 로직 처리)
 	@Autowired
-	private mypageService service;
-	
-//	@RequestMapping("home.do")
-//	public String prList() {
-//		return "home";
-//	}
+	private mypageService myService;
 
 // 	페이지 이동 관련
 	// 마이페이지 메인으로 이동
 	@RequestMapping("mypage.do")
-	public String mypageMain() {
-		return "mypage/mypage";
+	public String mypageApply(@RequestParam String id, Model model) {
+		InfoAllVO infoAllDto = myService.viewMyPage(id);
+		model.addAttribute("infoAllDto", infoAllDto);
+		return "mypage/mypage_Apply";
 	}
+	
+	
+	
+	
+	
 
 // 구인 페이지 관련
 	// 지원완료 페이지로 이동(모든 진행상태)
@@ -44,11 +49,3 @@ public class MypageController {
 		return "/mypage/applyStatusFin";
 	}
 }
-
-
-//@GetMapping("/mypage/{id}")
-//public String getMyPage(@PathVariable Integer id, Model model) {
-//    InfoAllDto infoAllDto = myPageService.viewMyPage(id);
-//    model.addAttribute("infoAllDto", infoAllDto);
-//    return "mypage/myPage";
-//}

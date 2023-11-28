@@ -5,21 +5,39 @@ import java.util.List;
 // Mapper클래스 사용
 import org.apache.ibatis.annotations.Mapper;
 
-// DTO클래스 사용
-import music.model.StatusInfoVO;
+import music.model.InfoCountVO;
+import music.model.JobInfoVO;
+import music.model.StatusCountVO;
 import music.model.UserInfoVO;
 
 // Mapper 인터페이스 작성
 @Mapper
 public interface mypageDao {
 
+	// 유저 정보(이름, 이메일...) 출력을 위함
+	public List<UserInfoVO> findUser(String id);
+	
+	// 유저 관련 횟수(count) 출력 위함
+	public List<InfoCountVO> findInfoCounts(String id);
+	
+	// 공고 추천하기 위함
+	public List<JobInfoVO> findrecJob(String id);
+	
+	// 지원현황 관련 횟수
+	public List<StatusCountVO> findCounts(String id);
+	
+	// 
+	
+	
+	
+	
 //	글 리스트에 댓글 수 및 좋아요 수 가져오기
 // 	구인 게시판 관련
 	// 1. 유저가 구인페이지에 작성한 내용을 가져옴
-    public List<StatusInfoVO> findjob(String id);
+    
     
     // 2. 유저가 구인페이지에 댓글을 작성한 내용을 가져옴
-    public List<UserInfoVO> findReply(String id);
+    
 
     
 // 	커뮤니티 게시판 관련
@@ -33,14 +51,14 @@ public interface mypageDao {
 // PR게시판에 좋아요 한 글을 가져옴    
     
 	// 1. PR게시판에 작성한 내용을 불러와서, 마이페이지 메인 profile에 띄움
-    public UserInfoVO findById(String id);
+//    public UserInfoVO findById(String id);
     
     // 2. PR게시물 중 내가 좋아요 한 글 리스트를 가져오게 설정
-    public UserInfoVO findLike(String id);
+//    public UserInfoVO findLike(String id);
     
     
 // 	문의 글 작성한 내용을 가져옴
-    public List<UserInfoVO> findQnA(String id);
+//    public List<UserInfoVO> findQnA(String id);
    
     
     

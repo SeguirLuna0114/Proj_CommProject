@@ -12,13 +12,14 @@
 		<!-- mypage관련 DTO클래스 별칭 설정 -->		
 		<!-- 1) member(userId) & prBoard(userId) => UserInfoVO클래스  -->
 		<typeAlias alias="UserInfo" type="music.model.UserInfoVO"/>
+		
 		<!-- 2) jobBoard(jobNo) & jobApp(jobNo) => JobInfoVO클래스  -->
-		<typeAlias alias="JobInfo" type="music.model.jobInfoVO"/>
+		<typeAlias alias="JobInfo" type="music.model.JobInfoVO"/>
 
-		<typeAlias alias="CommInfo" type="music.model.commInfoVO"/>
-		
-		
 		<typeAlias alias="InfoCount" type="music.model.InfoCountVO"/>
+		
+		<typeAlias alias="StatusCount" type="music.model.StatusCountVO"/>
+		
 		
 		
 	</typeAliases>

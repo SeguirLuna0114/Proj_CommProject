@@ -134,7 +134,8 @@ body {
   font-family: "GmarketSansMedium";
 }
 
-.mp_status ul li .proposal_notifications {
+/* 쪽지함 알림시 */
+.proposal_notifications {
   width: 22px;
   height: 15px;
   color: #0d0d26;

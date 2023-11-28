@@ -4,11 +4,25 @@ import lombok.Data;
 
 @Data
 public class InfoCountVO {
+	// user(회원) 별 횟수 데이터
     private Integer id;
-    private Integer statusAll;
-    private Integer likesCount;
-    private Integer subscribesCount;
-    private Integer requestsCount;
+    // statusAll
+    // 전체 지원 현황
+    private Integer applystatusAll;
+    // 전체 구인 현황
+    private Integer jobstatusAll;
+    
+    // likesCount
+    // PR 글 좋아요 수
+    private Integer prlikesCount;
+    // 커뮤니티 글 좋아요 수
+    private Integer commlikesCount;
+    
+    // 커뮤니티에 작성한 글 수
+    private Integer commCountAll;
+    
+    // 받은 쪽지 수
+    private Integer messagesCount;
 	
 	// lombok사용 시, getter & setter메소드 불필요함 => 어노테이션 사용
 }

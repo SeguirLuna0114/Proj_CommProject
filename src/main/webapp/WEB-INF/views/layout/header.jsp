@@ -25,13 +25,24 @@
 <link href="${path}/css/company-detail.css" rel="stylesheet" />
 
 <!-- mypage용 CSS는 해당 페이지 구현 jsp파일에서 설정 -->
-<%-- <link href="${path}/css/mypage.css" rel="stylesheet" /> --%>
 
 <!-- Font Awesome 아이콘 라이브러리 -->
 <script src="https://kit.fontawesome.com/e264982194.js" crossorigin="anonymous"></script>
 
 <!-- jQuery 라이브러리 추가 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- WebSocket 설정 -->
+<!-- WebJars를 통해 제공되는 jQuery 라이브러리를 사용 -->
+<script src="/webjars/jquery/jquery.min.js"></script>
+
+<!-- WebJars를 통해 제공되는 SockJS와 STOMP 라이브러리를 사용 -->
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+<!-- 웹 소켓과 관련된 사용자 정의코드 -->
+<script src="${path}/js/webSocket.js"></script>
+
 </head>
 
 <body>
@@ -55,63 +66,68 @@
 			</h1>
 
 			<ul class="gnb">
-				<li><a href="jobList.do?">구인</a></li>
-				<li><a href="prList.do?">PR</a></li>
-				<li><a href="communityList.do?">커뮤니티</a></li>
-				<li><a href="notification.do?">공지사항</a></li>
+				<li><a href="jobList.do?id=">구인</a></li>
+				<li><a href="prList.do?id=">PR</a></li>
+				<li><a href="communityList.do?id=">커뮤니티</a></li>
+				<li><a href="notification.do?id=">공지사항</a></li>
 			</ul>
 
 			<!-- 로그인 관련 -->
 			<ul class="login">
-				<!-- 1) 로그인하지 않은 유저인 경우 -->
-				<c:when test="${empty principal}">
-					<li><a href="login.do">로그인/회원가입</a></li>
-				</c:when>
+				<c:choose>
+					<!-- 1) 로그인하지 않은 유저인 경우 -->
+					<c:when test="${empty principal}">
+						<li><a href="login.do">로그인/회원가입</a></li>
+					</c:when>
 
-				<!-- 2) 로그인한 경우 -->
-				<li class="alert">
-					<!-- 입력받은 id값을 갖고, mypage로 이동 -->
-					<a href="mypage.do?id=${principal.id}">알림</a>
-					<ul class="alert_item_list">
-						<li class="alert_item">
-							<!-- 알림 메시지 -->
-							<div class="messages">
-								<!-- 받은 쪽지가 있을 경우 -->
-								<p>
-									쪽지를 받았어요! <br /> 지금 쪽지함에서 확인해보세요!
-								</p>
+					<!-- 2) 로그인한 경우 -->
+					<c:otherwise>
+						<li class="alert">
+							<!-- 입력받은 id값을 갖고, mypage_Apply로 이동 --> <a href="mypage_Apply.do?id=${principal.id}">알림</a>
+							<ul class="alert_item_list">
+								<li class="alert_item">
+									<!-- 알림 메시지 -->
+									<div class="messages">
+										<!-- 받은 쪽지가 있을 경우 -->
+										<p>
+											쪽지를 받았어요! <br /> 지금 쪽지함에서 확인해보세요!
+										</p>
 
-								<!-- 관리자로부터 받은 쪽지 -->
-								<p>
-									<a href="#"> 관리자로부터 쪽지를 받았어요! <br /> 지금 쪽지함을 확인하세요.</a>
-								</p>
-							</div>
+										<!-- 관리자로부터 받은 쪽지 -->
+										<p>
+											<a href="#"> 관리자로부터 쪽지를 받았어요! <br /> 지금 쪽지함을 확인하세요.
+											</a>
+										</p>
+									</div>
+								</li>
+							</ul>
 						</li>
-					</ul>
-				</li>
+					</c:otherwise>
+				</c:choose>
+
 
 				<li>
 					<p class="notifications"></p>
 				</li>
 
 
-				<li class="profile">
-					<a href="#">프로필</a>
-						<ul class="profile_list">
-							<li><a class="profile_item_mypage" href="mypage.do?id=${principal.id}">My page</a></li>
-							<li><a class="profile_item" href="applyStatusAll.do?id=${principal.id}">공고 지원 현황</a></li>
-							<li><a class="profile_item" href="proposal.do?id=${principal.id}">공고 구인 현황</a></li>
-							<li><a class="profile_item" href="likeList.do?id=${principal.id}">좋아요</a></li>
-							<li><a class="profile_item" href="comList.do?id=${id}">커뮤니티</a></li>
-							<li><a class="profile_item_logout" href="logout.do?id=${id }">로그아웃</a></li>
-						</ul>
-					</li>
-				</ul>
+				<li class="profile"><a href="mypage_Apply.do?id=${principal.id}">My page</a>
+					<ul class="profile_list">
+						<li><a class="profile_item_mypage" href="mypage_Apply.do?id=${principal.id}">지원 공고 관리</a></li>
+						<li><a class="profile_item" href="mypage_JobBoard.do?id=${principal.id}">작성 공고 관리</a></li>
+						<li><a class="profile_item" href="applyStatusAll.do?id=${principal.id}">지원 현황</a></li>
+						<li><a class="profile_item" href="writeJobStatusAll.do?id=${principal.id}">구인 현황</a></li>
+						<li><a class="profile_item" href="commWroteAll.do?id=${id}">커뮤니티 글 관리</a></li>
+						<li><a class="profile_item" href="likeListsComm.do?id=${id}">좋아요 한 커뮤니티 글</a></li>
+						<li><a class="profile_item" href="likeListsPR.do?id=${id}">좋아요 한 PR 글</a></li>
+						<li><a class="profile_item_logout" href="logout.do?id=${id }">로그아웃</a></li>
+					</ul></li>
+			</ul>
 			</li>
 			<!-- end login -->
 
-			<ul class="companyservice">
+			<!-- 			<ul class="companyservice">
 				<li><a href="#"></a></li>
-			</ul>
+			</ul> -->
 		</div>
 	</header>

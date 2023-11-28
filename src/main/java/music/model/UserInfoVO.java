@@ -1,25 +1,19 @@
 package music.model;
 
-import java.util.Date;
+import java.sql.Blob;
 
 import lombok.Data;
 
 @Data
 public class UserInfoVO {
-	private int pr_no;	
-	private String user_id;
-	private String pr_sub;
-	private String pr_text;
-	private int pr_readcount;
-	private String pr_major;
-	private String pr_loc;
-	private String pr_career;
-	private String pr_file;
-	private String pr_video;
-	private String pr_hash;
-	private Date pr_date;
-	private Date pr_update;
-	private String pr_delete;
-	
+    private String userId;
+    private String userName;
+    private String userPhone;
+    private String userEmail;
+    // prBoard.prFile(첨부파일) 업로드한 이미지
+    private Blob prFile;
+    // member.userMajor과 prBoard.prMajor의 값을 비교해서 userPosition값 설정
+    private String userPosition;
+		
 	// lombok사용 시, getter & setter메소드 불필요함 => 어노테이션 사용
 }

@@ -1,0 +1,150 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../layout/header.jsp"%>
+
+<head>
+	<script src="${path}/js/like.js"></script>
+</head>
+
+<div class="wanteds_page">
+	<div class="search_wanted">
+		<!-- 포지션 선택 select -->
+		<div class="all_position">
+			<div class="select_head">포지션 선택</div>
+			<div class="select_all">
+				<select class="all" id="positionCode" name="positionName" onchange="ChangeValue('positionCode')">
+					<option selected>전체</option>
+					<c:forEach var="positions" items="${allWantedListDto.allCodesDto.positionsCodeDtos}">
+						<option>${prMajor.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="select_position" type="button" id="btnSearch">
+				<a><i class="fa fa-search"></i></a>
+			</div>
+		</div>
+
+		<div class="selects">
+			<!-- 지역 선택 select -->
+			<div class="select_region">
+				<select class="region" id="regionCode" name="regionName" onchange="ChangeValue('regionCode')">
+					<option selected>지역 선택</option>
+					<c:forEach var="regions" items="${allWantedListDto.allCodesDto.regionsCodeDtos}">
+						<option>${prLoc.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+
+			<!-- 이력/경력 선택 -->
+			<div class="select_career">
+				<select class="career" id="careerCode" name="careerName" onchange="ChangeValue('careerCode')">
+					<option selected>신입/경력</option>
+					<c:forEach var="careers" items="${allWantedListDto.allCodesDto.careersCodeDtos}">
+						<option>${prCareer.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+
+			<!-- 해시태그 선택 -->
+			<div class="select_skill">
+				<select class="skill" id="skillsCode" name="skillsName" onchange="ChangeValue('skillsCode')">
+					<option selected>해시태그</option>
+					<c:forEach var="skills" items="${allWantedListDto.allCodesDto.skillsCodeDtos}">
+						<option>${prHash.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+
+
+			<div class="selected_skills">
+				<ul>
+					<li class="selected_skills_items" id="skill1" style="display: none;"><strong class="skill_name" id="skillName1">test1</strong>
+						<p class="select_delete" type="button" onclick="hideSkillbutton('skill1')">
+							<a>x</a>
+						</p></li>
+					<li class="selected_skills_items" id="skill2" style="display: none;"><strong class="skill_name" id="skillName2">test2</strong>
+						<p class="select_delete" type="button" onclick="hideSkillbutton('skill2')">
+							<a>x</a>
+						</p></li>
+					<li class="selected_skills_items" id="skill3" style="display: none;"><strong class="skill_name" id="skillName3">test3</strong>
+						<p class="select_delete" type="button" onclick="hideSkillbutton('skill3')">
+							<a>x</a>
+						</p></li>
+				</ul>
+			</div>
+
+			<!-- 최신순(prDate DESC), 인기순=조회수(prRcount DESC) -->
+			<div class="select_sort">
+				<select class="sort">
+					<option selected>최신순</option>
+					<option>인기순</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!-- end search_wanted -->
+
+	<div class="overBox">
+		<!-- 좋아요 설정한 PR 출력 -->
+		<c:if test="${!empty principal}">
+			<div class="liked">
+				<div class="liked_wanted">
+					<div class="liked_title">♥ 내가 좋아요한 PR(홍보 글)</div>
+					<div class="wanteds">
+						<!-- 각 PR들 출력 -->
+						<c:forEach var="wantedsLikeList" items="${allWantedListDto.wantedsLikeListDtos}">
+							<div class="wanted">
+								<!-- 해당 PR글로 이동 -->
+								<a href="prDetail.do?id=${wantedsLikeList.id}">
+									<div class="picture">
+										<!-- 해당 PR글에 업로드한 첨부파일(prFile) -->
+										<img src="https://picsum.photos/seed/picsum/200/300">
+									</div>
+									<div class="wanted_text">
+										<div class="text">
+											<ul>
+												<!-- PR 제목 -->
+												<li class="title">
+													<h2>${wantedsLikeList.prSub}</h2>
+												</li>
+												<!-- PR 내용 -->
+												<li class="content">
+													<p>${wantedsLikeList.prText}</p>
+												</li>
+											</ul>
+										</div>
+										<div class="company_intro">
+											<p class="company_region">${wantedsLikeList.prCareer}</p>
+											<p class="company_name">${wantedsLikeList.prMajor}</p>
+										</div>
+									</div>
+								</a>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+		</c:if>
+	</div>
+
+<!-- 페이징 설정 -->	
+	<div class="paging">
+		<ul class="pagaination">
+			<li class='page-item-prev${allWantedListDto.pagingWantedsListDto.pagingDto.first ? "-hidden" : ""}'><a
+				href="/wanteds/?page=${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage - 1}">이전</a></li>
+			<c:forEach var="num" begin="${allWantedListDto.pagingWantedsListDto.pagingDto.startPageNum}"
+				end="${allWantedListDto.pagingWantedsListDto.pagingDto.lastPageNum}">
+				<li class='page-item${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage + 1 == num ? "-select" : ""}'><a
+					href="/wanteds/?page= ${num-1}">${num}</a></li>
+			</c:forEach>
+			<li class='page-item-next${allWantedListDto.pagingWantedsListDto.pagingDto.last ? "-hidden" : ""}'><a
+				href="/wanteds/?page=${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage + 1}">다음</a></li>
+		</ul>
+		<div>first: ${allWantedListDto.pagingWantedsListDto.pagingDto.first}</div>
+		<div>last: ${allWantedListDto.pagingWantedsListDto.pagingDto.last}</div>
+		<div>startPageNum: ${allWantedListDto.pagingWantedsListDto.pagingDto.startPageNum}</div>
+		<div>lastPageNum: ${allWantedListDto.pagingWantedsListDto.pagingDto.lastPageNum}</div>
+		<div>currentPage: ${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage}</div>
+	</div>
+</div>
+
+<%@ include file="../layout/footer.jsp"%>
