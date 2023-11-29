@@ -22,32 +22,32 @@
 
 		<div class="as_contents">
 			<div class="as_counts">
-				<c:forEach var="statusCountDtos" items="${statusWaitingDto.statusCountDtos}">
+				<c:forEach var="statusCountVOs" items="${statusWaitingVO.statusCountVOs}">
 					<div class="as_count_all">
 						<a href="applyStatusAll.do?id=${principal.id}"> <!-- 전체 지원완료 개수 -->
-							<p class="as_all_count">${statusCountDtos.statusAll}</p>
+							<p class="as_all_count">${statusCountVOs.appstatusAll}</p>
 							<p class="as_all_text">전체</p>
 						</a>
 					</div>
 					<div class="as_count_c">
 						<a href="applyStatus.do?id=${principal.id}"> <!-- 지원완료 중 진행상태 = 대기중 -->
-							<p class="as_count">${statusCountDtos.statusC}</p>
+							<p class="as_count">${statusCountVOs.appstatusCont}</p>
 							<p class="as_text">지원 완료</p>
 						</a>
 					</div>
 					<div class="as_count_final">
 						<a href="applyStatusFin.do?id=${principal.id}"> <!-- 지원완료 중 진행상태 = 합격 -->
-							<p class="as_final_count">${statusCountDtos.statusFinal}</p>
+							<p class="as_final_count">${statusCountVOs.appstatusFin}</p>
 							<p class="as_final_text">최종 컨택</p>
 						</a>
 					</div>
 				</c:forEach>
 			</div>
 
-			<!-- 검색 란 - 회사명 입력 시, 해당 회사에 대해서만 출력 -->
+			<!-- 검색 -->
 			<div class="as_search">
-				<form name="search" action="applyStatus.do?id=${statusWaitingDto.id}">
-					<input type="text" placeholder="공고 제목 검색" name="keyword" value="${statusWaitingDto.keyword}" />
+				<form name="search" action="applyStatus.do?id=${statusWaitingVO.userId}">
+					<input type="text" placeholder="공고 제목 검색" name="keyword" value="${statusWaitingVO.keyword}" />
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>
@@ -64,14 +64,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="statusWaitingInfoDtos" items="${statusWaitingDto.statusWaitingInfoDtos}">
+						<c:forEach var="statusWaitingInfoVOs" items="${StatusWaitingVO.statusWaitingInfoVOs}">
 							<tr>
 								<!-- 지원 공고 명 -->
-								<td><a href="#">${statusWaitingInfoDtos.companyName}</a></td>
-								<!-- 지원한 포지션 유형 -->
-								<td>${statusWaitingInfoDtos.positionCodeName}</td>
+								<td><a href="#">${statusWaitingInfoVOs.jobSub}</a></td>
+								<!-- 지원한 포지션 유형(분류) -->
+								<td>${statusWaitingInfoVOs.jobCd}</td>
 								<!-- 모집 마감일 -->
-								<td>${statusWaitingInfoDtos.created}</td>
+								<td>${statusWaitingInfoVOs.jobEndDate}</td>
 								<!-- 진행상태가 "대기중"인 공고만 출력 -->
 								<td>
 									<p class="waiting">대기중</p>

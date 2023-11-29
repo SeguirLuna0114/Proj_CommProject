@@ -4,85 +4,63 @@ import java.util.List;
 
 // Mapper클래스 사용
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import music.model.CommInfoVO;
+import music.model.CommReplyInfoVO;
 import music.model.InfoCountVO;
 import music.model.JobInfoVO;
+import music.model.LikesListCommVO;
+import music.model.LikesListPRVO;
 import music.model.StatusCountVO;
+import music.model.StatusFinalInfoVO;
+import music.model.StatusInfoVO;
+import music.model.StatusWaitingInfoVO;
 import music.model.UserInfoVO;
+import music.model.jobBoardVO;
 
 // Mapper 인터페이스 작성
 @Mapper
 public interface mypageDao {
 
 	// 유저 정보(이름, 이메일...) 출력을 위함
-	public List<UserInfoVO> findUser(String id);
+	public List<UserInfoVO> findUser(@Param("id") String id);
 	
 	// 유저 관련 횟수(count) 출력 위함
-	public List<InfoCountVO> findInfoCounts(String id);
+	public List<InfoCountVO> findInfoCounts(@Param("id") String id);
 	
 	// 공고 추천하기 위함
-	public List<JobInfoVO> findrecJob(String id);
+	public List<JobInfoVO> findrecJob(@Param("id") String id);
 	
 	// 지원현황 관련 횟수
-	public List<StatusCountVO> findCounts(String id);
-	
-	// 
+	public List<StatusCountVO> findCounts(@Param("id") String id);
 	
 	
 	
-	
-//	글 리스트에 댓글 수 및 좋아요 수 가져오기
 // 	구인 게시판 관련
-	// 1. 유저가 구인페이지에 작성한 내용을 가져옴
+	// 유저가 구인페이지에 작성한 내용을 가져옴
+	public List<jobBoardVO> findAllBoards(@Param("id") String id); 	// 모든 구인 게시판 내용을 가져옴
     
     
-    // 2. 유저가 구인페이지에 댓글을 작성한 내용을 가져옴
-    
-
-    
-// 	커뮤니티 게시판 관련
-    // 1. 유저가 커뮤니티 게시판에 작성한 내용
-    
-    // 2. 유저가 커뮤니티 게시판에 작성한 댓글
-    
-    // 3. 유저가 커뮤니티 게시판에 좋아요 설정한 글
+// 구인 현황 상세페이지
+	// 전체, 현재 진행중(상태=대기), 최종 승인(상태=승인)
+	public List<StatusInfoVO> findAllStat(@Param("id") String id, @Param("keyword") String keyword);
+	public List<StatusWaitingInfoVO> findWaitingStat(@Param("id") String id, @Param("keyword") String keyword);
+	public List<StatusFinalInfoVO> findFinStat(@Param("id") String id, @Param("keyword") String keyword);
 
 
-// PR게시판에 좋아요 한 글을 가져옴    
+//  좋아요 관련
+	// 커뮤니티에 좋아요한 글 정보
+	public List<LikesListCommVO> findLikesComm(@Param("id") String id);
+	// PR게시판에 좋아요 한 글 정보
+	public List<LikesListPRVO> findLikesPR(@Param("id") String id);
     
-	// 1. PR게시판에 작성한 내용을 불러와서, 마이페이지 메인 profile에 띄움
-//    public UserInfoVO findById(String id);
-    
-    // 2. PR게시물 중 내가 좋아요 한 글 리스트를 가져오게 설정
-//    public UserInfoVO findLike(String id);
-    
-    
-// 	문의 글 작성한 내용을 가져옴
-//    public List<UserInfoVO> findQnA(String id);
-   
-    
-    
-
-//  public List<CompInfoVO> findComp(String id);
-//	public List<CompanyInfoDto> findCompanyIfNull();
-//
-//	public List<InfoCountDto> findInfoCounts(Integer id);
-//
-//	public List<StatusInfoDto> findAll(@Param("id") Integer id, @Param("keyword") String keyword);
-//
-//	public List<StatusCountDto> findCounts(Integer id);
-//
-//	public List<StatusWaitingInfoDto> findWaiting(@Param("id") Integer id, @Param("keyword") String keyword);
-//
-//	public List<StatusFinalInfoDto> findFinal(@Param("id") Integer id, @Param("keyword") String keyword);
-//
-//	public List<RequestsInfoDto> findRequest(@Param("id") Integer id, @Param("keyword") String keyword);
-//
-//	public ApplicationStatus findById(Integer id);
-//
-//	public void update(Integer id, ApplicationStatus applicationStatus);
-//
-//	public void deleteById(Integer id);
+	
+// 커뮤니티 글 관리
+	// 작성한 커뮤니티 글 리스트
+	public List<CommInfoVO> findCommList(@Param("id") String id, @Param("keyword") String keyword);	
+	// 작성한 커뮤니티 댓글 리스트
+	public List<CommReplyInfoVO> findCommReplyList(@Param("id") String id, @Param("keyword") String keyword);	
 
 
 }

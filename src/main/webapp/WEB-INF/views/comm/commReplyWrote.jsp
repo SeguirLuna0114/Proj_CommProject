@@ -43,11 +43,11 @@
 							<tr>
 								<!-- 댓글로 이동 -->
 								<!-- 댓글 상세내용 -->
-								<td><a href="#">${requestsInfoDtos.commReText}</a></td>
+								<td><a href="?commReNo=${requestsInfoDtos.commReNo}">${requestsInfoDtos.commReText}</a></td>
 								<!-- 댓글 단 글의 제목 -->
 								<td>${requestsInfoDtos.commSub}</td>
 								<!-- 댓글 단 글의 댓글 수 -->
-								<td><p class="cnt_highlight">${requestsInfoDtos.replyCount}</p></td>
+								<td><p class="cnt_highlight">${requestsInfoDtos.commreplyCnt}</p></td>
 								<!-- 해당 댓글 수정일 -->
 								<td>${requestsInfoDtos.commReUpdate}</td>
 							</tr>

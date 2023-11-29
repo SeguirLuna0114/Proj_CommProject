@@ -22,22 +22,22 @@
 
 		<div class="asf_contents">
 			<div class="asf_counts">
-				<c:forEach var="statusCountDtos" items="${statusFinalDto.statusCountDtos}">
+				<c:forEach var="statusCountVOs" items="${statusFinalVO.statusCountVOs}">
 					<div class="asf_count_all">
 						<a href="applyStatusAll.do?id=${principal.id}">
-							<p class="asf_all_count">${statusCountDtos.statusAll}</p>
+							<p class="asf_all_count">${statusCountVOs.appstatusAll}</p>
 							<p class="asf_all_text">전체</p>
 						</a>
 					</div>
 					<div class="asf_count_c">
 						<a href="applyStatus.do?id=${principal.id}">
-							<p class="asf_count">${statusCountDtos.statusC}</p>
+							<p class="asf_count">${statusCountVOs.appstatusCont}</p>
 							<p class="asf_text">지원 완료</p>
 						</a>
 					</div>
 					<div class="asf_count_final">
 						<a href="applyStatusFin.do?id=${principal.id}">
-							<p class="asf_final_count">${statusCountDtos.statusFinal}</p>
+							<p class="asf_final_count">${statusCountVOs.appstatusFin}</p>
 							<p class="asf_final_text">최종 컨택</p>
 						</a>
 					</div>
@@ -45,8 +45,8 @@
 			</div>
 
 			<div class="asf_search">
-				<form name="searchFinal" action="applyStatusFin.do?id=${principal.id}">
-					<input type="text" placeholder="공고 제목 검색" name="keyword" value="${statusFinalDto.keyword}">
+				<form name="searchFinal" action="applyStatusFin.do?id=${StatusFinalVO.id}">
+					<input type="text" placeholder="공고 제목 검색" name="keyword" value="${StatusFinalVO.keyword}">
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>
@@ -63,14 +63,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="statusFinalInfoDtos" items="${statusFinalDto.statusFinalInfoDtos}">
+						<c:forEach var="statusFinalInfoVOs" items="${StatusFinalVO.statusFinalInfoVOs}">
 							<tr>
 								<!-- 지원 공고 명 -->
-								<td><a href="#">${statusWaitingInfoDtos.companyName}</a></td>
+								<td><a href="#">${statusFinalInfoVOs.jobSub}</a></td>
 								<!-- 지원한 포지션 유형 -->
-								<td>${statusWaitingInfoDtos.positionCodeName}</td>
+								<td>${statusWaitingInfoDtos.jobCd}</td>
 								<!-- 모집 마감일 -->
-								<td>${statusWaitingInfoDtos.created}</td>
+								<td>${statusWaitingInfoDtos.jobEndDate}</td>
 								<!-- 진행상태가 "승인"인 공고만 출력 -->
 								<td>
 									<p class="pass">승인</p>
