@@ -13,8 +13,12 @@ import music.model.CommsVO;
 import music.model.InfoAllVO;
 import music.model.InfoCountVO;
 import music.model.JobInfoVO;
+import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
+import music.model.PagingJobManageVO;
+import music.model.PagingVO;
+import music.model.PrBoardVO;
 import music.model.StatusAllVO;
 import music.model.StatusCountVO;
 import music.model.StatusFinalInfoVO;
@@ -50,13 +54,52 @@ public class mypageSerciveImpl implements mypageService {
 	// 현재 구인 현황
 	@Override
 	public List<jobBoardVO> viewMyBoard(String id) {
-		// List<jobBoardVO> jobBoardVO = myDao.findAllBoards(id);
+		List<jobBoardVO> jobBoardVOs = myDao.findAllBoards(id);
 		// 작성한 모든 구인공고 정보 반환
-		return myDao.findAllBoards(id);
+		return jobBoardVOs;
+	}
+	
+	// 모든 유저 데이터 가져옴
+	@Override
+	public List<jobBoardVO> viewAllJobDatas() {
+		List<jobBoardVO> alljobDatas = myDao.findAllJobDatas();
+		return alljobDatas;
+	}
+	
+	// 구인 현황 - 페이지 처리
+	public PagingJobManageVO pagingViewBoard(String id, Integer page) {
+		if(page == null) {
+			page = 0;
+		}
+		// 변수 설정
+		int startNum = page * 5;
+
+		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
+		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
+
+		return pagingJobManageVO;
+	}
+// 페이지 처리
+	public PagingVO paging(KeywordVO keywordVO) {
+		PagingVO paging = myDao.paging(keywordVO);
+
+		final int blockCount = 16;
+		int currentBlock = keywordVO.getPage()/ blockCount;
+		int startPageNum = 1 + blockCount * currentBlock;
+		int lastPageNum = 16 + blockCount * currentBlock;
+		
+		if(paging.getTotalPage() < lastPageNum) {
+			lastPageNum = paging.getTotalPage();
+		}
+		
+		paging.setBlockCount(blockCount);
+		paging.setCurrentBlock(currentBlock);
+		paging.setStartPageNum(startPageNum);
+		paging.setLastPageNum(lastPageNum);	
+
+		return paging;
 	}
 
-//	public PagingViewJobVO pagingViewJob(Integer page, )
-	
 
 // 지원 현황 리스트 페이지(applyStatus)
 	// 전체 지원 현황
@@ -110,6 +153,13 @@ public class mypageSerciveImpl implements mypageService {
 	public List<LikesListPRVO> viewLikeListPR(String id) {
 		List<LikesListPRVO> likePR = myDao.findLikesPR(id);
 		return likePR;
+	}
+	
+	// PR게시판에 모든 유저들이 작성한 항목 데이터 리스트
+	@Override
+	public List<PrBoardVO> viewAllPrDatas() {
+		List<PrBoardVO> allPrDatas = myDao.findAllPrDatas();
+		return allPrDatas;
 	}
 
 	

@@ -22,4 +22,6 @@ public class StatusWaitingInfoVO {
     private String userId;	// 신청자 id
     private String appCheck;	// 승인
     private String appDone;	// 완료
+
+    private String appName;	// 신청자 이름
 }

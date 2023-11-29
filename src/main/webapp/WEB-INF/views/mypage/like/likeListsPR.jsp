@@ -14,8 +14,8 @@
 				<select class="all" id="positionCode" name="positionName" onchange="ChangeValue('positionCode')">
 					<option selected>전체</option>
 					<!-- prBoard.prMajor : PR게시판에 작성한 전체 "전공명" 리스트 中 선택 -->
-					<c:forEach var="positions" items="${allWantedListDto.allCodesDto.positionsCodeDtos}">
-						<option>${positions.name}</option>
+					<c:forEach var="allPrDatas" items="${allPrDatas}">
+						<option>${allPrDatas.prMajor}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -30,8 +30,8 @@
 				<select class="career" id="careerCode" name="careerName" onchange="ChangeValue('careerCode')">
 					<option selected>신입/경력</option>
 					<!-- prBoard.prCareer : PR게시판에 작성한 전체 "경력" 리스트 中 선택 -->
-					<c:forEach var="prCareer" items="${allWantedListDto.allCodesDto.careersCodeDtos}">
-						<option>${prCareer.name}</option>
+					<c:forEach var="allPrDatas" items="${allPrDatas}">
+						<option>${allPrDatas.prCareer}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -41,8 +41,8 @@
 				<select class="region" id="regionCode" name="regionName" onchange="ChangeValue('regionCode')">
 					<option selected>지역 선택</option>
 					<!-- prBoard.prLoc : PR게시판에 작성한 전체 "지역명" 리스트 中 선택 -->
-					<c:forEach var="prLoc" items="${allWantedListDto.allCodesDto.regionsCodeDtos}">
-						<option>${prLoc.name}</option>
+					<c:forEach var="allPrDatas" items="${allPrDatas}">
+						<option>${allPrDatas.prLoc}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -52,13 +52,13 @@
 				<select class="skill" id="skillsCode" name="skillsName" onchange="ChangeValue('skillsCode')">
 					<option selected>해시태그</option>
 					<!-- prBoard.prHash : PR게시판에 작성한 전체 "해시태그" 리스트 中 선택 -->
-					<c:forEach var="prHash" items="${allWantedListDto.allCodesDto.skillsCodeDtos}">
-						<option>${prHash.name}</option>
+					<c:forEach var="allPrDatas" items="${allPrDatas}">
+						<option>${allPrDatas.prHash}</option>
 					</c:forEach>
 				</select>
 			</div>
 
-
+			<!-- ..? -->
 			<div class="selected_skills">
 				<ul>
 					<li class="selected_skills_items" id="skill1" style="display: none;"><strong class="skill_name" id="skillName1">test1</strong>
@@ -111,7 +111,7 @@
 											</c:otherwise>
 										</c:choose>
 									</div>
-									
+
 									<div class="wanted_text">
 										<div class="text">
 											<ul>
@@ -140,24 +140,18 @@
 	</div>
 
 	<!-- 페이징 설정 -->
-	<div class="paging">
-		<ul class="pagaination">
-			<li class='page-item-prev${allWantedListDto.pagingWantedsListDto.pagingDto.first ? "-hidden" : ""}'><a
-				href="/wanteds/?page=${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage - 1}">이전</a></li>
-			<c:forEach var="num" begin="${allWantedListDto.pagingWantedsListDto.pagingDto.startPageNum}"
-				end="${allWantedListDto.pagingWantedsListDto.pagingDto.lastPageNum}">
-				<li class='page-item${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage + 1 == num ? "-select" : ""}'><a
-					href="/wanteds/?page= ${num-1}">${num}</a></li>
+<%-- 	<div class="paging">
+		<ul class="pagination">
+			<li class='page-item-prev${pagingJobManageVO.pagingVO.isFirst ? "hidden" : ""}'><a
+				href="likeListPR.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a></li>
+			<c:forEach var="num" begin="${pagingJobManageVO.pagingVO.startPageNum}" end="${pagingJobManageVO.pagingVO.lastPageNum}">
+				<li class='page-item${pagingJobManageVO.pagingVO.currentPage + 1 == num ? "-select" : ""}'><a
+					href="likeListPR.do?id=${id}&page=${num-1}">${num}</a></li>
 			</c:forEach>
-			<li class='page-item-next${allWantedListDto.pagingWantedsListDto.pagingDto.last ? "-hidden" : ""}'><a
-				href="/wanteds/?page=${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage + 1}">다음</a></li>
+			<li class='page-item-next${pagingJobManageVO.pagingVO.isLast ? "-hidden" : ""}'><a
+				href="likeListPR.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a></li>
 		</ul>
-		<div>first: ${allWantedListDto.pagingWantedsListDto.pagingDto.first}</div>
-		<div>last: ${allWantedListDto.pagingWantedsListDto.pagingDto.last}</div>
-		<div>startPageNum: ${allWantedListDto.pagingWantedsListDto.pagingDto.startPageNum}</div>
-		<div>lastPageNum: ${allWantedListDto.pagingWantedsListDto.pagingDto.lastPageNum}</div>
-		<div>currentPage: ${allWantedListDto.pagingWantedsListDto.pagingDto.currentPage}</div>
-	</div>
+	</div> --%>
 </div>
 
 <%@ include file="../layout/footer.jsp"%>

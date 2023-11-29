@@ -17,6 +17,8 @@ import music.model.CommsVO;
 import music.model.InfoAllVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
+import music.model.PagingJobManageVO;
+import music.model.PrBoardVO;
 import music.model.StatusAllVO;
 import music.model.StatusFinalVO;
 import music.model.StatusWaitingVO;
@@ -44,8 +46,22 @@ public class MypageController {
 	// 구인 현황 마이페이지 메인으로 이동
 	@RequestMapping("mypage_JobBoard.do")
 	public String mypageJob(@RequestParam String id, Model model, Integer page) {
+		// 구인 현황 데이터 가져오기 위함
+		InfoAllVO infoAllDto = myService.viewMyPage(id);
+		model.addAttribute("infoAllDto", infoAllDto);
+
+		// 모든 Job데이터
+		List<jobBoardVO> allJobDatas = myService.viewAllJobDatas();
+		model.addAttribute("allJobDatas", allJobDatas);
+		
+		// 작성한 모든 구인공고 리스트
 		List<jobBoardVO> jobLists = myService.viewMyBoard(id);
 		model.addAttribute("jobLists", jobLists);
+
+		// 페이징 처리
+		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
+		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
+
 		return "mypage/mypage/mypage_JobBoard";
 	}	
 	
@@ -108,9 +124,17 @@ public class MypageController {
 	
 	// 좋아요 설정한 PR글 리스트
 	@RequestMapping("likeListsPR.do")
-	public String likeListsPR(@RequestParam String id, Model model) {
+	public String likeListsPR(@RequestParam String id, Model model, Integer page) {
 		List<LikesListPRVO> likesListPR = myService.viewLikeListPR(id);
 		model.addAttribute("likesListPR", likesListPR);
+		
+		// 모든 PR데이터
+		List<PrBoardVO> allPrDatas = myService.viewAllPrDatas();
+		model.addAttribute("allPrDatas", allPrDatas);
+		
+		// 페이징 처리
+		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
+		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
 		
 		return "mypage/like/likeListsPR";
 	}

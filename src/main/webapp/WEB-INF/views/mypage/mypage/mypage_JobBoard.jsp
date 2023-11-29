@@ -99,7 +99,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
       <div class="logout">
         <button>
-          <a href="logout.do?id=${principal.id}">로그아웃</a>
+          <a href="logout.do?id=${id}">로그아웃</a>
         </button>
       </div>
     </div>
@@ -108,7 +108,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
     <div class="cp_contents">
       <div class="cp_applications">
         <a
-          href="writeJobStatusAll.do?id=${principal.id}"
+          href="writeJobStatusAll.do?id=${id}"
           class="cp_apply_manage"
         >
           <div class="cp_apply_text">
@@ -125,17 +125,17 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <div class="cp_select">
             <select name="text">
               <option value="#" selected="selected">지역</option>
-              <c:forEach var="careersCode" items="${jobLists}">
-                <option value="${jobLists.jobplace}">
-                  ${jobLists.jobplace}
+              <c:forEach var="allJobDatas" items="${allJobDatas}">
+                <option value="${allJobDatas.jobplace}">
+                  ${allJobDatas.jobplace}
                 </option>
               </c:forEach>
             </select>
 
             <select name="text" class="select_position">
-              <option value="#" selected="selected">포지션</option>
-              <c:forEach var="positionCode" items="${jobLists}">
-                <option value="${jobLists.jobcd}">${jobLists.jobcd}</option>
+              <option value="#" selected="selected">테마(분류)</option>
+              <c:forEach var="allJobDatas" items="${allJobDatas}">
+                <option value="${allJobDatas.jobcd}">${allJobDatas.jobcd}</option>
               </c:forEach>
             </select>
           </div>
@@ -167,32 +167,20 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <!-- 페이지 설정 -->
           <div class="paging">
             <ul class="pagination">
-              <li
-                class="page-item-prev${pagingWantedsManage.pagingDto.first ? &quot;hidden&quot; : &quot;&quot;}"
-              >
-                <a
-                  href="mypage_JobBoard.do?id=${id}&page=${pagingWantedsManage.pagingDto.currentPage - 1}"
-                  >이전</a
-                >
+              <li class='page-item-prev${pagingJobManageVO.pagingVO.isFirst ? "hidden" : ""}'>
+                <a href="mypage_JobBoard.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a>
               </li>
               <c:forEach
                 var="num"
-                begin="${pagingWantedsManage.pagingDto.startPageNum}"
-                end="${pagingWantedsManage.pagingDto.lastPageNum}"
+                begin="${pagingJobManageVO.pagingVO.startPageNum}"
+                end="${pagingJobManageVO.pagingVO.lastPageNum}"
               >
-                <li
-                  class="page-item${pagingWantedsManage.pagingDto.currentPage + 1 == num ? &quot;-select&quot; : &quot;&quot;}"
-                >
+                <li class='page-item${pagingJobManageVO.pagingVO.currentPage + 1 == num ? "-select" : ""}'>
                   <a href="mypage_JobBoard.do?id=${id}&page=${num-1}">${num}</a>
                 </li>
               </c:forEach>
-              <li
-                class="page-item-next${pagingWantedsManage.pagingDto.last ? &quot;-hidden&quot; : &quot;&quot;}"
-              >
-                <a
-                  href="mypage_JobBoard.do?id=${id}&page=${pagingWantedsManage.pagingDto.currentPage + 1}"
-                  >다음</a
-                >
+              <li class='page-item-next${pagingJobManageVO.pagingVO.isLast ? "-hidden" : ""}'>
+                <a href="mypage_JobBoard.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a>
               </li>
             </ul>
           </div>

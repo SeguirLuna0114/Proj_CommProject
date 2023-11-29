@@ -9,6 +9,8 @@ public class jobBoardVO {
 
     // jobBoard.jobCd
     private String jobcd;    // 공고 분류
+    // 공고 분류에 해당하는 이미지 파일
+    private String photo;
 
     // jobBoard.jobPlace
     private String jobplace;    // 지역

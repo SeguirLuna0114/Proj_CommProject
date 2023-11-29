@@ -23,4 +23,8 @@ public class StatusInfoVO {
     private String appCheck;	// 승인
     private String appDone;	// 완료
 
+    // 신청자 지원 상태
+    private Integer state;
+    
+    private String appName;	// 신청자 이름
 }
