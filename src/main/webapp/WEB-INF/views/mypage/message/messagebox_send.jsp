@@ -13,8 +13,8 @@
 		<div class="pp_menu">
 			<p class="pp_title">쪽지함</p>
 			<ul>
-				<li class="pp_position"><a href="messagebox.do?id=${principal.id}">받은 쪽지함</a></li>
-				<li class="pp_proposal"><a href="messagebox_send.do?id=${principal.id}">보낸 쪽지함</a></li>
+				<li class="pp_position"><a href="messagebox.do?id=${id}">받은 쪽지함</a></li>
+				<li class="pp_proposal"><a href="messagebox_send.do?id=${id}">보낸 쪽지함</a></li>
 			</ul>
 		</div>
 

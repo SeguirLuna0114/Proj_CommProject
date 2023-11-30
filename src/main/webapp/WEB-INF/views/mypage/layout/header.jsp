@@ -76,14 +76,14 @@
 			<ul class="login">
 				<c:choose>
 					<!-- 1) 로그인하지 않은 유저인 경우 -->
-					<c:when test="${empty principal}">
+					<c:when test="${empty id}">
 						<li><a href="login.do">로그인/회원가입</a></li>
 					</c:when>
 
 					<!-- 2) 로그인한 경우 -->
 					<c:otherwise>
 						<li class="alert">
-							<!-- 입력받은 id값을 갖고, mypage_Apply로 이동 --> <a href="mypage_Apply.do?id=${principal.id}">알림</a>
+							<!-- 입력받은 id값을 갖고, mypage_Apply로 이동 --> <a href="mypage_Apply.do?id=${id}">알림</a>
 							<ul class="alert_item_list">
 								<li class="alert_item">
 									<!-- 알림 메시지 -->
@@ -111,12 +111,12 @@
 				</li>
 
 
-				<li class="profile"><a href="mypage_Apply.do?id=${principal.id}">My page</a>
+				<li class="profile"><a href="mypage_Apply.do?id=${id}">My page</a>
 					<ul class="profile_list">
-						<li><a class="profile_item_mypage" href="mypage_Apply.do?id=${principal.id}">지원 공고 관리</a></li>
-						<li><a class="profile_item" href="mypage_JobBoard.do?id=${principal.id}">작성 공고 관리</a></li>
-						<li><a class="profile_item" href="applyStatusAll.do?id=${principal.id}">지원 현황</a></li>
-						<li><a class="profile_item" href="writeJobStatusAll.do?id=${principal.id}">구인 현황</a></li>
+						<li><a class="profile_item_mypage" href="mypage_Apply.do?id=${id}">지원 공고 관리</a></li>
+						<li><a class="profile_item" href="mypage_JobBoard.do?id=${id}">작성 공고 관리</a></li>
+						<li><a class="profile_item" href="applyStatusAll.do?id=${id}">지원 현황</a></li>
+						<li><a class="profile_item" href="writeJobStatusAll.do?id=${id}">구인 현황</a></li>
 						<li><a class="profile_item" href="commWroteAll.do?id=${id}">커뮤니티 글 관리</a></li>
 						<li><a class="profile_item" href="likeListsComm.do?id=${id}">좋아요 한 커뮤니티 글</a></li>
 						<li><a class="profile_item" href="likeListsPR.do?id=${id}">좋아요 한 PR 글</a></li>
