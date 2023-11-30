@@ -53,7 +53,7 @@
 					<option selected>해시태그</option>
 					<!-- prBoard.prHash : PR게시판에 작성한 전체 "해시태그" 리스트 中 선택 -->
 					<c:forEach var="allPrDatas" items="${allPrDatas}">
-						<option>${allPrDatas.prHash}</option>
+						<option>#${allPrDatas.prHash}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -89,7 +89,7 @@
 
 	<div class="overBox">
 		<!-- 좋아요 설정한 PR 출력 -->
-		<c:if test="${!empty principal}">
+		<c:if test="${!empty id}">
 			<div class="liked">
 				<div class="liked_wanted">
 					<div class="liked_title">♥ 내가 좋아요한 PR(홍보 글)</div>
@@ -107,7 +107,7 @@
 											</c:when>
 											<c:otherwise>
 												<!-- 해당 PR글에 업로드한 첨부파일(prFile) -->
-												<img src="${likesListPR.prFile}">
+												<img src="${path}/upload/${likesListPR.prFile}">
 											</c:otherwise>
 										</c:choose>
 									</div>

@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
     <div class="asf_contents">
       <div class="asf_counts">
-        <c:forEach var="statusCountVOs" items="${statusFinalVO.statusCountVOs}">
+        <c:forEach var="statusCountVOs" items="${jobstatusFinalVO.statusCountVOs}">
           <div class="asf_count_all">
             <a href="writeJobStatusAll.do?id=${id}">
               <p class="asf_all_count">${statusCountVOs.jobstatusAll}</p>
@@ -52,13 +52,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asf_search">
         <form
           name="searchFinal"
-          action="writeJobStatusFin.do?id=${statusFinalVO.userId}"
+          action="writeJobStatusFin.do?id=${jobstatusFinalVO.userId}"
         >
           <input
             type="text"
             placeholder="공고 제목 검색"
             name="keyword"
-            value="${statusFinalVO.keyword}"
+            value="${jobstatusFinalVO.keyword}"
           />
           <button class="btn_search" type="submit"></button>
         </form>
@@ -78,7 +78,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <tbody>
             <c:forEach
               var="statusFinalInfoVOs"
-              items="${StatusFinalVO.statusFinalInfoVOs}"
+              items="${jobstatusFinalVO.statusFinalInfoVOs}"
             >
               <tr>
                 <!-- 작성 공고 명 -->

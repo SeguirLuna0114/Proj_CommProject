@@ -13,17 +13,17 @@
 		<div class="pp_menu">
 			<p class="pp_title">커뮤니티 글 관리</p>
 			<ul>
-				<li class="pp_position"><a href="commWroteAll.do?id=${principal.id}">작성 글</a></li>
-				<li class="pp_proposal"><a href="commReplyWrote.do?id=${principal.id}">작성 댓글</a></li>
-				<li class="pp_position"><a href="likeListsComm.do?id=${principal.id}">좋아요 한 글</a></li>
+				<li class="pp_position"><a href="commWroteAll.do?id=${id}">작성 글</a></li>
+				<li class="pp_proposal"><a href="commReplyWrote.do?id=${id}">작성 댓글</a></li>
+				<li class="pp_position"><a href="likeListsComm.do?id=${id}">좋아요 한 글</a></li>
 			</ul>
 		</div>
 
 		<div class="pp_contents">
 			<p class="pp_sub_title">작성 댓글</p>
 			<div class="pp_search">
-				<form name="searchProposal" action="commReplyWrote.do?id=${requestsDto.id}">
-					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword" value="${requestsDto.keyword}">
+				<form name="searchProposal" action="commReplyWrote.do?id=${commReplysVO.id}">
+					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword" value="${commReplysVO.keyword}">
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>
@@ -39,17 +39,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="requestsInfoDtos" items="${requestsDto.requestsInfoDtos}">
+						<c:forEach var="commReplyInfoVOs" items="${commReplysVO.commReplyInfoVOs}">
 							<tr>
 								<!-- 댓글로 이동 -->
 								<!-- 댓글 상세내용 -->
-								<td><a href="?commReNo=${requestsInfoDtos.commReNo}">${requestsInfoDtos.commReText}</a></td>
+								<td><a href="?commReNo=${commReplyInfoVOs.commReNo}">${commReplyInfoVOs.commReText}</a></td>
 								<!-- 댓글 단 글의 제목 -->
-								<td>${requestsInfoDtos.commSub}</td>
+								<td>${commReplyInfoVOs.commSub}</td>
 								<!-- 댓글 단 글의 댓글 수 -->
-								<td><p class="cnt_highlight">${requestsInfoDtos.commreplyCnt}</p></td>
+								<td><p class="cnt_highlight">${commReplyInfoVOs.commreplyCnt}</p></td>
 								<!-- 해당 댓글 수정일 -->
-								<td>${requestsInfoDtos.commReUpdate}</td>
+								<td>${commReplyInfoVOs.commReUpdate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -15,8 +15,8 @@
 		<div class="as_menu">
 			<p class="as_title">구인 게시판</p>
 			<ul>
-				<li class="as_position"><a href="applyStatusAll.do?id=${principal.id}">지원 현황</a></li>
-				<li class="as_proposal"><a href="writeJobStatusAll.do?id=${principal.id}">구인 현황</a></li>
+				<li class="as_position"><a href="applyStatusAll.do?id=${id}">지원 현황</a></li>
+				<li class="as_proposal"><a href="writeJobStatusAll.do?id=${id}">구인 현황</a></li>
 			</ul>
 		</div>
 
@@ -24,19 +24,19 @@
 			<div class="as_counts">
 				<c:forEach var="statusCountVOs" items="${statusWaitingVO.statusCountVOs}">
 					<div class="as_count_all">
-						<a href="applyStatusAll.do?id=${principal.id}"> <!-- 전체 지원완료 개수 -->
+						<a href="applyStatusAll.do?id=${id}"> <!-- 전체 지원완료 개수 -->
 							<p class="as_all_count">${statusCountVOs.appstatusAll}</p>
 							<p class="as_all_text">전체</p>
 						</a>
 					</div>
 					<div class="as_count_c">
-						<a href="applyStatus.do?id=${principal.id}"> <!-- 지원완료 중 진행상태 = 대기중 -->
+						<a href="applyStatus.do?id=${id}"> <!-- 지원완료 중 진행상태 = 대기중 -->
 							<p class="as_count">${statusCountVOs.appstatusCont}</p>
 							<p class="as_text">지원 완료</p>
 						</a>
 					</div>
 					<div class="as_count_final">
-						<a href="applyStatusFin.do?id=${principal.id}"> <!-- 지원완료 중 진행상태 = 합격 -->
+						<a href="applyStatusFin.do?id=${id}"> <!-- 지원완료 중 진행상태 = 합격 -->
 							<p class="as_final_count">${statusCountVOs.appstatusFin}</p>
 							<p class="as_final_text">최종 컨택</p>
 						</a>

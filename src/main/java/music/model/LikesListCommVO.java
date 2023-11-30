@@ -1,7 +1,5 @@
 package music.model;
 
-import java.sql.Blob;
-
 import lombok.Data;
 
 @Data
@@ -14,7 +12,7 @@ public class LikesListCommVO {
 	
 	// 좋아요 한 커뮤니티 게시글(comLike.commNo = comBoard.commNo)
 	private String writerId;	// 글 작성자 id
-	private Blob commFile;		// 커뮤니티 첨부 파일
+	private String commFile;		// 커뮤니티 첨부 파일
 	private String commSub;		// 글 제목
 	private String commText;	// 글 내용
 	private String commLikestat;		// 좋아요 한 상태
@@ -23,6 +21,6 @@ public class LikesListCommVO {
 	private String writerName;	// 글 작성자 명
 	
 	// 글 작성자 id -> 홍보게시판에 업로드한 프로필 사진(prBoard.userId = member.userId)
-	private Blob prFile;	// 작성자 프로필 사진
+	private String prFile;	// 작성자 프로필 사진
 	
 }

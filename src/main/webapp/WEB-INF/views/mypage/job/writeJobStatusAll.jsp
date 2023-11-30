@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
     <div class="asa_contents">
       <div class="asa_counts">
-        <c:forEach var="statusCountVOs" items="${statusAllVO.statusCountVOs}">
+        <c:forEach var="statusCountVOs" items="${jobstatusAllVO.statusCountVOs}">
           <div class="asa_count_all">
             <a href="writeJobStatusAll.do?id=${id}">
               <p class="asa_all_count">${statusCountVOs.jobstatusAll}</p>
@@ -35,13 +35,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           </div>
           <div class="asa_count_c">
             <a href="writeJobStatus.do?id=${id}">
-              <p class="asa_count">${statusCountDtos.jobstatusCont}</p>
+              <p class="asa_count">${statusCountVOs.jobstatusCont}</p>
               <p class="asa_text">진행중</p>
             </a>
           </div>
           <div class="asa_count_final">
             <a href="writeJobStatusFin.do?id=${id}">
-              <p class="asa_final_count">${statusCountDtos.jobstatusFin}</p>
+              <p class="asa_final_count">${statusCountVOs.jobstatusFin}</p>
               <p class="asa_final_text">컨택 완료</p>
             </a>
           </div>
@@ -51,14 +51,14 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asa_search">
         <form
           name="searchAll"
-          action="writeJobStatusAll.do?id=${statusAllVO.id}"
+          action="writeJobStatusAll.do?id=${jobstatusAllVO.userId}"
         >
           <input
             id="keyword"
             placeholder="공고 제목 검색"
             type="text"
             name="keyword"
-            value="${statusAllVO.keyword}"
+            value="${jobstatusAllVO.keyword}"
           />
           <button class="btn_search" type="submit"></button>
         </form>
@@ -75,7 +75,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="statusInfoVOs" items="${statusAllVO.statusInfoVOs}">
+            <c:forEach var="statusInfoVOs" items="${jobstatusAllVO.statusInfoVOs}">
               <tr>
                 <!-- 작성 공고 제목 -->
                 <td>

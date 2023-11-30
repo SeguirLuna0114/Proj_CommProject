@@ -16,10 +16,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <p class="asf_title">구인 게시판</p>
       <ul>
         <li class="asf_position">
-          <a href="applyStatusAll.do?id=${principal.id}">지원 현황</a>
+          <a href="applyStatusAll.do?id=${id}">지원 현황</a>
         </li>
         <li class="asf_proposal">
-          <a href="writeJobStatusAll.do?id=${principal.id}">구인 현황</a>
+          <a href="writeJobStatusAll.do?id=${id}">구인 현황</a>
         </li>
       </ul>
     </div>
@@ -28,19 +28,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asf_counts">
         <c:forEach var="statusCountVOs" items="${statusFinalVO.statusCountVOs}">
           <div class="asf_count_all">
-            <a href="applyStatusAll.do?id=${principal.id}">
+            <a href="applyStatusAll.do?id=${id}">
               <p class="asf_all_count">${statusCountVOs.appstatusAll}</p>
               <p class="asf_all_text">전체</p>
             </a>
           </div>
           <div class="asf_count_c">
-            <a href="applyStatus.do?id=${principal.id}">
+            <a href="applyStatus.do?id=${id}">
               <p class="asf_count">${statusCountVOs.appstatusCont}</p>
               <p class="asf_text">지원 완료</p>
             </a>
           </div>
           <div class="asf_count_final">
-            <a href="applyStatusFin.do?id=${principal.id}">
+            <a href="applyStatusFin.do?id=${id}">
               <p class="asf_final_count">${statusCountVOs.appstatusFin}</p>
               <p class="asf_final_text">최종 컨택</p>
             </a>

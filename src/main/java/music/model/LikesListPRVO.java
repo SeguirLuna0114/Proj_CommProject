@@ -1,7 +1,5 @@
 package music.model;
 
-import java.sql.Blob;
-
 import lombok.Data;
 
 @Data
@@ -15,7 +13,7 @@ public class LikesListPRVO {
 	
 	// 좋아요 한 PR 게시글(prBoard.prNo = prLike.prNo)
 	private String prwriterId;	// 글 작성자 id
-	private Blob prFile;		// 첨부 파일
+	private String prFile;		// 첨부 파일
 	private String prSub;		// 글 제목
 	private String prText;	// 글 내용
 	private String prCareer;	// 작성자 경력사항

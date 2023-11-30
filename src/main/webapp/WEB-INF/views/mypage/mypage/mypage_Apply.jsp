@@ -161,14 +161,15 @@
 					<div class="mp_reco${jobInfoVOs.no}">
 						<a href="#">
 							<div class="mp_reco${jobInfoVOs.no}_1">
+								<img src="https://picsum.photos/250/250" />
 								<!-- 공고의 모집분야 별 이미지 -->
-								<c:if test="${!empty jobInfoVO.photo}">
-									<img src="${jobInfoVO.photo}" />
+<%-- 								<c:if test="${!empty jobInfoVO.photo}">
+									<img src="${path}/upload/${jobInfoVO.photo}" />
 								</c:if>
 								<c:if test="${empty jobInfoVO.photo}">
 									<!-- 디폴트 이미지 -->
 									<img src="https://picsum.photos/250/250" />
-								</c:if>
+								</c:if> --%>
 							</div> 
 							
 							<!-- 해당 공고 제목 -->

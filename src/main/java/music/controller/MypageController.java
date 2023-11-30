@@ -114,7 +114,50 @@ public class MypageController {
 		
 		return "mypage/job/applyStatusFin";
 	}
+
+
+// 구인 현황 관련
+	// 모든 진행상태
+	@RequestMapping("writeJobStatusAll.do")
+	public String JobStatsAll(@RequestParam String id, Model model, String keyword) {
+		StatusAllVO jobstatusAllVO = myService.viewAppAll(id, keyword);
+		model.addAttribute("jobstatusAllVO", jobstatusAllVO);
+		
+		// keyword를 세션에 저장 -> 다음 페이지에서 활용
+		Map<String, Object> referer = new HashMap<String, Object>();
+		referer.put("keyword", jobstatusAllVO.getKeyword());
+		session.setAttribute("referer", referer);
+		
+		return "mypage/job/writeJobStatusAll";
+	}
 	
+	// 진행상태 = 대기중
+	@RequestMapping("writeJobStatus.do")
+	public String JobappStats(@RequestParam String id, Model model, String keyword) {
+		StatusWaitingVO jobstatusWaitingVO = myService.viewAppWait(id, keyword);
+		model.addAttribute("jobstatusWaitingVO", jobstatusWaitingVO);
+		
+		// keyword를 세션에 저장 -> 다음 페이지에서 활용
+		Map<String, Object> referer = new HashMap<String, Object>();
+		referer.put("keyword", jobstatusWaitingVO.getKeyword());
+		session.setAttribute("referer", referer);
+		
+		return "mypage/job/writeJobStatus";
+	}
+	
+	// 진행상태 = 승인
+	@RequestMapping("writeJobStatusFin.do")
+	public String JobappStatsFin(@RequestParam String id, Model model, String keyword) {
+		StatusFinalVO jobstatusFinalVO = myService.viewAppFin(id, keyword);
+		model.addAttribute("jobstatusFinalVO", jobstatusFinalVO);
+		
+		// keyword를 세션에 저장 -> 다음 페이지에서 활용
+		Map<String, Object> referer = new HashMap<String, Object>();
+		referer.put("keyword", jobstatusFinalVO.getKeyword());
+		session.setAttribute("referer", referer);		
+		
+		return "mypage/job/writeJobStatusFin";
+	}
 	
 	
 //	좋아요 관련

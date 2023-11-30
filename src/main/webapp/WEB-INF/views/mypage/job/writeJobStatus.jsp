@@ -28,24 +28,24 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="as_counts">
         <c:forEach
           var="statusCountVOs"
-          items="${statusWaitingVO.statusCountVOs}"
+          items="${jobstatusWaitingVO.statusCountVOs}"
         >
           <div class="as_count_all">
-            <a href="writeJobStatusAll.do?id=${principal.id}">
+            <a href="writeJobStatusAll.do?id=${id}">
               <!-- 전체 지원완료 개수 -->
               <p class="as_all_count">${statusCountVOs.jobstatusAll}</p>
               <p class="as_all_text">전체</p>
             </a>
           </div>
           <div class="as_count_c">
-            <a href="writeJobStatus.do?id=${principal.id}">
+            <a href="writeJobStatus.do?id=${id}">
               <!-- 지원완료 중 진행상태 = 대기중 -->
               <p class="as_count">${statusCountVOs.jobstatusCont}</p>
               <p class="as_text">진행중</p>
             </a>
           </div>
           <div class="as_count_final">
-            <a href="writeJobStatusFin.do?id=${principal.id}">
+            <a href="writeJobStatusFin.do?id=${id}">
               <!-- 지원완료 중 진행상태 = 합격 -->
               <p class="as_final_count">${statusCountVOs.jobstatusFin}</p>
               <p class="as_final_text">컨택 완료</p>
@@ -58,13 +58,13 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="as_search">
         <form
           name="search"
-          action="writeJobStatus.do?id=${statusWaitingVO.userId}"
+          action="writeJobStatus.do?id=${jobstatusWaitingVO.userId}"
         >
           <input
             type="text"
             placeholder="공고 제목 검색"
             name="keyword"
-            value="${statusWaitingVO.keyword}"
+            value="${jobstatusWaitingVO.keyword}"
           />
           <button class="btn_search" type="submit"></button>
         </form>
@@ -84,7 +84,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <tbody>
             <c:forEach
               var="statusWaitingInfoVOs"
-              items="${statusWaitingVO.statusWaitingInfoVOs}"
+              items="${jobstatusWaitingVO.statusWaitingInfoVOs}"
             >
               <tr>
                 <!-- 작성 공고 제목 -->

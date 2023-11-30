@@ -1,7 +1,5 @@
 package music.model;
 
-import java.sql.Blob;
-
 import lombok.Data;
 
 @Data
@@ -12,7 +10,7 @@ public class UserInfoVO {
     private String userPhone;
     private String userEmail;
     // prBoard.prFile(첨부파일) 업로드한 이미지
-    private Blob prFile;
+    private String prFile;
     // member.userMajor과 prBoard.prMajor의 값을 비교해서 userPosition값 설정
     private String userPosition;
 		

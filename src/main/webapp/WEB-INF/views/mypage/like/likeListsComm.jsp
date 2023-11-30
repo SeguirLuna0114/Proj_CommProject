@@ -28,7 +28,7 @@
 							</c:when>
 							<c:otherwise>
 								<!-- 업로드한 사진 첨부파일이 있는 경우 -->
-								<a href="comDetail.do?commNo=${likesComm.commNo}"><img class="companyphoto" src="${likesComm.commFile}" alt="커뮤니티 첨부 이미지"></a>
+								<a href="comDetail.do?commNo=${likesComm.commNo}"><img class="companyphoto" src="${path}/upload/${likesComm.commFile}" alt="커뮤니티 첨부 이미지"></a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -52,7 +52,7 @@
 									</c:when>
 									<c:otherwise>
 										<!-- 업로드한 사진 첨부파일이 있는 경우 -->
-										<a href="comList.do?id=${likesComm.writerId}"><img class="conpany_min_iphoto" src="${likesComm.prFile}" alt="작성자 프로필 이미지" width="25" height="25"></a>
+										<a href="comList.do?id=${likesComm.writerId}"><img class="conpany_min_iphoto" src="${path}/upload/${likesComm.prFile}" alt="작성자 프로필 이미지" width="25" height="25"></a>
 									</c:otherwise>
 								</c:choose>
 								
