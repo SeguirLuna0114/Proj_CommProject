@@ -8,5 +8,5 @@ select * from pr_board;
 select * from member;
 -- 데이터 입력
 insert into member 
-values ('test2', '1234', '홍길순', '01012341234',
-		 'hong@naver.com', '축가', 'Y', sysdate, sysdate, 'N');
+values ('test1', '1234', '홍길동', '01012341234',
+		 'hong@naver.com', '전공1', 'Y', sysdate, sysdate, 'N');

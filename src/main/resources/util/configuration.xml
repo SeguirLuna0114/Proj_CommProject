@@ -6,13 +6,11 @@
 <configuration>
 	<!-- DTO(VO)클래스의 별칭 설정 -->
 	<typeAliases>
-		<!-- pr(자기홍보)관련 DTO클래스 별칭 설정 -->
-		<typeAlias alias="pr" type="music.model.prVO" />
-		
 		<!-- mypage관련 DTO클래스 별칭 설정 -->		
 		<typeAlias alias="UserInfo" type="music.model.UserInfoVO"/>
 		<typeAlias alias="InfoCount" type="music.model.InfoCountVO"/>
 		<typeAlias alias="JobInfo" type="music.model.JobInfoVO"/>
+		<typeAlias alias="StatusCount" type="music.model.StatusCountVO"/>
 		
 		<!-- 구인 페이지 관련 -->
 		<typeAlias alias="jobBoard" type="music.model.jobBoardVO"/>
@@ -33,6 +31,10 @@
 		<!-- 커뮤니티 글 관련 -->
 		<typeAlias alias="CommInfo" type="music.model.CommInfoVO"/>
 		<typeAlias alias="CommReplyInfo" type="music.model.CommReplyInfoVO"/>
+		
+		
+		<!-- other -->
+		
 	</typeAliases>
 	
 	

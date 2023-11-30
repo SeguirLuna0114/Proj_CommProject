@@ -26,7 +26,7 @@
 						</div>
 						<div class="mp_acc_setting">
 							<button>
-								<a href="accountSetting.do?id=${principal.id}">계정 설정하기</a>
+								<a href="accountSetting.do?id=${id}">계정 설정하기</a>
 							</button>
 						</div>
 					</c:forEach>
@@ -43,21 +43,21 @@
 				<div class="mp_status">
 					<c:forEach var="infoCountVOs" items="${infoAllDto.infoCountVOs}">
 						<ul>
-							<li><a href="applyStatusAll.do?id=${principal.id}">
+							<li><a href="applyStatusAll.do?id=${id}">
 									<div class="mp_status_li1">지원 현황</div>
 									<div>${infoCountVOs.applystatusAll}</div>
 							</a></li>
-							<li><a href="likeListsComm.do?id=${principal.id}">
+							<li><a href="likeListsComm.do?id=${id}">
 									<div class="mp_status_li2">좋아요 한 커뮤니티</div>
 									<div>${infoCountVOs.commlikesCount}</div>
 							</a></li>
 							<!-- 받은 쪽지함으로 이동 -->
-							<li><a href="messagebox.do?id=${principal.id}">
+							<li><a href="messagebox.do?id=${id}">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>
 							</a></li>
-							<li><a href="commWroteAll.do?id=${principal.id}">
+							<li><a href="commWroteAll.do?id=${id}">
 									<div class="mp_status_li4">커뮤니티 글 관리</div>
 									<div>${infoCountVOs.commCountAll}</div>
 							</a></li>
@@ -84,7 +84,7 @@
 
 			<div class="logout">
 				<button>
-					<a href="logout.do?id=${principal.id}">로그아웃</a>
+					<a href="logout.do?id=${id}">로그아웃</a>
 				</button>
 			</div>
 		</div>
@@ -99,7 +99,7 @@
 					<div class="mp_application_counts">
 						<!-- 전체 지원현황 -->
 						<div class="mp_app_all">
-							<a href="applyStatusAll.do?id=${principal.id}">
+							<a href="applyStatusAll.do?id=${id}">
 								<p class="mp_all_count">${statusCountVOs.appstatusAll}</p>
 								<p class="mp_all_text">전체</p>
 							</a>
@@ -107,7 +107,7 @@
 
 						<!-- 지원 완료 내역 -->
 						<div class="mp_app">
-							<a href="applyStatusAll.do?id=${principal.id}">
+							<a href="applyStatusAll.do?id=${id}">
 								<p class="mp_count">${statusCountDtos.appstatusCont}</p>
 								<p class="mp_text">지원 완료</p>
 							</a>
@@ -115,7 +115,7 @@
 
 						<!-- 지원한 공고에 합격한(승인된) 내역 -->
 						<div class="mp_app_final">
-							<a href="commStatusAll.do?id=${principal.id}">
+							<a href="commStatusAll.do?id=${id}">
 								<p class="mp_final_count">${statusCountDtos.appstatusFin}</p>
 								<p class="mp_final_text">최종 합격</p>
 							</a>
@@ -146,7 +146,7 @@
 
 					<button>
 						<!-- PR 수정페이지로 이동 -->
-						<a href="prUpdate.do?id=${principal.id}">프로필 수정하기</a>
+						<a href="prUpdate.do?id=${id}">프로필 수정하기</a>
 					</button>
 				</c:forEach>
 			</div>

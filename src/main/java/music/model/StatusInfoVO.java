@@ -20,11 +20,10 @@ public class StatusInfoVO {
     
     // jobApp(신청자)
     private String userId;	// 신청자 id
+    // 신청자 지원 상태
     private String appCheck;	// 승인
     private String appDone;	// 완료
-
-    // 신청자 지원 상태
-    private Integer state;
+    private String appDelYn;	// 취소
     
     private String appName;	// 신청자 이름
 }

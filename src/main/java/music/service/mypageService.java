@@ -27,9 +27,9 @@ public interface mypageService {
 	// 모든 유저가 작성한 구인공고 데이터 가져옴
 	public List<jobBoardVO> viewAllJobDatas();
 	// 구인공고 가져오는 페이징 처리
-	public PagingJobManageVO pagingViewBoard(String id, Integer page);
+//	public PagingJobManageVO pagingViewBoard(String id, Integer page);
 // 페이지 처리
-	public PagingVO paging(KeywordVO keywordVO);
+//	public PagingVO paging(KeywordVO keywordVO);
 
 
 // 지원 현황 리스트 페이지(applyStatus)

@@ -10,7 +10,8 @@
 
 <!-- mypage로 실행 -->
 	<script type="text/javascript">
-		location.href="mypage.do"
+		location.href="home.do"
+//		location.href="home.do"
 	</script>
 
 </body>

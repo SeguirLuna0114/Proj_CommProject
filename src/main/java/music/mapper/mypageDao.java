@@ -47,7 +47,7 @@ public interface mypageDao {
 	public List<jobBoardVO> findAllJobDatas();
 	
 	// 페이지 처리
-	public PagingVO paging(@Param("keywordDto")KeywordVO keywordVO);
+//	public PagingVO paging(@Param("keywordDto")KeywordVO keywordVO);
 
     
 // 구인 현황 상세페이지

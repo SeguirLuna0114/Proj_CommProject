@@ -20,6 +20,6 @@ public class StatusCountVO {
     private Integer jobstatusAll;
     // 구인(진행중) 현황
     private Integer jobstatusCont;
-    // 구인(컨택완료=승인&불합격) 현황
+    // 구인(컨택완료=승인) 현황
     private Integer jobstatusFin;
 }

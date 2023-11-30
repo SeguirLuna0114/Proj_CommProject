@@ -67,38 +67,38 @@ public class mypageSerciveImpl implements mypageService {
 	}
 	
 	// 구인 현황 - 페이지 처리
-	public PagingJobManageVO pagingViewBoard(String id, Integer page) {
-		if(page == null) {
-			page = 0;
-		}
-		// 변수 설정
-		int startNum = page * 5;
-
-		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
-		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
-
-		return pagingJobManageVO;
-	}
+//	public PagingJobManageVO pagingViewBoard(String id, Integer page) {
+//		if(page == null) {
+//			page = 0;
+//		}
+//		// 변수 설정
+//		int startNum = page * 5;
+//
+//		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
+//		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
+//
+//		return pagingJobManageVO;
+//	}
 // 페이지 처리
-	public PagingVO paging(KeywordVO keywordVO) {
-		PagingVO paging = myDao.paging(keywordVO);
-
-		final int blockCount = 16;
-		int currentBlock = keywordVO.getPage()/ blockCount;
-		int startPageNum = 1 + blockCount * currentBlock;
-		int lastPageNum = 16 + blockCount * currentBlock;
-		
-		if(paging.getTotalPage() < lastPageNum) {
-			lastPageNum = paging.getTotalPage();
-		}
-		
-		paging.setBlockCount(blockCount);
-		paging.setCurrentBlock(currentBlock);
-		paging.setStartPageNum(startPageNum);
-		paging.setLastPageNum(lastPageNum);	
-
-		return paging;
-	}
+//	public PagingVO paging(KeywordVO keywordVO) {
+//		PagingVO paging = myDao.paging(keywordVO);
+//
+//		final int blockCount = 16;
+//		int currentBlock = keywordVO.getPage()/ blockCount;
+//		int startPageNum = 1 + blockCount * currentBlock;
+//		int lastPageNum = 16 + blockCount * currentBlock;
+//		
+//		if(paging.getTotalPage() < lastPageNum) {
+//			lastPageNum = paging.getTotalPage();
+//		}
+//		
+//		paging.setBlockCount(blockCount);
+//		paging.setCurrentBlock(currentBlock);
+//		paging.setStartPageNum(startPageNum);
+//		paging.setLastPageNum(lastPageNum);	
+//
+//		return paging;
+//	}
 
 
 // 지원 현황 리스트 페이지(applyStatus)

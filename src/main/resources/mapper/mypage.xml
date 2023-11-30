@@ -8,14 +8,9 @@
 
 <!-- 회원 개인정보 -->
 	<!-- profile : 회원정보 게시판(member) + PR게시판 Join -->
-	<!-- member(userId) & prBoard(userId) => UserInfoVO클래스 객체 : id값이 같은 유저 정보 가져옴(From prBoard pr LEFT OUTER JOIN member us) -->
-	<select id="findUser" resultType="userInfo">
-		SELECT us.userId, us.userPw, us.userName, us.userPhone,
-		us.userEmail, us.userMajor, us.userGru, us.userUpdate,
-
-		pr.prNo, pr.prSub, pr.prText, pr.prRcount, pr.prMajor,
-		pr.prLoc, pr.prCareer, pr.prVideo,
-		pr.prFile, pr.prHash, pr.prUpdate,
+	<select id="findUser" resultType="UserInfo">
+		SELECT us.userId, us.userPw, us.userName, us.userPhone, us.userEmail,
+		pr.prFile, pr.prMajor 
 		<!-- 회원 테이블 기준 -->
 		FROM member us
 		LEFT OUTER JOIN prBoard pr
@@ -26,108 +21,272 @@
 		AND pr.prDelYn != 'Y' AND us.userDelYn != 'Y'
 	</select>
 
-
 	<!-- 특정 사용자(#{id})에 대한 여러 정보 count를 조회 -->
-	<select id="InfoCountById" resultType="InfoCount">
-		SELECT 
-			COUNT(IFNULL(appst.state, 0)) AS statusAll,
-			(SELECT COUNT(IFNULL(lik.wanted_id, 0)) AS likesCount
-			FROM likes lik
-			WHERE lik.user_id = #{id}) AS likesCount,
-			(SELECT COUNT(IFNULL(subs.company_id, 0)) AS subscribesCount
-			FROM subscribes subs
-			WHERE subs.user_id = #{id}) AS subscribesCount,
-			(SELECT COUNT(IFNULL(req.wanted_id, 0)) AS requestsCount
-			FROM requests req
-			INNER JOIN resumes res ON req.resume_id = res.id
-			WHERE res.user_id = #{id}) AS requestsCount
-		FROM 
-			application_status appst
-			INNER JOIN resumes res ON appst.resume_id = res.id
-		WHERE 
-			res.user_id = #{id}
+	<select id="findInfoCounts" resultType="InfoCount">
+		SELECT us.userId,
+			(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS applystatusAll
+			FROM jobApp japp
+			WHERE japp.userId = #{id}) AS applystatusAll,
+			(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS jobstatusAll
+			FROM jobApp japp
+			INNER JOIN jobBoard jboard
+			ON jboard.jobNo = japp.jobNo
+			WHERE jboard.userId = #{id}) AS jobstatusAll,
+			(SELECT COUNT(CASE WHEN prlik.prLike = 1 THEN 1 ELSE NULL END) AS prlikesCount
+			FROM prLike prlik
+			WHERE prlik.userId = #{id}) AS prlikesCount,
+			(SELECT COUNT(CASE WHEN commlik.commLike = 1 THEN 1 ELSE NULL END) AS commlikesCount
+			FROM comLike commlik
+			WHERE commlik.userId = #{id}) AS commlikesCount,
+			(SELECT COUNT(CASE WHEN commb.commDelYn != 'Y' THEN 1 ELSE NULL END) AS commCountAll
+			FROM comBoard commb
+			WHERE commb.userId = #{id}) AS commCountAll,
+			(SELECT COUNT(CASE WHEN rcvmsg.readSt = 1 THEN 1 ELSE NULL END) AS messagesCount
+			FROM msg rcvmsg
+			WHERE rcvmsg.recvId = #{id}) AS messagesCount,		
+		FROM member us
+		WHERE us.userId = #{id}
 	</select>
 
-
-<!-- 구인게시판 -->
-	<!-- 인기있는 구인공고(job) List 추천 -->
-	<select id="recJob" resultType="JobInfo">
-		SELECT job.jobNo, job.jobCd, job.jobSpace, job.jobAddress,
-		job.jobPlace, job.jobEndDate, job.jobConcert, job.jobSub,
-		job.jobText, job.jobRcount,
-
-		COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS applyCount
-		<!-- COUNT(japp.appNo) AS applyCount -->
-		
+	<!-- 인기있는 구인공고(job) 상위 4개 추천 -->
+	<select id="findrecJob" resultType="JobInfo">
+		SELECT ROWNUM AS no, jobrec.*
+		FROM (SELECT subjobrec.* 
+		FROM (SELECT job.jobNo, job.userId, job.jobSub,
+		job.jobText, job.jobConcert, job.jobPlace, 
+		job.jobWriter, job.jobCd
 		FROM jobBoard job
+		WHERE job.jobEndDate > SYSDATE AND job.jobDelYn != 'Y'
+		ORDER BY job.jobRcount DESC) subjobrec
+		WHERE ROWNUM &lt; 5) jobrec
+	</select>
+	
+	<!-- 지원/구인현황 관련 횟수 -->
+	<select id="findCounts" resultType="StatusCount">
+		SELECT us.userId,
+		<!-- 지원 관련 -->
+		(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS applystatusAll
+		FROM jobApp japp
+		WHERE japp.userId = #{id}) AS applystatusAll,
+		(SELECT COUNT(CASE WHEN japp.appDone = 'Y' THEN 1 ELSE NULL END) AS appstatusCont
+		FROM jobApp japp
+		WHERE japp.userId = #{id} AND japp.appDelYn != 'Y' AND japp.appCheck = 'N') AS appstatusCont,		
+		(SELECT COUNT(CASE WHEN japp.appCheck = 'Y' THEN 1 ELSE NULL END) AS appstatusFin
+		FROM jobApp japp
+		WHERE japp.userId = #{id} AND japp.appDelYn != 'Y' AND japp.appDone = 'Y') AS appstatusFin,			
 		
-		INNER JOIN jobApp japp
-		ON job.jobNo = japp.jobNo
+		<!-- 구인 관련 -->
+		(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS jobstatusAll
+		FROM jobApp japp
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = japp.jobNo
+		WHERE jboard.userId = #{id}) AS jobstatusAll,
+		(SELECT COUNT(CASE WHEN japp.appDone = 'Y' THEN 1 ELSE NULL END) AS jobstatusCont
+		FROM jobApp japp
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = japp.jobNo
+		WHERE jboard.userId = #{id} AND japp.appDelYn != 'Y' AND japp.appCheck = 'N') AS jobstatusCont,	
+		(SELECT COUNT(CASE WHEN japp.appCheck = 'Y' THEN 1 ELSE NULL END) AS jobstatusFin
+		FROM jobApp japp
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = japp.jobNo
+		WHERE jboard.userId = #{id} AND japp.appDelYn != 'Y' AND japp.appDone = 'Y') AS jobstatusFin		
 
-		<!-- LEFT OUTER JOIN member us
-		ON job. = us.userMajor -->
-
-		WHERE job.jobEndDate > NOW() 
-		AND job.jobDelYn != 'Y' AND job.jobFin != 'Y'
-
-	    GROUP BY 
-	    job.jobNo, job.jobCd, job.jobSpace, job.jobAddress,
-	    job.jobPlace, job.jobEndDate, job.jobConcert, job.jobSub,
-	    job.jobText, job.jobRcount
-
-		ORDER BY applyCount DESC
-		LIMIT 4
+		FROM member us
+		WHERE us.userId = #{id}
 	</select>
 
 
-
-
-	<!-- 구인게시판에 글/댓글 작성 전체 목록 출력
-		 구인게시판(jobBoard :job)와 구인게시판댓글(jobReply: apps)을 Join, userId로 회원 조회 -->
-	<select id="findAll" resultType="music.model.StatusInfoDto">
-		SELECT apps.id id, apps.wanted_id wantedId,
-		apps.resume_id resumeId,
-		apps.state state,
-		apps.created created, wan.position_code_id
-		positionCodeId,
-		wan.company_id companyId, com.company_name
-		companyName,
-		poco.name positionCodeName,
-		res.user_id userId
+	<!-- 구인 페이지 관련 -->
+	<select id="findAllBoards" resultType="jobBoard">
+		SELECT jobB.jobNo, jobB.userId, jobB.jobCd, 
+		jobB.jobPlace, jobB.jobSub, jobB.jobText, 
+		CASE WHEN jobB.jobFin = 'Y' THEN '완료' ELSE '진행중' END AS jobFin
 		
-		<!-- 지원(jobReply) 테이블 기준 -->
-		FROM jobReply apps
+		FROM jobBoard jobB
+		WHERE jobB.userId = #{id} AND jobB.jobDelYn != 'Y'
+	</select>
+	
+	<select id="findAllJobDatas" resultType="jobBoard">
+		SELECT jobB.jobNo, jobB.userId, jobB.jobCd, 
+		jobB.jobPlace, jobB.jobSub, jobB.jobText, 
+		CASE WHEN jobB.jobFin = 'Y' THEN '완료' ELSE '진행중' END AS jobFin
 		
-		<!-- 테이블 Join -->
-		INNER JOIN wanteds
-		wan
-		ON apps.wanted_id = wan.id
-		INNER JOIN companys com
-		ON wan.company_id = com.id
-		INNER JOIN positions_code poco
-		ON wan.position_code_id = poco.id
-		INNER jobApp apps
-		JOIN resumes res
-		ON apps.resume_id = res.id
+		FROM jobBoard jobB
+	</select>
+	
+	<!-- 페이지 처리 -->
+<!-- 	
+	<select id="paging" resultType="Paging">
+		SELECT totalCount, totalPage, currentPage,
+		if(currentPage = 0, 1, 0) isFirst,
+		if(currentPage = totalPage - 1, 1, 0) isLast
 		
-		<!-- 지원테이블 유저 id = 현재 조회를 시도하는 유저의 id -->
-		WHERE apps.user_id = #{id}
+		FROM
+		(SELECT COUNT(*) totalCount, CEIL(COUNT(*)/16) totalPage,
+		0 currentPage, 0 FIRST, 0 LAST
+		FROM jobBoard jB
+		LEFT OUTER JOIN companys c
+		ON w.company_id = c.id
 		
-		<!-- 만일, 검색창의 키워드 값이 존재한다면, 해당 값을 활용하여 조회 -->
-		<if test="keyword != null">
-			AND com.company_name LIKE CONCAT('%',#{keyword},'%')
+		LEFT OUTER JOIN positions_code pc
+		ON w.position_code_id = pc.id
+		
+		LEFT OUTER JOIN careers_code cc
+		ON w.career_code_id = cc.id
+		
+		WHERE w.enddate > sysdate
+		<if test="keywordDto != null">
+			<if test="keywordDto.positionsCodeNames != null and keywordDto.positionsCodeNames != '전체'">
+				AND pc.name = #{keywordDto.positionsCodeNames}
+			</if>
+			<if test="keywordDto.regionsCodeNames != null and keywordDto.regionsCodeNames != '전체'">
+				AND c.region_code_name = #{keywordDto.regionsCodeNames}
+			</if>
+			<if test="keywordDto.CarrerCodeNames != null and keywordDto.CarrerCodeNames != '전체'">
+				AND cc.name = #{keywordDto.CarrerCodeNames}
+			</if>
+			<if test="keywordDto.skillsCodeNames != null">
+				
+			</if>
 		</if>
-		<!-- 해당 글을 구인글에 최근에 작성한 댓글 순으로 정렬 -->
-		ORDER BY apps.jobReDate DESC
+		) result	
+	
+	</select> -->
+
+
+
+	<!-- 구인 현황 페이지 관련 -->
+	<select id="findAllStat" resultType="StatusInfo">
+		SELECT apps.jobNo, jboard.userId AS job_userId,
+		jboard.jobCd, jboard.jobFin, jboard.jobEndDate, jboard.jobSub, 
+		apps.userId AS userId, apps.appCheck, apps.appDone, apps.appDelYn,
+		apps.appName
+		FROM jobApp apps
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = apps.jobNo
+			
+		WHERE apps.userId = #{id}
+		<if test="keyword != null">
+			AND jboard.jobSub LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY apps.jobNo DESC
 	</select>
 
+	<select id="findWaitingStat" resultType="StatusWaitingInfo">
+		SELECT apps.jobNo, jboard.userId AS job_userId,
+		jboard.jobCd, jboard.jobFin, jboard.jobEndDate, jboard.jobSub, 
+		apps.userId AS userId, apps.appCheck, apps.appDone, apps.appName
+		FROM jobApp apps
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = apps.jobNo
+			
+		WHERE apps.userId = #{id} 
+		AND apps.appDelYn != 'Y' AND apps.appCheck != 'Y' AND apps.appDone = 'Y'
+		<if test="keyword != null">
+			AND jboard.jobSub LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY apps.jobNo DESC
+	</select>
+	
+	<select id="findFinStat" resultType="StatusFinalInfo">
+		SELECT apps.jobNo, jboard.userId AS job_userId,
+		jboard.jobCd, jboard.jobFin, jboard.jobEndDate, jboard.jobSub, 
+		apps.userId AS userId, apps.appCheck, apps.appDone, apps.appName
+		FROM jobApp apps
+		INNER JOIN jobBoard jboard
+		ON jboard.jobNo = apps.jobNo
+			
+		WHERE apps.userId = #{id} 
+		AND apps.appDelYn != 'Y' AND apps.appCheck = 'Y' AND apps.appDone = 'Y'
+		<if test="keyword != null">
+			AND jboard.jobSub LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY apps.jobNo DESC
+	</select>
 
-
-
-
-
-
-
+	
+	<!-- 좋아요 설정 관련 -->
+	<select id="findLikesComm" resultType="LikesListComm">
+		SELECT commlik.userId, commlik.commLikeNo, commlik.commNo,
+		commB.userId AS writerId, commB.commFile, commB.commSub,
+		commB.commText, 
+		CASE WHEN commlik.commLike = 1 THEN '좋아요' ELSE '좋아요 취소' END AS commLikestat,
+		us.userName AS writerName, pr.prFile
+		
+		FROM comLike commlik
+		LEFT OUTER JOIN comBoard commB
+		ON commB.commNo = commlik.commNo
+		LEFT OUTER JOIN member us
+		ON commB.userId = us.userId
+		LEFT OUTER JOIN prBoard pr
+		ON pr.userId = us.userId
+		
+		WHERE commlik.userId = #{id} AND commlik.commLike = 1
+	</select>
+	
+	<select id="findLikesPR" resultType="LikesListPR">
+		SELECT prlik.userId, prlik.prLikeNo, prlik.prNo,
+		CASE WHEN prlik.prLike = 1 THEN '좋아요' ELSE '좋아요 취소' END AS prLikestat,
+		prB.userId AS prwriterId, prB.prFile, prB.prSub, prB.prText,
+		prB.prCareer, prB.prMajor
+		
+		FROM prLike prlik
+		LEFT OUTER JOIN prBoard prB
+		ON prB.prNo = prlik.prNo
+		
+		WHERE prlik.userId = #{id} AND prlik.prLike = 1		
+	</select>
+	
+	<select id="findAllPrDatas" resultType="PrBoard">
+		SELECT prB.prCareer, prB.prMajor, prB.prLoc, prB.prHash
+		FROM prBoard prB
+	</select>
+	
+	
+	<!-- 커뮤니티 글 관리 -->
+	<select id="findCommList" resultType="CommInfo">
+		SELECT commB.commNo, commB.userId, commB.commSub, commB.commText,
+		commB.commCount, commB.commUpdate, 
+		(SELECT COUNT(CASE WHEN comrply.commReDelYn != 'Y' THEN 1 ELSE NULL END) AS replyCnt
+		FROM comReply comrply
+		INNER JOIN comBoard comm
+		ON comrply.commNo = comm.commNo
+		WHERE comm.userId = 'test2' AND comm.commDelYn != 'Y') AS replyCnt,
+		(SELECT COUNT(CASE WHEN comlik.commLike = 1 THEN 1 ELSE NULL END) AS likeCnt
+		FROM comLike comlik
+		LEFT OUTER JOIN comBoard comm
+		ON comlik.commNo = comm.commNo
+		WHERE comm.userId = 'test2' AND comm.commDelYn != 'Y') AS likeCnt
+		
+		FROM comBoard commB
+		WHERE commB.userId = #{id} AND commB.commDelYn != 'Y'
+		<if test="keyword != null">
+			AND commB.commSub LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY commB.commNo DESC
+	</select>
+	
+	<select id="findCommReplyList" resultType="CommReplyInfo">
+		SELECT comrply.commReNo, comrply.commReId, comrply.commReText,
+		comrply.commReUpdate, comrply.commReDelYn,
+		commBo.commSub,
+		
+		(SELECT COUNT(CASE WHEN replyc.commReDelYn != 'Y' THEN 1 ELSE NULL END) AS commreplyCnt
+		FROM comReply replyc
+		INNER JOIN comBoard boardc
+		ON replyc.commNo = boardc.commNo
+		WHERE replyc.commReId = #{id}) AS commreplyCnt
+		
+		FROM comReply comrply
+		INNER JOIN comBoard commBo
+		ON comrply.commNo = commBo.commNo
+		WHERE comrply.commReId = #{id} AND comrply.commReDelYn != 'Y'
+		<if test="keyword != null">
+			AND commBo.commSub LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY comrply.commReUpdate DESC
+	</select>
 
 
 

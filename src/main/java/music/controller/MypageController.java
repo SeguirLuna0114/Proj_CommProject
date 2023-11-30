@@ -33,6 +33,11 @@ public class MypageController {
 	private mypageService myService;
 	// 세션에 데이터 저장하기 위해 사용
 	private HttpSession session;
+	
+	@RequestMapping("home.do")
+	public String homeList() {
+		return "home";
+	}
 
 // 마이페이지 메인(지원/구인)
 	// 지원 현황 마이페이지 메인으로 이동
@@ -45,7 +50,8 @@ public class MypageController {
 	
 	// 구인 현황 마이페이지 메인으로 이동
 	@RequestMapping("mypage_JobBoard.do")
-	public String mypageJob(@RequestParam String id, Model model, Integer page) {
+	public String mypageJob(@RequestParam String id, Model model) {
+//		public String mypageJob(@RequestParam String id, Model model, Integer page) {
 		// 구인 현황 데이터 가져오기 위함
 		InfoAllVO infoAllDto = myService.viewMyPage(id);
 		model.addAttribute("infoAllDto", infoAllDto);
@@ -59,8 +65,8 @@ public class MypageController {
 		model.addAttribute("jobLists", jobLists);
 
 		// 페이징 처리
-		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
-		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
+//		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
+//		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
 
 		return "mypage/mypage/mypage_JobBoard";
 	}	
@@ -124,7 +130,8 @@ public class MypageController {
 	
 	// 좋아요 설정한 PR글 리스트
 	@RequestMapping("likeListsPR.do")
-	public String likeListsPR(@RequestParam String id, Model model, Integer page) {
+	public String likeListsPR(@RequestParam String id, Model model) {
+//		public String likeListsPR(@RequestParam String id, Model model, Integer page) {
 		List<LikesListPRVO> likesListPR = myService.viewLikeListPR(id);
 		model.addAttribute("likesListPR", likesListPR);
 		
@@ -133,8 +140,8 @@ public class MypageController {
 		model.addAttribute("allPrDatas", allPrDatas);
 		
 		// 페이징 처리
-		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
-		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
+//		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
+//		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
 		
 		return "mypage/like/likeListsPR";
 	}
@@ -155,7 +162,7 @@ public class MypageController {
 	}
 	
 	// 작성한 커뮤니티 댓글 리스트
-	@RequestMapping("commWroteAll.do")
+	@RequestMapping("commReplyWrote.do")
 	public String commReplyLists(@RequestParam String id, Model model, String keyword) {
 		CommReplysVO commReplysVO = myService.viewCommReplyLists(id, keyword);
 		model.addAttribute("commReplysVO", commReplysVO);
