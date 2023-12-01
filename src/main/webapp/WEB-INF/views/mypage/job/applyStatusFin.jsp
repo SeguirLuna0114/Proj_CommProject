@@ -2,14 +2,11 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
 <head>
-  <!-- 지원현황 최종 페이지 css 설정 -->
   <link href="${path}/css/application_status_final.css" rel="stylesheet" />
 
-  <!-- 지원현황 관련 js파일 -->
   <script src="${path}/js/applyStatus.js"></script>
 </head>
 
-<!-- 지원현황 페이지 - 최종(진행상태=합격) 지원현황 -->
 <div id="wrap">
   <div id="asf_wrap">
     <div class="asf_menu">
@@ -63,7 +60,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
         </form>
       </div>
 
-      <!-- 완료된 지원내역을 표로 출력 -->
       <div>
         <table class="asf_table">
           <thead>
@@ -80,13 +76,9 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
               items="${StatusFinalVO.statusFinalInfoVOs}"
             >
               <tr>
-                <!-- 지원 공고 명 -->
                 <td><a href="#">${statusFinalInfoVOs.jobSub}</a></td>
-                <!-- 지원한 포지션 유형 -->
                 <td>${statusWaitingInfoDtos.jobCd}</td>
-                <!-- 모집 마감일 -->
                 <td>${statusWaitingInfoDtos.jobEndDate}</td>
-                <!-- 진행상태가 "승인"인 공고만 출력 -->
                 <td>
                   <p class="pass">승인</p>
                 </td>

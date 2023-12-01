@@ -4,7 +4,6 @@
 <head>
 <link href="${path}/css/proposal.css?after" rel="stylesheet">
 
-<!-- 커뮤니티 관련 js파일 -->
 <script src="${path}/js/commWroteList.js"></script>
 </head>
 
@@ -41,14 +40,9 @@
 					<tbody>
 						<c:forEach var="commReplyInfoVOs" items="${commReplysVO.commReplyInfoVOs}">
 							<tr>
-								<!-- 댓글로 이동 -->
-								<!-- 댓글 상세내용 -->
 								<td><a href="?commReNo=${commReplyInfoVOs.commReNo}">${commReplyInfoVOs.commReText}</a></td>
-								<!-- 댓글 단 글의 제목 -->
 								<td>${commReplyInfoVOs.commSub}</td>
-								<!-- 댓글 단 글의 댓글 수 -->
 								<td><p class="cnt_highlight">${commReplyInfoVOs.commreplyCnt}</p></td>
-								<!-- 해당 댓글 수정일 -->
 								<td>${commReplyInfoVOs.commReUpdate}</td>
 							</tr>
 						</c:forEach>

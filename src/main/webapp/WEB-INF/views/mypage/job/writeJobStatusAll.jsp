@@ -2,14 +2,11 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
 <head>
-  <!-- 지원현황 페이지 css 설정 -->
   <link href="${path}/css/application_status_all.css" rel="stylesheet" />
 
-  <!-- 구인 현황 관련 js파일 -->
   <script src="${path}/js/writejobstatus.js"></script>
 </head>
 
-<!-- 구인현황 페이지 - 전체 구인현황 -->
 <div id="wrap">
   <div id="asa_wrap">
     <div class="asa_menu">
@@ -77,22 +74,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <tbody>
             <c:forEach var="statusInfoVOs" items="${jobstatusAllVO.statusInfoVOs}">
               <tr>
-                <!-- 작성 공고 제목 -->
                 <td>
                   <a href="#?jobNo=${statusInfoVOs.jobNo}"
                     >${statusInfoVOs.jobSub}</a
                   >
                 </td>
-                <!-- 신청자 이름 -->
                 <td>${statusInfoVOs.appName}(${statusInfoVOs.userId})</td>
-                <!-- 모집 마감일 -->
                 <td>${statusInfoVOs.jobEndDate}</td>
-                <!-- 모든 진행상태 공고 출력 -->
                 <td>
                   <c:choose>
-                    <!-- <c:when test="${statusInfoVOs.state == 0}">
-                      <p class="waiting">대기중</p>
-                    </c:when> -->
                     <c:when test="${statusInfoVOs.appCheck == Y}">
                       <p class="pass">승인</p>
                     </c:when>
@@ -113,5 +103,4 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
   </div>
 </div>
 
-<!-- footer -->
 <%@ include file="../layout/footer.jsp"%>

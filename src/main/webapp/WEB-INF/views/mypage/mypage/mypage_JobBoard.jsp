@@ -7,7 +7,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
   <link href="${path}/css/proposal.css" rel="stylesheet" />
   <link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
 
-  <!-- select option에 따른 page shift -->
   <script src="${path}/js/mypageShift.js"></script>
 </head>
 
@@ -34,7 +33,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             </div>
           </c:forEach>
 
-          <!-- JobBoard에 작성한/지원한 공고 select -->
           <div class="cp_menu">
             <select
               name="cp_option"
@@ -53,27 +51,26 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <c:forEach var="infoCountVOs" items="${infoAllDto.infoCountVOs}">
             <ul>
               <li>
-                <a href="writeJobStatusAll.do?id=${principal.id}">
+                <a href="writeJobStatusAll.do?id=${id}">
                   <div class="cp_status_li2">구인 현황</div>
                   <div>${infoCountVOs.jobstatusAll}</div>
                 </a>
               </li>
               <li>
-                <a href="likeListsPR.do?id=${principal.id}">
+                <a href="likeListsPR.do?id=${id}">
                   <div class="mp_status_li2">좋아요 한 PR</div>
                   <div>${infoCountVOs.prlikesCount}</div>
                 </a>
               </li>
-              <!-- 보낸 쪽지함으로 이동 -->
               <li>
-                <a href="messagebox_send.do?id=${principal.id}">
+                <a href="messagebox_send.do?id=${id}">
                   <div class="mp_status_li3">쪽지함</div>
                   <p class="proposal_notifications"></p>
                   <div>${infoCountVOs.messagesCount}</div>
                 </a>
               </li>
               <li>
-                <a href="commWroteAll.do?id=${principal.id}">
+                <a href="commWroteAll.do?id=${id}">
                   <div class="mp_status_li4">커뮤니티</div>
                   <div>${infoCountVOs.commCountAll}</div>
                 </a>
@@ -81,21 +78,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             </ul>
           </c:forEach>
         </div>
-        <!-- end mp_status -->
       </div>
-      <!-- end mp_info -->
-
-      <!-- 작성한 글 관리 -->
-      <!-- <div class="btn_proposal">
-            <button>
-              <a href="./commWroteAll.html">커뮤니티 글 관리</a>
-            </button>
-          </div>
-          <div class="btn_application">
-            <button>
-              <a href="#">PR 글 관리</a>
-            </button>
-          </div> -->
 
       <div class="logout">
         <button>
@@ -104,7 +87,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       </div>
     </div>
 
-    <!-- 본문 내용 -->
     <div class="cp_contents">
       <div class="cp_applications">
         <a
@@ -119,7 +101,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
         </a>
 
         <div class="cp_search">
-          <!-- 공고 작성하는 페이지로 이동-->
           <a href="#" class="subtitle_btn"> 구인공고 작성 </a>
 
           <div class="cp_select">
@@ -146,44 +127,18 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             <div class="cp_content_item">
               <div class="cp_item_top">
                 <div class="cp_item_wanted">
-                  <!-- 해당 공고로 이동 -->
                   <a href="#" class="cp_wanted_link">
-                    <!-- 공고 제목 -->
                     <p class="wanted_title">${jobLists.jobsub}</p>
-                    <!-- 공고 세부사항(내용) -->
                     <p class="wanted_discribes">${jobLists.jobtext}</p>
                   </a>
                 </div>
-                <!-- 공고 진행상태(진행중, 마감) -->
                 <div class="cp_item_state">${jobLists.state}</div>
               </div>
               <div class="cp_item_bot">
-                <!-- 공고 수정 페이지로 이동 -->
                 <a href="#" class="cp_wanted_modify">수정하기</a>
               </div>
             </div>
           </c:forEach>
-
-          <!-- 페이지 설정 -->
-          <div class="paging">
-            <ul class="pagination">
-              <li class='page-item-prev${pagingJobManageVO.pagingVO.isFirst ? "hidden" : ""}'>
-                <a href="mypage_JobBoard.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a>
-              </li>
-              <c:forEach
-                var="num"
-                begin="${pagingJobManageVO.pagingVO.startPageNum}"
-                end="${pagingJobManageVO.pagingVO.lastPageNum}"
-              >
-                <li class='page-item${pagingJobManageVO.pagingVO.currentPage + 1 == num ? "-select" : ""}'>
-                  <a href="mypage_JobBoard.do?id=${id}&page=${num-1}">${num}</a>
-                </li>
-              </c:forEach>
-              <li class='page-item-next${pagingJobManageVO.pagingVO.isLast ? "-hidden" : ""}'>
-                <a href="mypage_JobBoard.do?id=${id}&page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

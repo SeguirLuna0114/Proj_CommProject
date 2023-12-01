@@ -36,7 +36,7 @@ public class MypageController {
 	private HttpSession session;
 	
 	@RequestMapping("home.do")
-	public String homeList() {
+	public String member_logint() {
 		return "member_login";
 	}
 

@@ -4,7 +4,6 @@
 <head>
 <link href="${path}/css/proposal.css?after" rel="stylesheet">
 
-<!-- 커뮤니티 관련 js파일 -->
 <script src="${path}/js/commWroteList.js"></script>
 </head>
 
@@ -43,17 +42,11 @@
 					<tbody>
 						<c:forEach var="commInfoVOs" items="${commsVO.commInfoVOs}">
 							<tr>
-								<!-- 커뮤니티 글 제목으로 이동 -->
 								<td><a href="#?commNo=${commInfoVOs.commNo}">${commInfoVOs.commSub}</a></td>
-								<!-- 커뮤니티 글 상세내용 -->
 								<td>${commInfoVOs.commText}</td>
-								<!-- 커뮤니티 글 조회수 -->
 								<td>${commInfoVOs.commCount}</td>
-								<!-- 해당 글 댓글수 -->
 								<td><p class="cnt_highlight">${commInfoVOs.replyCnt}</p></td>
-								<!-- 해당 글 좋아요 수 -->
 								<td><p class="cnt_highlight">${commInfoVOs.likeCnt}</p></td>
-								<!-- 해당 글 수정일 -->
 								<td>${commInfoVOs.commUpdate}</td>
 							</tr>
 						</c:forEach>

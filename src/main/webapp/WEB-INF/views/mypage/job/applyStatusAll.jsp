@@ -2,14 +2,11 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
 <head>
-  <!-- 지원현황 페이지 css 설정 -->
   <link href="${path}/css/application_status_all.css" rel="stylesheet" />
 
-  <!-- 지원현황 관련 js파일 -->
   <script src="${path}/js/applyStatus.js"></script>
 </head>
 
-<!-- 지원현황 페이지 - 전체 지원현황 -->
 
 <div id="wrap">
   <div id="asa_wrap">
@@ -75,7 +72,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <tbody>
             <c:forEach var="statusInfoVOs" items="${statusAllVO.statusInfoVOs}">
               <tr>
-                <!-- 지원한 공고 상세페이지로 이동 -->
                 <td>
                   <a href="#?jobNo=${statusInfoVOs.jobNo}"
                     >${statusInfoVOs.jobSub}</a
@@ -85,9 +81,6 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
                 <td>${statusInfoVOs.jobEndDate}</td>
                 <td>
                   <c:choose>
-                    <!-- <c:when test="${statusInfoVOs.state == 0}">
-                      <p class="waiting">대기중</p>
-                    </c:when> -->
                     <c:when test="${statusInfoVOs.appCheck == Y}">
                       <p class="pass">승인</p>
                     </c:when>
@@ -108,5 +101,4 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
   </div>
 </div>
 
-<!-- footer -->
 <%@ include file="../layout/footer.jsp"%>

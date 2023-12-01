@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class InfoCountVO {
 	// user(회원) 별 횟수 데이터
-    private Integer id;
+    private String id;
     // statusAll
     // 전체 지원 현황
     private Integer applystatusAll;
