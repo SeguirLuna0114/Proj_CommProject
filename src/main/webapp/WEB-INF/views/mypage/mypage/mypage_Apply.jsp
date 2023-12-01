@@ -129,7 +129,6 @@
 		<div class="mp_position">
 			<p class="mp_position_title">프로필</p>
 			<div class="mp_pro_contents">
-				<!-- PR게시판에 작성한 내용 중, 내용, 전공, 지역, 경력, 영상, 첨부파일, 해시태그 -->
 				<c:forEach var="userInfoVOs" items="${infoAllDto.userInfoVOs}">
 					<c:choose>
 						<c:when test="${userInfoVOs.userPosition eq null}">
@@ -162,15 +161,14 @@
 						<a href="#">
 							<div class="mp_reco${jobInfoVOs.no}_1">
 								<img src="https://picsum.photos/250/250" />
-								<!-- 공고의 모집분야 별 이미지 -->
-<%-- 								<c:if test="${!empty jobInfoVO.photo}">
+							</div> 
+<%-- 								
+								<c:if test="${!empty jobInfoVO.photo}">
 									<img src="${path}/upload/${jobInfoVO.photo}" />
 								</c:if>
 								<c:if test="${empty jobInfoVO.photo}">
-									<!-- 디폴트 이미지 -->
 									<img src="https://picsum.photos/250/250" />
 								</c:if> --%>
-							</div> 
 							
 							<!-- 해당 공고 제목 -->
 							<p class="mp_reco_com_title">${jobInfoVOs.jobSub}</p> 

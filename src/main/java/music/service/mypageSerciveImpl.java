@@ -48,6 +48,11 @@ public class mypageSerciveImpl implements mypageService {
 
 		// 해당 객체에 담아서 모든 정보 반환
 		InfoAllVO infoAllDto = new InfoAllVO();
+        infoAllDto.setUserInfoVOs(userInfos);
+        infoAllDto.setInfoCountVOs(infoCounts);
+        infoAllDto.setJobInfoVOs(recJobInfos);
+        infoAllDto.setStatusCountVOs(statCounts);
+
 		return infoAllDto;
 	}
 

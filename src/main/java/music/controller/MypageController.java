@@ -32,11 +32,12 @@ public class MypageController {
 	@Autowired
 	private mypageService myService;
 	// 세션에 데이터 저장하기 위해 사용
+	@Autowired
 	private HttpSession session;
 	
 	@RequestMapping("home.do")
 	public String homeList() {
-		return "home";
+		return "member_login";
 	}
 
 // 마이페이지 메인(지원/구인)

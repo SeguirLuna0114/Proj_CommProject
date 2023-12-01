@@ -10,8 +10,8 @@
 
 <!-- mypage로 실행 -->
 	<script type="text/javascript">
+//		location.href="mypage_Apply.do"
 		location.href="home.do"
-//		location.href="home.do"
 	</script>
 
 </body>
