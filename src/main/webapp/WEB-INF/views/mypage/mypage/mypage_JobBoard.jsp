@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
+pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="path" value="${pageContext.request.contextPath }" />
 
 <head>
   <link href="${path}/css/mypage.css" rel="stylesheet" />
@@ -7,7 +10,21 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
   <link href="${path}/css/proposal.css" rel="stylesheet" />
   <link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
 
-  <script src="${path}/js/mypageShift.js"></script>
+<script>
+var userId = ${id};
+console.log(userId+'확인');
+
+function changePage() {
+  var select = document.getElementById("cp_option_select");
+  var selectedValue = select.options[select.selectedIndex].value;
+
+  if (selectedValue === "applyStatus_main") {
+    window.location.href = "mypage_Apply.do?id=" + userId;
+  } else if (selectedValue === "recruitStatus_main") {
+    window.location.href = "mypage_JobBoard.do?id=" + userId;
+  }
+}
+</script>
 </head>
 
 <div id="wrap">
@@ -128,11 +145,11 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
               <div class="cp_item_top">
                 <div class="cp_item_wanted">
                   <a href="#" class="cp_wanted_link">
-                    <p class="wanted_title">${jobLists.jobsub}</p>
-                    <p class="wanted_discribes">${jobLists.jobtext}</p>
+                    <p class="wanted_title">${wanteds.jobsub}</p>
+                    <p class="wanted_discribes">${wanteds.jobtext}</p>
                   </a>
                 </div>
-                <div class="cp_item_state">${jobLists.state}</div>
+                <%-- <div class="cp_item_state">${wanteds.state}</div> --%>
               </div>
               <div class="cp_item_bot">
                 <a href="#" class="cp_wanted_modify">수정하기</a>

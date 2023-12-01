@@ -25,19 +25,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asf_counts">
         <c:forEach var="statusCountVOs" items="${statusFinalVO.statusCountVOs}">
           <div class="asf_count_all">
-            <a href="applyStatusAll.do?id=${id}">
+            <a href="applyStatusAll.do?id=${id}&keyword=''">
               <p class="asf_all_count">${statusCountVOs.appstatusAll}</p>
               <p class="asf_all_text">전체</p>
             </a>
           </div>
           <div class="asf_count_c">
-            <a href="applyStatus.do?id=${id}">
+            <a href="applyStatus.do?id=${id}&keyword=''">
               <p class="asf_count">${statusCountVOs.appstatusCont}</p>
               <p class="asf_text">지원 완료</p>
             </a>
           </div>
           <div class="asf_count_final">
-            <a href="applyStatusFin.do?id=${id}">
+            <a href="applyStatusFin.do?id=${id}&keyword=''">
               <p class="asf_final_count">${statusCountVOs.appstatusFin}</p>
               <p class="asf_final_text">최종 컨택</p>
             </a>
@@ -48,14 +48,15 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asf_search">
         <form
           name="searchFinal"
-          action="applyStatusFin.do?id=${StatusFinalVO.userId}"
+          action="applyStatusFin.do"
         >
           <input
             type="text"
             placeholder="공고 제목 검색"
             name="keyword"
-            value="${StatusFinalVO.keyword}"
+            value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}"
           />
+          <input type="hidden" name="id" value="${statusFinalVO.userId}" />
           <button class="btn_search" type="submit"></button>
         </form>
       </div>
@@ -73,12 +74,12 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           <tbody>
             <c:forEach
               var="statusFinalInfoVOs"
-              items="${StatusFinalVO.statusFinalInfoVOs}"
+              items="${statusFinalVO.statusFinalInfoVOs}"
             >
               <tr>
                 <td><a href="#">${statusFinalInfoVOs.jobSub}</a></td>
-                <td>${statusWaitingInfoDtos.jobCd}</td>
-                <td>${statusWaitingInfoDtos.jobEndDate}</td>
+                <td>${statusFinalInfoVOs.jobCd}</td>
+                <td>${statusFinalInfoVOs.jobEndDate}</td>
                 <td>
                   <p class="pass">승인</p>
                 </td>

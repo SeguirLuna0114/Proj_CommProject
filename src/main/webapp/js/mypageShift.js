@@ -1,4 +1,5 @@
 var userId = "${id}";
+console.log(userId+'확인');
 
 function changePage() {
   var select = document.getElementById("cp_option_select");

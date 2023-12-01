@@ -48,15 +48,16 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asa_search">
         <form
           name="searchAll"
-          action="writeJobStatusAll.do?id=${jobstatusAllVO.userId}"
+          action="writeJobStatusAll.do"
         >
           <input
             id="keyword"
             placeholder="공고 제목 검색"
             type="text"
             name="keyword"
-            value="${jobstatusAllVO.keyword}"
+            value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}"
           />
+          <input type="hidden" name="id" value="${jobstatusAllVO.userId}" />
           <button class="btn_search" type="submit"></button>
         </form>
       </div>

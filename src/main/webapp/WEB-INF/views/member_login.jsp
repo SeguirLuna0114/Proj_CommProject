@@ -35,7 +35,7 @@
 <body>
  <div id="login_wrap">
   <h2 class="login_title">로그인</h2>
-  <form method="post" action="mypage_JobBoard.do"
+  <form method="post" action="likeListsComm.do"
   		onsubmit="return check()">
    <table id="login_t">
     <tr>
