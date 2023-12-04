@@ -43,7 +43,10 @@
 			WHERE commb.userId = #{id}) AS commCountAll,
 			(SELECT COUNT(CASE WHEN rcvmsg.readSt = 1 THEN 1 ELSE NULL END) AS messagesCount
 			FROM msg rcvmsg
-			WHERE rcvmsg.recvId = #{id}) AS messagesCount		
+			WHERE rcvmsg.recvId = #{id}) AS messagesCount,
+			(SELECT COUNT(CASE WHEN qna.qnaDelYn != 'Y' THEN 1 ELSE NULL END) AS QnACountAll
+			FROM qnaBoard qna
+			WHERE qna.userId = #{id}) AS QnACountAll					
 		FROM member us
 		WHERE us.userId = #{id}
 	</select>
@@ -288,9 +291,33 @@
 		ORDER BY comrply.commReUpdate DESC
 	</select>
 
-
-
-
+<!-- 삭제 설정 관련 -->
+	<!-- 커뮤니티 게시판 글 삭제 -->
+	<update id="deleteMyComms">
+		UPDATE comBoard SET commDelYn = 'Y'
+		WHERE userId = #{id} AND commNo IN
+		<foreach collection="delCommNoArr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>	
+	</update>
+	
+	<!-- 커뮤니티 댓글 삭제 -->
+	<update id="deleteMyComReplys">
+		UPDATE comReply SET commReDelYn = 'Y'
+		WHERE commReId = #{id} AND commReNo IN
+		<foreach collection="delCommReNoArr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>	
+	</update>
+	
+	<!-- 쪽지 선택 삭제 -->
+	<update id="deleteMSGs">
+		UPDATE msg SET msgDelYn = 'Y'
+		WHERE msgNo IN
+		<foreach collection="delmgsNoArr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>	
+	</update>
 
 
 

@@ -1,5 +1,6 @@
 package music.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 // Mapper클래스 사용
@@ -72,5 +73,11 @@ public interface mypageDao {
 	// 작성한 커뮤니티 댓글 리스트
 	public List<CommReplyInfoVO> findCommReplyList(@Param("id") String id, @Param("keyword") String keyword);	
 
+	
+// 체크박스 선택 시, 삭제
+	// 체크박스 여러개 선택 시, 커뮤니티 게시판 글 삭제
+	public int deleteMyComms(HashMap<String, Object> delCommNoArr);
+	// 체크박스 여러개 선택 시, 커뮤니티 댓글 삭제
+	public int deleteMyComReplys(HashMap<String, Object> delCommReNoArr);
 
 }

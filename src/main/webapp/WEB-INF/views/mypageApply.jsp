@@ -31,7 +31,6 @@
 						</div>
 					</c:forEach>
 
-					<!-- JobBoard에 작성한/지원한 공고 select -->
 					<div class="cp_menu">
 						<select name="cp_option" id="cp_option_select" onchange="changePage()">
 							<option value="applyStatus_main" selected="selected">지원 공고 관리</option>
@@ -64,23 +63,7 @@
 						</ul>
 					</c:forEach>
 				</div>
-				<!-- end mp_status -->
 			</div>
-			<!-- end mp_info -->
-
-          <!-- 작성한 글 관리 -->
-          <!-- <div class="btn_proposal">
-            <button>
-              <a href="#">작성 글 관리</a>
-            </button>
-          </div>
-          <div class="btn_application">
-            <button>
-              <a href="#">작성 댓글 관리</a>
-            </button>
-          </div> -->
-
-          <!-- <p class="application_notifications"></p> -->
 
 			<div class="logout">
 				<button>
@@ -88,16 +71,12 @@
 				</button>
 			</div>
 		</div>
-		<!-- end mypage -->
 
-
-		<!-- 페이지 contents -->
 		<div class="mp_contents">
 			<div class="mp_applications">
 				<c:forEach var="statusCountVOs" items="${infoAllDto.statusCountVOs}">
 					<p class="mp_application_title">지원 현황</p>
 					<div class="mp_application_counts">
-						<!-- 전체 지원현황 -->
 						<div class="mp_app_all">
 							<a href="applyStatusAll.do?id=${id}">
 								<p class="mp_all_count">${statusCountVOs.appstatusAll}</p>
@@ -105,18 +84,16 @@
 							</a>
 						</div>
 
-						<!-- 지원 완료 내역 -->
 						<div class="mp_app">
-							<a href="applyStatusAll.do?id=${id}">
-								<p class="mp_count">${statusCountDtos.appstatusCont}</p>
+							<a href="applyStatus.do?id=${id}">
+								<p class="mp_count">${statusCountVOs.appstatusCont}</p>
 								<p class="mp_text">지원 완료</p>
 							</a>
 						</div>
 
-						<!-- 지원한 공고에 합격한(승인된) 내역 -->
 						<div class="mp_app_final">
-							<a href="commStatusAll.do?id=${id}">
-								<p class="mp_final_count">${statusCountDtos.appstatusFin}</p>
+							<a href="applyStatusFin.do?id=${id}">
+								<p class="mp_final_count">${statusCountVOs.appstatusFin}</p>
 								<p class="mp_final_text">최종 합격</p>
 							</a>
 						</div>
@@ -125,71 +102,49 @@
 			</div>
 		</div>
 
-		<!-- pr게시판에 작성한 "가장 최근" 내용 불러오기 -->
 		<div class="mp_position">
 			<p class="mp_position_title">프로필</p>
 			<div class="mp_pro_contents">
 				<c:forEach var="userInfoVOs" items="${infoAllDto.userInfoVOs}">
 					<c:choose>
-						<c:when test="${userInfoVOs.userPosition eq null}">
-							<p class="mp_profile_position">
-								선호하는 <span>포지션</span>을 설정해주세요
-							</p>
+						<c:when test="${empty userInfoVOs.userPosition}">
+							<p class="mp_profile_position">선호하는 <span>포지션</span>을 설정해주세요</p>
 						</c:when>
 						<c:otherwise>
-							<p class="mp_profile_position">
-								현재 설정한 포지션은 <span><b>${userInfoVOs.userPosition}</b></span>
-							</p>
+							<p class="mp_profile_position">현재 설정한 포지션은 <span><b>${userInfoVOs.userPosition}</b></span></p>
 						</c:otherwise>
 					</c:choose>
-
 					<button>
-						<!-- PR 수정페이지로 이동 -->
-						<a href="prUpdate.do?id=${id}">프로필 수정하기</a>
+						<a href="#">프로필 수정하기</a>
 					</button>
 				</c:forEach>
 			</div>
 		</div>
 
-		<!-- 인기 공고 리스트 -->
 		<div class="mp_recommend">
 			<p class="mp_reco_title">추천 공고</p>
 			<div class="mp_recos">
-				<!-- 추천공고 4개만 나오게 설정 -->
 				<c:forEach var="jobInfoVOs" items="${infoAllDto.jobInfoVOs}">
 					<div class="mp_reco${jobInfoVOs.no}">
 						<a href="#">
 							<div class="mp_reco${jobInfoVOs.no}_1">
 								<img src="https://picsum.photos/250/250" />
-							</div> 
-<%-- 								
-								<c:if test="${!empty jobInfoVO.photo}">
-									<img src="${path}/upload/${jobInfoVO.photo}" />
-								</c:if>
-								<c:if test="${empty jobInfoVO.photo}">
-									<img src="https://picsum.photos/250/250" />
-								</c:if> --%>
-							
-							<!-- 해당 공고 제목 -->
-							<p class="mp_reco_com_title">${jobInfoVOs.jobSub}</p> 
-							<!-- 해당 공고 상세내용 -->
+							</div>
+
+							<p class="mp_reco_com_title">${jobInfoVOs.jobSub}</p>
 							<p class="mp_reco_com_content">${jobInfoVOs.jobText}</p>
 
 							<div class="mp_company">
-								<!-- <img> -->
-								<!-- 해당 공고 작성자 id -->
-								<p class="mp_company_name">${jobInfoVOs.userName}(${jobInfoVOs.userId})</p>
+								<p class="mp_company_name">${jobInfoVOs.userName}</p>
+								<p class="mp_company_name">${jobInfoVOs.userId}</p>
 							</div>
 						</a>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
-		<!-- .mprecommend -->
 	</div>
-	<!--.mpcontents -->
 </div>
-<!-- .mpwrap -->
 </div>
 
 <%-- <%@ include file="../layout/footer.jsp"%> --%>

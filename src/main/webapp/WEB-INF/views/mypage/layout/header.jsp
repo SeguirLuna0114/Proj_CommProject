@@ -26,13 +26,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="/webjars/jquery/jquery.min.js"></script>
-
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-
-<script src="${path}/js/webSocket.js"></script>
-
 </head>
 
 <body>
@@ -76,7 +69,8 @@
 										</p>
 									</div>
 								</li>
-							</ul></li>
+							</ul>
+						</li>
 
 						<li>
 							<p class="notifications"></p>

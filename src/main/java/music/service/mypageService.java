@@ -54,5 +54,11 @@ public interface mypageService {
 	public CommsVO viewCommLists(String id, String keyword);
 	// 커뮤니티 댓글 리스트
 	public CommReplysVO viewCommReplyLists(String id, String keyword);
+
+// 삭제 관련
+	// 작성한 커뮤니티 글 삭제
+	public int deleteMyComms(String[] delCommNoArr);
+	// 작성한 커뮤니티 댓글 삭제
+	public int deleteMyComReplys(String[] delCommReNoArr);
 	
 }

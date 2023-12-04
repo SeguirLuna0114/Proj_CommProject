@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class CommReplysVO {
 	private String id;
-	private String keword;
+	private String keyword;
 	private List<CommReplyInfoVO> commReplyInfoVOs;
 	
 	public CommReplysVO(List<CommReplyInfoVO> commReplyInfoVOs) {

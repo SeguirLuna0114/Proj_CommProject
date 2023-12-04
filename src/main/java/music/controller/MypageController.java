@@ -200,7 +200,7 @@ public class MypageController {
 		
 		// keyword를 세션에 저장 -> 다음 페이지에서 활용
 		Map<String, Object> referer = new HashMap<String, Object>();
-		referer.put("keyword", commsVO.getKeword());
+		referer.put("keyword", commsVO.getKeyword());
 		session.setAttribute("referer", referer);
 		
 		return "mypage/comm/commWroteAll";
@@ -214,11 +214,60 @@ public class MypageController {
 		
 		// keyword를 세션에 저장 -> 다음 페이지에서 활용
 		Map<String, Object> referer = new HashMap<String, Object>();
-		referer.put("keyword", commReplysVO.getKeword());
+		referer.put("keyword", commReplysVO.getKeyword());
 		session.setAttribute("referer", referer);
 		
 		return "mypage/comm/commReplyWrote";
 	}
+	
+	
+// 메시지 관리
+	// 받은 메시지 함
+	
+	
+	// 보낸 메시지 함
+	
+	
+// 삭제 관련
+	// 작성한 커뮤니티 글 삭제
+	@RequestMapping("deleteComm.do")
+	public String deleteComm(@RequestParam String id, String commNo, Model model) {
+		String[] delCommNoArr = commNo.split(",");
+		
+		int result = myService.deleteMyComms(delCommNoArr);
+		
+		String msg = "";
+		
+		if(result > 0) {
+			msg = commNo + " 커뮤니티 글을 삭제하였습니다.";
+			model.addAttribute("msg", msg);
+		} else {
+			msg = "삭제할 항목을 선택해주세요.";
+			model.addAttribute("msg", msg);
+		}
+		return "mypage/comm/commWroteAll";
+	}
+	
+	// 작성한 커뮤니티 댓글 삭제
+	@RequestMapping("deleteReplyComm.do")
+	public String deleteReComm(@RequestParam String id, String commReNo, Model model) {
+		String[] delCommReNoArr = commReNo.split(",");
+		
+		int result = myService.deleteMyComReplys(delCommReNoArr);
+		
+		String msg = "";
+		
+		if(result > 0) {
+			msg = commReNo + " 커뮤니티 댓글을 삭제하였습니다.";
+			model.addAttribute("msg", msg);
+		} else {
+			msg = "삭제할 항목을 선택해주세요.";
+			model.addAttribute("msg", msg);
+		}
+		return "mypage/comm/commReplyWrote";
+	}
+	
+	// 선택한 메시지 삭제
 	
 	
 }

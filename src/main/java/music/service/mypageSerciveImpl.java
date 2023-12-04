@@ -1,5 +1,6 @@
 package music.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,7 +175,7 @@ public class mypageSerciveImpl implements mypageService {
 	public CommsVO viewCommLists(String id, String keyword) {
 		List<CommInfoVO> commInfoVOs = myDao.findCommList(id, keyword);
 		CommsVO commsVO = new CommsVO(commInfoVOs);
-		commsVO.setKeword(keyword);
+		commsVO.setKeyword(keyword);
 		commsVO.setId(id);
 		return commsVO;
 	}
@@ -184,9 +185,33 @@ public class mypageSerciveImpl implements mypageService {
 	public CommReplysVO viewCommReplyLists(String id, String keyword) {
 		List<CommReplyInfoVO> commReplyInfoVOs = myDao.findCommReplyList(id, keyword);
 		CommReplysVO commReplysVO = new CommReplysVO(commReplyInfoVOs);
-		commReplysVO.setKeword(keyword);
+		commReplysVO.setKeyword(keyword);
 		commReplysVO.setId(id);
 		return commReplysVO;
+	}
+
+	
+// 삭제 관련
+	// 작성한 커뮤니티 글 삭제
+	@Override
+	public int deleteMyComms(String[] delCommNoArr) {
+		System.out.println(delCommNoArr[0]);
+		
+		HashMap<String, Object> commMap = new HashMap<String, Object>();
+		commMap.put("delCommNoArr", delCommNoArr);
+		
+		return myDao.deleteMyComms(commMap);
+	}
+	
+	// 작성한 커뮤니티 댓글 삭제
+	@Override
+	public int deleteMyComReplys(String[] delCommReNoArr) {
+		System.out.println(delCommReNoArr[0]);
+		
+		HashMap<String, Object> commReMap = new HashMap<String, Object>();
+		commReMap.put("commReMap", commReMap);
+		
+		return myDao.deleteMyComReplys(commReMap);
 	}
 	
 }

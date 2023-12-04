@@ -23,6 +23,9 @@ public class InfoCountVO {
     
     // 받은 쪽지 수
     private Integer messagesCount;
+    
+    // 문의게시판에 작성한 글 수
+    private Integer qnaCountAll;
 	
 	// lombok사용 시, getter & setter메소드 불필요함 => 어노테이션 사용
 }
