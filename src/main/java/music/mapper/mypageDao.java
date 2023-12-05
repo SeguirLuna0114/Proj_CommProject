@@ -43,9 +43,13 @@ public interface mypageDao {
 	
 // 	구인 게시판 관련
 	// 유저가 구인페이지에 작성한 내용을 가져옴
-	public List<jobBoardVO> findAllBoards(@Param("id") String id); 	// 모든 구인 게시판 내용을 가져옴
+	public List<jobBoardVO> findAllBoards(@Param("id") String id, @Param("keywordVO") KeywordVO keywordVO); 	// 모든 구인 게시판 내용을 가져옴
     // 모든 유저가 작성한 데이터를 가져옴
 	public List<jobBoardVO> findAllJobDatas();
+	// 모든 jobBoard.jobPlace 데이터 가져옴
+	public List<jobBoardVO> findAllJobPlaces();
+	// 모든 jobBoard.jobCd 데이터 가져옴
+	public List<jobBoardVO> findAllJobCDs();
 	
 	// 페이지 처리
 //	public PagingVO paging(Integer page);

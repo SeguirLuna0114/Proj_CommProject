@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%@ include file="../layout/header.jsp"%>
 
-		<head>
-			<link href="${path}/css/mypage.css" rel="stylesheet" />
-			<link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
+<head>
+<link href="${path}/css/mypage.css" rel="stylesheet" />
+<link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
 			
-			<script src="${path}/js/mypageShift.js" />
-			<script>
-				function changePage() {
-					var select = document.getElementById("cp_option_select");
-					var selectedValue = select.options[select.selectedIndex].value;
+<%-- <script src="${path}/js/mypageShift.js" /> --%>
+	
+<script>
+	function changePage() {
+		var select = document.getElementById("cp_option_select");
+		var selectedValue = select.options[select.selectedIndex].value;
+
+		if (selectedValue === "applyStatus_main") {
+			window.location.href = "mypage_Apply.do";
+		} else if (selectedValue === "recruitStatus_main") {
+			window.location.href = "mypage_JobBoard.do";
+		}
+	}
+</script>
 			
-					if (selectedValue === "applyStatus_main") {
-						window.location.href = "mypage_Apply.do";
-					} else if (selectedValue === "recruitStatus_main") {
-						window.location.href = "mypage_JobBoard.do";
-					}
-				}
-			</script>
-			
-		</head>
+</head>
 
 
 <div id="wrap">

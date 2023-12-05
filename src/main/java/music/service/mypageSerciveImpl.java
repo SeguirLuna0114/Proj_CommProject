@@ -1,7 +1,10 @@
 package music.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +62,8 @@ public class mypageSerciveImpl implements mypageService {
 
 	// 현재 구인 현황
 	@Override
-	public List<jobBoardVO> viewMyBoard(String id) {
-		List<jobBoardVO> jobBoardVOs = myDao.findAllBoards(id);
+	public List<jobBoardVO> viewMyBoard(String id, KeywordVO keywordVO) {
+		List<jobBoardVO> jobBoardVOs = myDao.findAllBoards(id, keywordVO);
 		// 작성한 모든 구인공고 정보 반환
 		return jobBoardVOs;
 	}
@@ -69,8 +72,22 @@ public class mypageSerciveImpl implements mypageService {
 	@Override
 	public List<jobBoardVO> viewAllJobDatas() {
 		List<jobBoardVO> alljobDatas = myDao.findAllJobDatas();
+		
 		return alljobDatas;
 	}
+	
+	// 모든 지역, 구분 데이터 가져옴
+	@Override
+	public List<jobBoardVO> viewAllJobPlaces() {
+		List<jobBoardVO> JobPlaces = myDao.findAllJobPlaces();
+		return JobPlaces;
+	}
+	@Override
+	public List<jobBoardVO> viewAllJobCDs() {
+		List<jobBoardVO> JobCDs = myDao.findAllJobCDs();
+		return JobCDs;
+	}
+	
 	
 	// 구인 현황 - 페이지 처리
 	@Override
@@ -84,7 +101,7 @@ public class mypageSerciveImpl implements mypageService {
 
 		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
 		pagingJobManageVO.setPagingVO(paging(keywordVO, id));
-		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
+		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id, keywordVO));
 
 		return pagingJobManageVO;
 	}
@@ -111,26 +128,6 @@ public class mypageSerciveImpl implements mypageService {
 		return paging;
 	}
 	
-//	public PagingVO paging(KeywordVO keywordVO) {
-//		PagingVO paging = myDao.paging(keywordVO);
-//		
-//		final int blockCount = 16;
-//		int currentBlock = keywordVO.getPage()/ blockCount;
-//		int startPageNum = 1 + blockCount * currentBlock;
-//		int lastPageNum = 16 + blockCount * currentBlock;
-//		
-//		if(paging.getTotalPage() < lastPageNum) {
-//			lastPageNum = paging.getTotalPage();
-//		}
-//		
-//		paging.setBlockCount(blockCount);
-//		paging.setCurrentBlock(currentBlock);
-//		paging.setStartPageNum(startPageNum);
-//		paging.setLastPageNum(lastPageNum);	
-//		
-//		return paging;
-//	}
-
 
 // 지원 현황 리스트 페이지(applyStatus)
 	// 전체 지원 현황

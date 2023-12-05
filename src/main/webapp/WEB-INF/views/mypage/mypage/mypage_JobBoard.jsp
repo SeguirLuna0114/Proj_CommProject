@@ -106,48 +106,66 @@
 					<div class="cp_select">
 						<select name="text">
 							<option value="#" selected="selected">지역</option>
-							<option value="all">전체</option>
-							<c:forEach var="allJobDatas" items="${allJobDatas}">
-								<option value="${allJobDatas.jobplace}">
-									${allJobDatas.jobplace}</option>
+							<c:forEach var="JobPlaces" items="${JobPlaces}">
+								<option value="${JobPlaces.jobplace}">
+									${JobPlaces.jobplace}</option>
 							</c:forEach>
 						</select>
 						<select name="text" class="select_position">
 							<option value="#" selected="selected">테마(분류)</option>
-							<c:forEach var="allJobDatas" items="${allJobDatas}">
-								<option value="${allJobDatas.jobcd}">${allJobDatas.jobcd}</option>
+							<c:forEach var="JobCDs" items="${JobCDs}">
+								<option value="${JobCDs.jobcd}">${JobCDs.jobcd}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 
 				<div class="cp_content_wrapper">
-					<c:forEach var="wanteds" items="${jobLists}">
+					<c:forEach var="jobBoardVOs" items="${pagingJobManageVO.jobBoardVOs}">
 						<div class="cp_content_item">
 							<div class="cp_item_top">
 								<div class="cp_item_wanted">
 									<a href="#" class="cp_wanted_link">
-										<p class="wanted_title">${wanteds.jobsub}</p>
-										<p class="wanted_discribes">${wanteds.jobtext}</p>
+										<p class="wanted_title">${jobBoardVOs.jobsub}</p>
+										<p class="wanted_discribes">${jobBoardVOs.jobtext}</p>
 									</a>
 								</div>
-								<%-- <div class="cp_item_state">${wanteds.state}</div> --%>
+								<div class="cp_item_state">${jobBoardVOs.jobcd}</div>
+								<div class="cp_item_state">${jobBoardVOs.rno}</div>
 							</div>
 							<div class="cp_item_bot">
-								<a href="#" class="cp_wanted_modify">수정하기</a>
+								<a href="#?jobno=${jobBoardVOs.jobno}" class="cp_wanted_modify">수정하기</a>
 							</div>
 						</div>
 					</c:forEach>
 					
 					<div class="paging">
 						<ul class="pagination">
-							<li class='page-item-prev${pagingJobManageVO.pagingVO.first ? "-hidden" : ""}'><a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a></li>
-							<c:forEach var="num" begin="${pagingJobManageVO.pagingVO.startPageNum}" end="${pagingJobManageVO.pagingVO.lastPageNum}">
+							<!-- 첫 페이지인지 확인 -->
+							<li class='page-item-prev${pagingJobManageVO.pagingVO.first ? "-hidden" : ""}'>
+								<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a>
+							</li>
+							
+							<c:forEach var="num" 
+										begin="${pagingJobManageVO.pagingVO.startPageNum}" 
+										end="${pagingJobManageVO.pagingVO.lastPageNum}">
 								<li class='page-item${pagingJobManageVO.pagingVO.currentPage + 1 == num ? "-select" : ""}'>
-								<a href="mypage_JobBoard.do?id=${id}&page= ${num-1}">${num}</a></li>
+								<a href="mypage_JobBoard.do?page= ${num-1}">[${num}]</a></li>
 							</c:forEach>
-							<li class='page-item-next${pagingJobManageVO.pagingVO.last ? "-hidden" : ""}'><a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a></li>
+							
+							<!-- 마지막 페이지인지 확인 -->
+							<li class='page-item-next${pagingJobManageVO.pagingVO.last ? "-hidden" : ""}'>
+								<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a>
+							</li>
 						</ul>
+						<div>first: ${pagingJobManageVO.pagingVO.first ? "-hidden" : "none"}</div>
+						<div>last: ${pagingJobManageVO.pagingVO.last ? "-hidden" : "none"}</div>
+						<div>currentBlock: ${pagingJobManageVO.pagingVO.currentBlock}</div>
+						<div>startPageNum: ${pagingJobManageVO.pagingVO.startPageNum}</div>
+						<div>lastPageNum: ${pagingJobManageVO.pagingVO.lastPageNum}</div>
+						<div>totalCount: ${pagingJobManageVO.pagingVO.totalCount}</div>
+						<div>totalPage: ${pagingJobManageVO.pagingVO.totalPage}</div>
+						<div>currentPage: ${pagingJobManageVO.pagingVO.currentPage}</div>
 					</div>
 				</div>
 			</div>

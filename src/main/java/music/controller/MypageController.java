@@ -37,11 +37,6 @@ public class MypageController {
 	@Autowired
 	private HttpSession session;
 	
-//	@RequestMapping("home.do")
-//	public String member_logint() {
-//		return "member_login";
-//	}
-
 // 마이페이지 메인(지원/구인)
 	// 지원 현황 마이페이지 메인으로 이동
 	@RequestMapping("mypage_Apply.do")
@@ -64,15 +59,13 @@ public class MypageController {
 		InfoAllVO infoAllDto = myService.viewMyPage(id);
 		model.addAttribute("infoAllDto", infoAllDto);
 
-		// 모든 Job데이터
-		List<jobBoardVO> allJobDatas = myService.viewAllJobDatas();
-		model.addAttribute("allJobDatas", allJobDatas);
+		// 모든 Job데이터 - 지역, 구분 데이터 가져옴
+		List<jobBoardVO> JobPlaces = myService.viewAllJobPlaces();
+		model.addAttribute("JobPlaces", JobPlaces);
+		List<jobBoardVO> JobCDs = myService.viewAllJobCDs();
+		model.addAttribute("JobCDs", JobCDs);
 		
-		// 작성한 모든 구인공고 리스트
-		List<jobBoardVO> jobLists = myService.viewMyBoard(id);
-		model.addAttribute("jobLists", jobLists);
-
-		// 페이징 처리
+		// 작성한 모든 구인공고 리스트 with 페이징 처리
 		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(keywordVO, id);
 		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
 

@@ -23,12 +23,15 @@ public interface mypageService {
 	public InfoAllVO viewMyPage(String id);
 
 	// 유저가 작성한 구인공고 정보 가져오는 메소드
-	public List<jobBoardVO> viewMyBoard(String id);
+	public List<jobBoardVO> viewMyBoard(String id, KeywordVO keywordVO);
 	// 모든 유저가 작성한 구인공고 데이터 가져옴
 	public List<jobBoardVO> viewAllJobDatas();
+	// 모든 지역, 구분 데이터 가져옴
+	public List<jobBoardVO> viewAllJobPlaces();
+	public List<jobBoardVO> viewAllJobCDs();
 	// 구인공고 가져오는 페이징 처리
 	public PagingJobManageVO pagingViewBoard(KeywordVO keywordVO, String id);
-
+	
 // 페이지 처리
 	public PagingVO paging(KeywordVO keywordVO, String id);
 

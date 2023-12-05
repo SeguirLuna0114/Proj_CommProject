@@ -10,7 +10,10 @@
 	<!-- profile : 회원정보 게시판(member) + PR게시판 Join -->
 	<select id="findUser" resultType="UserInfo">
 		SELECT us.userId, us.userPw, us.userName, us.userPhone, us.userEmail,
-		pr.prFile, pr.prMajor AS userPosition
+		pr.prFile,
+        CASE WHEN pr.prMajor != us.userMajor
+        THEN pr.prMajor || ', ' || us.userMajor
+        ELSE pr.prMajor END AS userPosition
 		<!-- 회원 테이블 기준 -->
 		FROM member us
 		LEFT OUTER JOIN prBoard pr
@@ -101,15 +104,7 @@
 
 
 	<!-- 구인 페이지 관련 -->
-	<select id="findAllBoards" resultType="jobBoard">
-		SELECT jobB.jobNo, jobB.userId, jobB.jobCd, 
-		jobB.jobPlace, jobB.jobSub, jobB.jobText, 
-		CASE WHEN jobB.jobFin = 'Y' THEN '완료' ELSE '진행중' END AS jobFin
-		
-		FROM jobBoard jobB
-		WHERE jobB.userId = #{id} AND jobB.jobDelYn != 'Y'
-	</select>
-	
+	<!-- jobBoard에 작성된 모든 데이터를 가져옴 -->
 	<select id="findAllJobDatas" resultType="jobBoard">
 		SELECT jobB.jobNo, jobB.userId, jobB.jobCd, 
 		jobB.jobPlace, jobB.jobSub, jobB.jobText, 
@@ -117,6 +112,18 @@
 		
 		FROM jobBoard jobB
 	</select>
+	
+	<!-- jobBoard에서 'jobPlace'컬럼과 'JobCD'컬럼 -->
+	<select id="findAllJobPlaces" resultType="jobBoard">
+		SELECT DISTINCT jobB.jobPlace		
+		FROM jobBoard jobB
+	</select>
+	
+	<select id="findAllJobCDs" resultType="jobBoard">
+		SELECT DISTINCT jobB.jobCd		
+		FROM jobBoard jobB
+	</select>
+	
 	
 	<!-- 페이지 처리 -->
 	<select id="paging" resultType="Paging">
@@ -140,7 +147,29 @@
 		</if>
 		) result	
 	</select>
-
+	
+	<!-- 키워드값에 따라 한 페이지 당 6 데이터만 가져오게 설정 -->
+	<select id="findAllBoards" resultType="jobBoard">
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY jobB.jobDate DESC) AS rno,
+		jobB.jobNo, jobB.userId, jobB.jobCd, 
+		jobB.jobPlace, jobB.jobSub, jobB.jobText, 
+		CASE WHEN jobB.jobFin = 'Y' THEN '완료' ELSE '진행중' END AS jobFin
+		
+		FROM jobBoard jobB
+		WHERE jobB.userId = #{id} AND jobB.jobDelYn != 'Y'
+		<if test="keywordVO != null">
+			<if test="keywordVO.jobplaceName != null and keywordVO.jobplaceName != 'all'">
+				AND jB.jobPlace = #{keywordVO.jobplaceName}
+			</if>
+			<if test="keywordVO.jobcdName != null and keywordVO.jobcdName != 'all'">
+				AND jB.jobCd = #{keywordVO.jobcdName}
+			</if>
+		</if>
+		)
+        WHERE rno BETWEEN #{keywordVO.startNum} AND #{keywordVO.startNum} + 5
+        ORDER BY rno ASC
+	</select>
 
 
 	<!-- 구인 현황 페이지 관련 -->

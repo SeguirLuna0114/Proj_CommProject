@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class jobBoardVO {
+	// sql문에서 rownum으로 설정한 no(번호-각 데이터의 임의번호)
+	private Integer rno;
+	
     private Integer jobno;  // 구인 게시글 번호
     private String userid;  // id
 
