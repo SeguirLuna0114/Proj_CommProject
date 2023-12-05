@@ -7,20 +7,14 @@
 			
 			<script src="${path}/js/mypageShift.js" />
 			<script>
-				var userId = $
-				{
-					id
-				};
-				console.log(userId + '확인');
-			
 				function changePage() {
 					var select = document.getElementById("cp_option_select");
 					var selectedValue = select.options[select.selectedIndex].value;
 			
 					if (selectedValue === "applyStatus_main") {
-						window.location.href = "mypage_Apply.do?id=" + userId;
+						window.location.href = "mypage_Apply.do";
 					} else if (selectedValue === "recruitStatus_main") {
-						window.location.href = "mypage_JobBoard.do?id=" + userId;
+						window.location.href = "mypage_JobBoard.do";
 					}
 				}
 			</script>
@@ -44,7 +38,7 @@
 						</div>
 						<div class="mp_acc_setting">
 							<button>
-								<a href="accountSetting.do?id=${id}">계정 설정하기</a>
+								<a href="accountSetting.do">계정 설정하기</a>
 							</button>
 						</div>
 					</c:forEach>
@@ -61,26 +55,26 @@
 					<c:forEach var="infoCountVOs" items="${infoAllDto.infoCountVOs}">
 						<ul>
 							<li>
-								<a href="applyStatusAll.do?id=${id}">
+								<a href="applyStatusAll.do">
 									<div class="mp_status_li1">지원 현황</div>
 									<div>${infoCountVOs.applystatusAll}</div>
 								</a>
 							</li>
 							<li>
-								<a href="likeListsComm.do?id=${id}">
+								<a href="likeListsComm.do">
 									<div class="mp_status_li2">좋아요 한 커뮤니티</div>
 									<div>${infoCountVOs.commlikesCount}</div>
 								</a>
 							</li>
 							<li>
-								<a href="messagebox.do?id=${id}">
+								<a href="messagebox.do">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>
 								</a>
 							</li>
 							<li>
-								<a href="commWroteAll.do?id=${id}">
+								<a href="commWroteAll.do">
 									<div class="mp_status_li4">커뮤니티 글 관리</div>
 									<div>${infoCountVOs.commCountAll}</div>
 								</a>
@@ -98,7 +92,7 @@
 
 			<div class="logout">
 				<button>
-					<a href="logout.do?id=${id}">로그아웃</a>
+					<a href="logout.do">로그아웃</a>
 				</button>
 			</div>
 		</div>
@@ -109,21 +103,21 @@
 					<p class="mp_application_title">지원 현황</p>
 					<div class="mp_application_counts">
 						<div class="mp_app_all">
-							<a href="applyStatusAll.do?id=${id}">
+							<a href="applyStatusAll.do">
 								<p class="mp_all_count">${statusCountVOs.appstatusAll}</p>
 								<p class="mp_all_text">전체</p>
 							</a>
 						</div>
 
 						<div class="mp_app">
-							<a href="applyStatus.do?id=${id}">
+							<a href="applyStatus.do">
 								<p class="mp_count">${statusCountVOs.appstatusCont}</p>
 								<p class="mp_text">지원 완료</p>
 							</a>
 						</div>
 
 						<div class="mp_app_final">
-							<a href="applyStatusFin.do?id=${id}">
+							<a href="applyStatusFin.do">
 								<p class="mp_final_count">${statusCountVOs.appstatusFin}</p>
 								<p class="mp_final_text">최종 합격</p>
 							</a>

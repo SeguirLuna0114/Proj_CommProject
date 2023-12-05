@@ -45,9 +45,9 @@
 		<div class="pp_menu">
 			<p class="pp_title">커뮤니티 글 관리</p>
 			<ul>
-				<li class="pp_proposal"><a href="commWroteAll.do?id=${id}">작성 글</a></li>
-				<li class="pp_position"><a href="commReplyWrote.do?id=${id}">작성 댓글</a></li>
-				<li class="pp_position"><a href="likeListsComm.do?id=${id}">좋아요 한 글</a></li>
+				<li class="pp_proposal"><a href="commWroteAll.do">작성 글</a></li>
+				<li class="pp_position"><a href="commReplyWrote.do">작성 댓글</a></li>
+				<li class="pp_position"><a href="likeListsComm.do">좋아요 한 글</a></li>
 			</ul>
 		</div>
 
@@ -57,7 +57,7 @@
 				<form name="searchProposal" action="commWroteAll.do">
 					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword"
 					 value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}">
-					<input type="hidden" name="id" value="${commsVO.id}" />
+					<%-- <input type="hidden" name="id" value="${commsVO.id}" /> --%>
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>

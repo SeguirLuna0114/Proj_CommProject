@@ -13,10 +13,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <p class="asf_title">구인 게시판</p>
       <ul>
         <li class="asf_proposal">
-          <a href="applyStatusAll.do?id=${id}">지원 현황</a>
+          <a href="applyStatusAll.do">지원 현황</a>
         </li>
         <li class="asf_position">
-          <a href="writeJobStatusAll.do?id=${id}">구인 현황</a>
+          <a href="writeJobStatusAll.do">구인 현황</a>
         </li>
       </ul>
     </div>
@@ -25,19 +25,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asf_counts">
         <c:forEach var="statusCountVOs" items="${jobstatusFinalVO.statusCountVOs}">
           <div class="asf_count_all">
-            <a href="writeJobStatusAll.do?id=${id}">
+            <a href="writeJobStatusAll.do">
               <p class="asf_all_count">${statusCountVOs.jobstatusAll}</p>
               <p class="asf_all_text">전체</p>
             </a>
           </div>
           <div class="asf_count_c">
-            <a href="writeJobStatus.do?id=${id}">
+            <a href="writeJobStatus.do">
               <p class="asf_count">${statusCountVOs.jobstatusCont}</p>
               <p class="asf_text">진행중</p>
             </a>
           </div>
           <div class="asf_count_final">
-            <a href="writeJobStatusFin.do?id=${id}">
+            <a href="writeJobStatusFin.do">
               <p class="asf_final_count">${statusCountVOs.jobstatusFin}</p>
               <p class="asf_final_text">컨택 완료</p>
             </a>
@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             name="keyword"
             value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}"
           />
-          <input type="hidden" name="id" value="${jobstatusFinalVO.userId}" />
+          <%-- <input type="hidden" name="id" value="${jobstatusFinalVO.userId}" /> --%>
           <button class="btn_search" type="submit"></button>
         </form>
       </div>

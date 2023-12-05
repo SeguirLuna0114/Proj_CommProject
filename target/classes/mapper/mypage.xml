@@ -10,7 +10,7 @@
 	<!-- profile : 회원정보 게시판(member) + PR게시판 Join -->
 	<select id="findUser" resultType="UserInfo">
 		SELECT us.userId, us.userPw, us.userName, us.userPhone, us.userEmail,
-		pr.prFile, pr.prMajor 
+		pr.prFile, pr.prMajor AS userPosition
 		<!-- 회원 테이블 기준 -->
 		FROM member us
 		LEFT OUTER JOIN prBoard pr
@@ -68,9 +68,9 @@
 	<select id="findCounts" resultType="StatusCount">
 		SELECT us.userId,
 		<!-- 지원 관련 -->
-		(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS applystatusAll
+		(SELECT COUNT(CASE WHEN japp.appDelYn != 'Y' THEN 1 ELSE NULL END) AS appstatusAll
 		FROM jobApp japp
-		WHERE japp.userId = #{id}) AS applystatusAll,
+		WHERE japp.userId = #{id}) AS appstatusAll,
 		(SELECT COUNT(CASE WHEN japp.appDone = 'Y' THEN 1 ELSE NULL END) AS appstatusCont
 		FROM jobApp japp
 		WHERE japp.userId = #{id} AND japp.appDelYn != 'Y' AND japp.appCheck = 'N') AS appstatusCont,		
@@ -119,43 +119,27 @@
 	</select>
 	
 	<!-- 페이지 처리 -->
-<!-- 	
 	<select id="paging" resultType="Paging">
 		SELECT totalCount, totalPage, currentPage,
-		if(currentPage = 0, 1, 0) isFirst,
-		if(currentPage = totalPage - 1, 1, 0) isLast
+		CASE WHEN currentPage = 0 THEN 1 ELSE 0 END AS isFirst,
+		CASE WHEN currentPage = totalPage - 1 THEN 1 ELSE 0 END AS isLast
 		
 		FROM
-		(SELECT COUNT(*) totalCount, CEIL(COUNT(*)/16) totalPage,
-		0 currentPage, 0 FIRST, 0 LAST
-		FROM jobBoard jB
-		LEFT OUTER JOIN companys c
-		ON w.company_id = c.id
+		(SELECT COUNT(*) AS totalCount, CEIL(COUNT(*)/6) AS totalPage,
+		0 AS currentPage, 0 AS isFirst, 0 AS isLast
 		
-		LEFT OUTER JOIN positions_code pc
-		ON w.position_code_id = pc.id
-		
-		LEFT OUTER JOIN careers_code cc
-		ON w.career_code_id = cc.id
-		
-		WHERE w.enddate > sysdate
-		<if test="keywordDto != null">
-			<if test="keywordDto.positionsCodeNames != null and keywordDto.positionsCodeNames != '전체'">
-				AND pc.name = #{keywordDto.positionsCodeNames}
+		FROM jobBoard jB		
+		WHERE jB.userId = #{id}
+		<if test="keywordVO != null">
+			<if test="keywordVO.jobplaceName != null and keywordVO.jobplaceName != 'all'">
+				AND jB.jobPlace = #{keywordVO.jobplaceName}
 			</if>
-			<if test="keywordDto.regionsCodeNames != null and keywordDto.regionsCodeNames != '전체'">
-				AND c.region_code_name = #{keywordDto.regionsCodeNames}
-			</if>
-			<if test="keywordDto.CarrerCodeNames != null and keywordDto.CarrerCodeNames != '전체'">
-				AND cc.name = #{keywordDto.CarrerCodeNames}
-			</if>
-			<if test="keywordDto.skillsCodeNames != null">
-				
+			<if test="keywordVO.jobcdName != null and keywordVO.jobcdName != 'all'">
+				AND jB.jobCd = #{keywordVO.jobcdName}
 			</if>
 		</if>
 		) result	
-	
-	</select> -->
+	</select>
 
 
 

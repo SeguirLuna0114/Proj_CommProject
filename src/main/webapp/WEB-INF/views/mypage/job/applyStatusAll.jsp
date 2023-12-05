@@ -14,10 +14,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <p class="asa_title">구인 게시판</p>
       <ul>
         <li class="asa_position">
-          <a href="applyStatusAll.do?id=${id}">지원 현황</a>
+          <a href="applyStatusAll.do">지원 현황</a>
         </li>
         <li class="asa_proposal">
-          <a href="writeJobStatusAll.do?id=${id}">구인 현황</a>
+          <a href="writeJobStatusAll.do">구인 현황</a>
         </li>
       </ul>
     </div>
@@ -26,19 +26,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <div class="asa_counts">
         <c:forEach var="statusCountVOs" items="${statusAllVO.statusCountVOs}">
           <div class="asa_count_all">
-            <a href="applyStatusAll.do?id=${id}">
+            <a href="applyStatusAll.do">
               <p class="asa_all_count">${statusCountVOs.appstatusAll}</p>
               <p class="asa_all_text">전체</p>
             </a>
           </div>
           <div class="asa_count_c">
-            <a href="applyStatus.do?id=${id}">
+            <a href="applyStatus.do">
               <p class="asa_count">${statusCountVOs.appstatusCont}</p>
               <p class="asa_text">지원 완료</p>
             </a>
           </div>
           <div class="asa_count_final">
-            <a href="applyStatusFin.do?id=${id}">
+            <a href="applyStatusFin.do">
               <p class="asa_final_count">${statusCountVOs.appstatusFin}</p>
               <p class="asa_final_text">최종 컨택</p>
             </a>

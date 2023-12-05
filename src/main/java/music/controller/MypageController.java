@@ -9,12 +9,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import music.model.CommReplysVO;
 import music.model.CommsVO;
 import music.model.InfoAllVO;
+import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
@@ -35,15 +37,18 @@ public class MypageController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping("home.do")
-	public String member_logint() {
-		return "member_login";
-	}
+//	@RequestMapping("home.do")
+//	public String member_logint() {
+//		return "member_login";
+//	}
 
 // 마이페이지 메인(지원/구인)
 	// 지원 현황 마이페이지 메인으로 이동
 	@RequestMapping("mypage_Apply.do")
-	public String mypageApply(@RequestParam String id, Model model) {
+	public String mypageApply(Model model) {
+		// 세션 id
+		String id = "test2";
+		
 		InfoAllVO infoAllDto = myService.viewMyPage(id);
 		model.addAttribute("infoAllDto", infoAllDto);
 		return "mypage/mypage/mypage_Apply";
@@ -51,8 +56,10 @@ public class MypageController {
 	
 	// 구인 현황 마이페이지 메인으로 이동
 	@RequestMapping("mypage_JobBoard.do")
-	public String mypageJob(@RequestParam String id, Model model) {
-//		public String mypageJob(@RequestParam String id, Model model, Integer page) {
+	public String mypageJob(Model model, KeywordVO keywordVO) {
+		// 세션 id
+		String id = "test2";
+		
 		// 구인 현황 데이터 가져오기 위함
 		InfoAllVO infoAllDto = myService.viewMyPage(id);
 		model.addAttribute("infoAllDto", infoAllDto);
@@ -66,8 +73,8 @@ public class MypageController {
 		model.addAttribute("jobLists", jobLists);
 
 		// 페이징 처리
-//		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
-//		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
+		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(keywordVO, id);
+		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
 
 		return "mypage/mypage/mypage_JobBoard";
 	}	
@@ -76,7 +83,10 @@ public class MypageController {
 // 지원 페이지 관련
 	// 모든 진행상태
 	@RequestMapping("applyStatusAll.do")
-	public String appStatsAll(@RequestParam String id, @RequestParam(required = false) String keyword, Model model) {
+	public String appStatsAll(@RequestParam(required = false) String keyword, Model model) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusAllVO statusAllVO = myService.viewAppAll(id, keyword);
 		model.addAttribute("statusAllVO", statusAllVO);
 		
@@ -90,7 +100,10 @@ public class MypageController {
 	
 	// 진행상태 = 대기중
 	@RequestMapping("applyStatus.do")
-	public String appStats(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String appStats(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusWaitingVO statusWaitingVO = myService.viewAppWait(id, keyword);
 		model.addAttribute("statusWaitingVO", statusWaitingVO);
 		
@@ -104,7 +117,10 @@ public class MypageController {
 	
 	// 진행상태 = 승인
 	@RequestMapping("applyStatusFin.do")
-	public String appStatsFin(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String appStatsFin(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusFinalVO statusFinalVO = myService.viewAppFin(id, keyword);
 		model.addAttribute("statusFinalVO", statusFinalVO);
 		
@@ -120,7 +136,10 @@ public class MypageController {
 // 구인 현황 관련
 	// 모든 진행상태
 	@RequestMapping("writeJobStatusAll.do")
-	public String JobStatsAll(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String JobStatsAll(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusAllVO jobstatusAllVO = myService.viewAppAll(id, keyword);
 		model.addAttribute("jobstatusAllVO", jobstatusAllVO);
 		
@@ -134,7 +153,10 @@ public class MypageController {
 	
 	// 진행상태 = 대기중
 	@RequestMapping("writeJobStatus.do")
-	public String JobappStats(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String JobappStats(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusWaitingVO jobstatusWaitingVO = myService.viewAppWait(id, keyword);
 		model.addAttribute("jobstatusWaitingVO", jobstatusWaitingVO);
 		System.out.println("jobstatusWaitingVO_id : "+jobstatusWaitingVO.getUserId());
@@ -149,7 +171,10 @@ public class MypageController {
 	
 	// 진행상태 = 승인
 	@RequestMapping("writeJobStatusFin.do")
-	public String JobappStatsFin(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String JobappStatsFin(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		StatusFinalVO jobstatusFinalVO = myService.viewAppFin(id, keyword);
 		model.addAttribute("jobstatusFinalVO", jobstatusFinalVO);
 		
@@ -165,7 +190,10 @@ public class MypageController {
 //	좋아요 관련
 	// 커뮤니티 좋아요 한 글 리스트
 	@RequestMapping("likeListsComm.do")
-	public String likeListsComm(@RequestParam String id, Model model) {
+	public String likeListsComm(Model model) {
+		// 세션 id
+		String id = "test2";
+		
 		List<LikesListCommVO> likesListComm = myService.viewLikeListComm(id);
 		model.addAttribute("likesListComm", likesListComm);
 		
@@ -175,8 +203,11 @@ public class MypageController {
 	
 	// 좋아요 설정한 PR글 리스트
 	@RequestMapping("likeListsPR.do")
-	public String likeListsPR(@RequestParam String id, Model model) {
-//		public String likeListsPR(@RequestParam String id, Model model, Integer page) {
+	public String likeListsPR(Model model) {
+//		public String likeListsPR(Model model, Integer page) {
+		// 세션 id
+		String id = "test2";
+		
 		List<LikesListPRVO> likesListPR = myService.viewLikeListPR(id);
 		model.addAttribute("likesListPR", likesListPR);
 		
@@ -194,7 +225,10 @@ public class MypageController {
 // 커뮤니티 글 관리
 	// 작성한 커뮤니티 글 리스트
 	@RequestMapping("commWroteAll.do")
-	public String commLists(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String commLists(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		CommsVO commsVO = myService.viewCommLists(id, keyword);
 		model.addAttribute("commsVO", commsVO);
 		
@@ -208,7 +242,10 @@ public class MypageController {
 	
 	// 작성한 커뮤니티 댓글 리스트
 	@RequestMapping("commReplyWrote.do")
-	public String commReplyLists(@RequestParam String id, Model model, @RequestParam(required = false) String keyword) {
+	public String commReplyLists(Model model, @RequestParam(required = false) String keyword) {
+		// 세션 id
+		String id = "test2";
+		
 		CommReplysVO commReplysVO = myService.viewCommReplyLists(id, keyword);
 		model.addAttribute("commReplysVO", commReplysVO);
 		
@@ -231,13 +268,15 @@ public class MypageController {
 // 삭제 관련
 	// 작성한 커뮤니티 글 삭제
 	@RequestMapping("deleteComm.do")
-	public String deleteComm(@RequestParam String id, String commNo, Model model) {
+	public String deleteComm(String commNo, Model model) {
+		// 세션 id
+		String id = "test2";
+		
 		String[] delCommNoArr = commNo.split(",");
 		
 		int result = myService.deleteMyComms(delCommNoArr);
 		
 		String msg = "";
-		
 		if(result > 0) {
 			msg = commNo + " 커뮤니티 글을 삭제하였습니다.";
 			model.addAttribute("msg", msg);
@@ -250,13 +289,15 @@ public class MypageController {
 	
 	// 작성한 커뮤니티 댓글 삭제
 	@RequestMapping("deleteReplyComm.do")
-	public String deleteReComm(@RequestParam String id, String commReNo, Model model) {
+	public String deleteReComm(String commReNo, Model model) {
+		// 세션 id
+		String id = "test2";
+		
 		String[] delCommReNoArr = commReNo.split(",");
 		
 		int result = myService.deleteMyComReplys(delCommReNoArr);
 		
 		String msg = "";
-		
 		if(result > 0) {
 			msg = commReNo + " 커뮤니티 댓글을 삭제하였습니다.";
 			model.addAttribute("msg", msg);

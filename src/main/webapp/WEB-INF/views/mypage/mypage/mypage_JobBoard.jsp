@@ -9,20 +9,14 @@
 <link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
 
 <script>
-	var userId = $
-	{
-		id
-	};
-	console.log(userId + '확인');
-
 	function changePage() {
 		var select = document.getElementById("cp_option_select");
 		var selectedValue = select.options[select.selectedIndex].value;
 
 		if (selectedValue === "applyStatus_main") {
-			window.location.href = "mypage_Apply.do?id=" + userId;
+			window.location.href = "mypage_Apply.do";
 		} else if (selectedValue === "recruitStatus_main") {
-			window.location.href = "mypage_JobBoard.do?id=" + userId;
+			window.location.href = "mypage_JobBoard.do";
 		}
 	}
 </script>
@@ -44,7 +38,7 @@
 						</div>
 						<div class="mp_acc_setting">
 							<button>
-								<a href="accountSetting.do?id=${userInfoVOs.userId}">계정 설정하기</a>
+								<a href="accountSetting.do">계정 설정하기</a>
 							</button>
 						</div>
 					</c:forEach>
@@ -63,20 +57,20 @@
 				<div class="cp_status">
 					<c:forEach var="infoCountVOs" items="${infoAllDto.infoCountVOs}">
 						<ul>
-							<li><a href="writeJobStatusAll.do?id=${id}">
+							<li><a href="writeJobStatusAll.do">
 									<div class="cp_status_li2">구인 현황</div>
 									<div>${infoCountVOs.jobstatusAll}</div>
 							</a></li>
-							<li><a href="likeListsPR.do?id=${id}">
+							<li><a href="likeListsPR.do">
 									<div class="mp_status_li2">좋아요 한 PR</div>
 									<div>${infoCountVOs.prlikesCount}</div>
 							</a></li>
-							<li><a href="messagebox_send.do?id=${id}">
+							<li><a href="messagebox_send.do">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>
 							</a></li>
-							<li><a href="commWroteAll.do?id=${id}">
+							<li><a href="commWroteAll.do">
 									<div class="mp_status_li4">커뮤니티 글 관리</div>
 									<div>${infoCountVOs.commCountAll}</div>
 							</a></li>
@@ -91,14 +85,14 @@
 
 			<div class="logout">
 				<button>
-					<a href="logout.do?id=${id}">로그아웃</a>
+					<a href="logout.do">로그아웃</a>
 				</button>
 			</div>
 		</div>
 
 		<div class="cp_contents">
 			<div class="cp_applications">
-				<a href="writeJobStatusAll.do?id=${id}" class="cp_apply_manage">
+				<a href="writeJobStatusAll.do" class="cp_apply_manage">
 					<div class="cp_apply_text">
 						<p>지원자 관리 바로가기</p>
 						<span>지원/열람/승인한 지원자들을 한 눈에 볼 수 있습니다.</span>
@@ -112,6 +106,7 @@
 					<div class="cp_select">
 						<select name="text">
 							<option value="#" selected="selected">지역</option>
+							<option value="all">전체</option>
 							<c:forEach var="allJobDatas" items="${allJobDatas}">
 								<option value="${allJobDatas.jobplace}">
 									${allJobDatas.jobplace}</option>
@@ -143,6 +138,17 @@
 							</div>
 						</div>
 					</c:forEach>
+					
+					<div class="paging">
+						<ul class="pagination">
+							<li class='page-item-prev${pagingJobManageVO.pagingVO.first ? "-hidden" : ""}'><a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage - 1}">이전</a></li>
+							<c:forEach var="num" begin="${pagingJobManageVO.pagingVO.startPageNum}" end="${pagingJobManageVO.pagingVO.lastPageNum}">
+								<li class='page-item${pagingJobManageVO.pagingVO.currentPage + 1 == num ? "-select" : ""}'>
+								<a href="mypage_JobBoard.do?id=${id}&page= ${num-1}">${num}</a></li>
+							</c:forEach>
+							<li class='page-item-next${pagingJobManageVO.pagingVO.last ? "-hidden" : ""}'><a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.currentPage + 1}">다음</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

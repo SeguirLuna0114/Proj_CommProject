@@ -73,22 +73,47 @@ public class mypageSerciveImpl implements mypageService {
 	}
 	
 	// 구인 현황 - 페이지 처리
-//	public PagingJobManageVO pagingViewBoard(String id, Integer page) {
-//		if(page == null) {
-//			page = 0;
-//		}
-//		// 변수 설정
-//		int startNum = page * 5;
-//
-//		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
-//		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
-//
-//		return pagingJobManageVO;
-//	}
+	@Override
+	public PagingJobManageVO pagingViewBoard(KeywordVO keywordVO, String id) {
+		if(keywordVO.getPage() == null) {
+			keywordVO.setPage(0);
+		}
+		// 변수 설정
+		int startNum = keywordVO.getPage() * 6;
+		keywordVO.setStartNum(startNum);
+
+		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();
+		pagingJobManageVO.setPagingVO(paging(keywordVO, id));
+		pagingJobManageVO.setJobBoardVOs(myDao.findAllBoards(id));
+
+		return pagingJobManageVO;
+	}
+
 // 페이지 처리
+	@Override
+	public PagingVO paging(KeywordVO keywordVO, String id) {
+		PagingVO paging = myDao.paging(id, keywordVO);
+
+		final int blockCount = 6;
+		int currentBlock = keywordVO.getPage() / blockCount;
+		int startPageNum = 1 + blockCount * currentBlock;	// 1-> 6-> 11
+		int lastPageNum = 6 + blockCount * currentBlock;	// 5 -> 10 -> 15
+		
+		if(paging.getTotalPage() < lastPageNum) {
+			lastPageNum = paging.getTotalPage();
+		}
+		
+		paging.setBlockCount(blockCount);
+		paging.setCurrentBlock(currentBlock);
+		paging.setStartPageNum(startPageNum);
+		paging.setLastPageNum(lastPageNum);	
+
+		return paging;
+	}
+	
 //	public PagingVO paging(KeywordVO keywordVO) {
 //		PagingVO paging = myDao.paging(keywordVO);
-//
+//		
 //		final int blockCount = 16;
 //		int currentBlock = keywordVO.getPage()/ blockCount;
 //		int startPageNum = 1 + blockCount * currentBlock;
@@ -102,7 +127,7 @@ public class mypageSerciveImpl implements mypageService {
 //		paging.setCurrentBlock(currentBlock);
 //		paging.setStartPageNum(startPageNum);
 //		paging.setLastPageNum(lastPageNum);	
-//
+//		
 //		return paging;
 //	}
 

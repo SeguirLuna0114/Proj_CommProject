@@ -14,8 +14,8 @@
 		<div class="pp_menu">
 			<p class="pp_title">쪽지함</p>
 			<ul>
-				<li class="pp_proposal"><a href="messagebox.do?id=${id}">받은 쪽지함</a></li>
-				<li class="pp_position"><a href="messagebox_send.do?id=${id}">보낸 쪽지함</a></li>
+				<li class="pp_proposal"><a href="messagebox.do">받은 쪽지함</a></li>
+				<li class="pp_position"><a href="messagebox_send.do">보낸 쪽지함</a></li>
 			</ul>
 		</div>
 
@@ -24,7 +24,7 @@
 			<p class="pp_sub_title">받은 쪽지함</p>
 			<!-- 검색창 -->
 			<div class="pp_search">
-				<form name="searchProposal" action="messagebox.do?id=${requestsDto.id}">
+				<form name="searchProposal" action="messagebox.do">
 					<input id="keyword" type="text" placeholder="키워드 검색" name="keyword" value="${requestsDto.keyword}">
 					<button class="btn_search" type="submit"></button>
 				</form>

@@ -77,14 +77,14 @@
 	</div>
 
 	<div class="overBox">
-		<c:if test="${!empty id}">
+		<%-- <c:if test="${!empty id}"> --%>
 			<div class="liked">
 				<div class="liked_wanted">
 					<div class="liked_title">♥ 내가 좋아요한 PR(홍보 글)</div>
 					<div class="wanteds">
 						<c:forEach var="likesListPR" items="${likesListPR}">
 							<div class="wanted">
-								<a href="prDetail.do?id=${likesListPR.prNo}">
+								<a href="prDetail.do?prNo=${likesListPR.prNo}">
 									<div class="picture">
 										<c:choose>
 											<c:when test="${empty likesListPR.prFile}">
@@ -118,7 +118,7 @@
 					</div>
 				</div>
 			</div>
-		</c:if>
+		<%-- </c:if> --%>
 	</div>
 </div>
 

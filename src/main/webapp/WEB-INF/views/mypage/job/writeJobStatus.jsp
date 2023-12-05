@@ -13,10 +13,10 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
       <p class="as_title">구인 게시판</p>
       <ul>
         <li class="as_proposal">
-          <a href="applyStatusAll.do?id=${id}">지원 현황</a>
+          <a href="applyStatusAll.do">지원 현황</a>
         </li>
         <li class="as_position">
-          <a href="writeJobStatusAll.do?id=${id}">구인 현황</a>
+          <a href="writeJobStatusAll.do">구인 현황</a>
         </li>
       </ul>
     </div>
@@ -28,19 +28,19 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
           items="${jobstatusWaitingVO.statusCountVOs}"
         >
           <div class="as_count_all">
-            <a href="writeJobStatusAll.do?id=${id}">
+            <a href="writeJobStatusAll.do">
               <p class="as_all_count">${statusCountVOs.jobstatusAll}</p>
               <p class="as_all_text">전체</p>
             </a>
           </div>
           <div class="as_count_c">
-            <a href="writeJobStatus.do?id=${id}">
+            <a href="writeJobStatus.do">
               <p class="as_count">${statusCountVOs.jobstatusCont}</p>
               <p class="as_text">진행중</p>
             </a>
           </div>
           <div class="as_count_final">
-            <a href="writeJobStatusFin.do?id=${id}">
+            <a href="writeJobStatusFin.do">
               <p class="as_final_count">${statusCountVOs.jobstatusFin}</p>
               <p class="as_final_text">컨택 완료</p>
             </a>
@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
             name="keyword"
             value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}"
           />
-          <input type="hidden" name="id" value="${jobstatusWaitingVO.userId}" />
+          <%-- <input type="hidden" name="id" value="${jobstatusWaitingVO.userId}" /> --%>
           <button class="btn_search" type="submit"></button>
         </form>
       </div>
