@@ -6,6 +6,41 @@
 
 <script src="${path}/js/commWroteList.js"></script>
 
+<style type="text/css">
+	.cp_item_bot {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.cp_item_bot_Left {
+		width: 100%;
+		text-align: left;
+	}
+	
+	.cp_item_bot .cp_wanted_modify {
+		font-size: 12px;
+		color: rgb(64, 64, 64);
+		line-height: 2em;
+		text-align: center;
+		border: 1px solid rgb(190, 190, 190);
+		border-radius: 4px;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+	
+	.cp_item_bot_Left .cp_wanted_modify {
+		font-size: 12px;
+		color: rgb(64, 64, 64);
+		line-height: 2em;
+		text-align: center;
+		border: 1px solid rgb(190, 190, 190);
+		border-radius: 4px;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+
+</style>
+
 <script type="text/javascript">
 	function toggleAllCheckboxes() {
 		var selectAllCheckbox = document.getElementById("selectAll");
@@ -62,8 +97,11 @@
 				</form>
 			</div>
 			
+			<!-- 삭제버튼 -->
 			<div class="pp_search">
-				<button type="button" id="deleteReCommBtn" onclick="deleteReComm()">삭제</button>
+				<div class="cp_item_bot_Left">
+					<a href="#" class="cp_wanted_modify" id="deleteReCommBtn" onclick="deleteReComm()">선택 삭제</a>
+				</div>			
 			</div>
 
 			<div>
@@ -72,10 +110,12 @@
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="selectAll" onclick="toggleAllCheckboxes()"></th>
-								<th>댓글 내용</th>
+								<th>작성한 댓글 내용</th>
 								<th>댓글단 글 제목</th>
 								<th>댓글수</th>
 								<th>댓글 수정(작성)일</th>
+								<th>수정</th>
+								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -91,6 +131,16 @@
 									<td>${commReplyInfoVOs.commSub}</td>
 									<td><p class="cnt_highlight">${commReplyInfoVOs.commreplyCnt}</p></td>
 									<td>${commReplyInfoVOs.commReUpdate}</td>
+									<td>
+										<div class="cp_item_bot">
+											<a href="#" class="cp_wanted_modify">수정</a>
+										</div>
+									</td>
+									<td>
+										<div class="cp_item_bot">
+											<a href="#" class="cp_wanted_modify">삭제</a>
+										</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

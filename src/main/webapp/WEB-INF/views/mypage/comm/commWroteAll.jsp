@@ -5,6 +5,42 @@
 <link href="${path}/css/proposal.css?after" rel="stylesheet">
 
 <script src="${path}/js/commWroteList.js"></script>
+
+<style type="text/css">
+.cp_item_bot {
+	width: 100%;
+	text-align: center;
+}
+
+.cp_item_bot_Left {
+	width: 100%;
+	text-align: left;
+}
+
+.cp_item_bot .cp_wanted_modify {
+	font-size: 12px;
+	color: rgb(64, 64, 64);
+	line-height: 2em;
+	text-align: center;
+	border: 1px solid rgb(190, 190, 190);
+	border-radius: 4px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.cp_item_bot_Left .cp_wanted_modify {
+	font-size: 12px;
+	color: rgb(64, 64, 64);
+	line-height: 2em;
+	text-align: center;
+	border: 1px solid rgb(190, 190, 190);
+	border-radius: 4px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+</style>
+
 <script type="text/javascript">
 	function toggleAllCheckboxes() {
 		var selectAllCheckbox = document.getElementById("selectAll");
@@ -55,17 +91,19 @@
 			<p class="pp_sub_title">작성 글</p>
 			<div class="pp_search">
 				<form name="searchProposal" action="commWroteAll.do">
-					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword"
-					 value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}">
+					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword" value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}">
 					<%-- <input type="hidden" name="id" value="${commsVO.id}" /> --%>
 					<button class="btn_search" type="submit"></button>
 				</form>
 			</div>
-
-			<div class="pp_search">
-				<button type="button" id="deleteCommBtn" onclick="deleteComm()">삭제</button>
-			</div>
 			
+			<!-- 삭제버튼 -->
+			<div class="pp_search">
+				<div class="cp_item_bot_Left">
+					<a href="#" class="cp_wanted_modify" id="deleteCommBtn" onclick="deleteComm()">선택 삭제</a>
+				</div>			
+			</div>
+
 			<div>
 				<form action="deleteComm.do" name="deleteComm" id="deleteComm">
 					<table class="pp_table">
@@ -76,25 +114,33 @@
 								<th>글 내용</th>
 								<th>조회수</th>
 								<th>댓글수</th>
-								<th>좋아요 갯수</th>
+								<th>좋아요 수</th>
 								<th>글 수정일</th>
+								<th>수정</th>
+								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="commInfoVOs" items="${commsVO.commInfoVOs}">
 								<tr>
-									<td>
-										<label>
-											<input type="checkbox" name="commNo" value="${commInfoVOs.commNo}">
-											<span style="font-size: 12px"></span>
-										</label>
-									</td>
+									<td><label> <input type="checkbox" name="commNo" value="${commInfoVOs.commNo}"> <span style="font-size: 12px"></span>
+									</label></td>
 									<td><a href="#?commNo=${commInfoVOs.commNo}">${commInfoVOs.commSub}</a></td>
 									<td>${commInfoVOs.commText}</td>
 									<td>${commInfoVOs.commCount}</td>
 									<td><p class="cnt_highlight">${commInfoVOs.replyCnt}</p></td>
 									<td><p class="cnt_highlight">${commInfoVOs.likeCnt}</p></td>
 									<td>${commInfoVOs.commUpdate}</td>
+									<td>
+										<div class="cp_item_bot">
+											<a href="#" class="cp_wanted_modify">수정</a>
+										</div>
+									</td>
+									<td>
+										<div class="cp_item_bot">
+											<a href="#" class="cp_wanted_modify">삭제</a>
+										</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

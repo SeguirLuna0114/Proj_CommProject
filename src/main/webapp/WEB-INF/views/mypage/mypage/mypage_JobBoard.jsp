@@ -191,14 +191,14 @@
 								<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.totalPage - 1}&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">▶▶</a>
 							</li>
 						</ul>
-						<div>first: ${pagingJobManageVO.pagingVO.first ? "-hidden" : "none"}</div>
+<%-- 						<div>first: ${pagingJobManageVO.pagingVO.first ? "-hidden" : "none"}</div>
 						<div>last: ${pagingJobManageVO.pagingVO.last ? "-hidden" : "none"}</div>
 						<div>currentBlock: ${pagingJobManageVO.pagingVO.currentBlock}</div>
 						<div>startPageNum: ${pagingJobManageVO.pagingVO.startPageNum}</div>
 						<div>lastPageNum: ${pagingJobManageVO.pagingVO.lastPageNum}</div>
 						<div>totalCount: ${pagingJobManageVO.pagingVO.totalCount}</div>
 						<div>totalPage: ${pagingJobManageVO.pagingVO.totalPage}</div>
-						<div>currentPage: ${pagingJobManageVO.pagingVO.currentPage}</div>
+						<div>currentPage: ${pagingJobManageVO.pagingVO.currentPage}</div> --%>
 					</div>
 				</div>
 			</div>

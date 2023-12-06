@@ -5,7 +5,7 @@
 <link href="${path}/css/mypage.css" rel="stylesheet" />
 <link href="${path}/css/subscribes.css" rel="stylesheet" />
 <link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
-<script src="${path}/js/like.js"></script>
+<%-- <script src="${path}/js/like.js"></script> --%>
 </head>
 
 <div class="wanteds_page">

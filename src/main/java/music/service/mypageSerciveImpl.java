@@ -94,7 +94,7 @@ public class mypageSerciveImpl implements mypageService {
 			keywordVO.setPage(0);
 		}
 		// 변수 설정
-		int startNum = keywordVO.getPage() * 6;
+		int startNum = keywordVO.getPage() * 6 + 1;
 		keywordVO.setStartNum(startNum);
 
 		PagingJobManageVO pagingJobManageVO = new PagingJobManageVO();

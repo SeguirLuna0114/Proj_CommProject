@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import music.model.AjaxRespVO;
 import music.model.CommReplysVO;
 import music.model.CommsVO;
 import music.model.InfoAllVO;
@@ -220,6 +222,20 @@ public class MypageController {
 		
 		return "mypage/like/likeListsPR";
 	}
+	
+// ajax데이터 처리
+	// parameter에 따라 재검색 후 데이터 반환
+	@RequestMapping("api_likeListsPR.do")
+	public @ResponseBody AjaxRespVO<?> likeListsPRApi(Model model, KeywordVO keywordVO) {
+		// 세션 id
+		String id = "test2";
+		
+		// 페이징 처리
+		PagingPrListVO pagingPrListVO = myService.pagingViewPrLike(keywordVO, id);
+		
+		return new AjaxRespVO<PagingPrListVO>(1, "성공", pagingPrListVO);
+	}	
+	
 	
 // 커뮤니티 글 관리
 	// 작성한 커뮤니티 글 리스트
