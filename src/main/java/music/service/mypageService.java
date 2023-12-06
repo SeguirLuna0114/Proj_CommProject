@@ -2,6 +2,8 @@ package music.service;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import music.model.CommReplysVO;
 import music.model.CommsVO;
 import music.model.InfoAllVO;
@@ -9,6 +11,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingPrListVO;
 import music.model.PagingVO;
 import music.model.PrBoardVO;
 import music.model.StatusAllVO;
@@ -44,13 +47,24 @@ public interface mypageService {
 	// 지원 완료(승인) 현황
 	public StatusFinalVO viewAppFin(String id, String keyword);
 
-// 좋아요 현황 페이지
+// 커뮤니티 좋아요 현황 페이지
 	// 커뮤니티 좋아요 한 글 리스트
 	public List<LikesListCommVO> viewLikeListComm(String id);
+	
+// PR 좋아요 현황 관련
 	// 좋아요 한 PR글 리스트
 	public List<LikesListPRVO> viewLikeListPR(String id);
-	// PR게시판에 모든 유저들이 작성한 항목 데이터 리스트
-	public List<PrBoardVO> viewAllPrDatas();
+	
+	// 모든 PR데이터 - 경력, 전공(포지션), 지역, 해시태그 데이터 가져옴
+	public List<PrBoardVO> viewAllPrCareers();
+	public List<PrBoardVO> viewAllPrMajors();
+	public List<PrBoardVO> viewAllPrLocs();
+	public List<PrBoardVO> viewAllPrHashes();
+	
+	// PR 좋아요 설정 - 페이지 처리
+	public PagingPrListVO pagingViewPrLike(KeywordVO keywordVO, String id);
+// 페이지 처리
+	public PagingVO pagingPR(KeywordVO keywordVO, String id);
 	
 	
 // 커뮤니티 작성 글 관리

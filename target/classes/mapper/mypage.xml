@@ -160,10 +160,10 @@
 		WHERE jobB.userId = #{id} AND jobB.jobDelYn != 'Y'
 		<if test="keywordVO != null">
 			<if test="keywordVO.jobplaceName != null and keywordVO.jobplaceName != 'all'">
-				AND jB.jobPlace = #{keywordVO.jobplaceName}
+				AND jobB.jobPlace = #{keywordVO.jobplaceName}
 			</if>
 			<if test="keywordVO.jobcdName != null and keywordVO.jobcdName != 'all'">
-				AND jB.jobCd = #{keywordVO.jobcdName}
+				AND jobB.jobCd = #{keywordVO.jobcdName}
 			</if>
 		</if>
 		)
@@ -241,6 +241,7 @@
 		WHERE commlik.userId = #{id} AND commlik.commLike = 1
 	</select>
 	
+	
 	<select id="findLikesPR" resultType="LikesListPR">
 		SELECT prlik.userId, prlik.prLikeNo, prlik.prNo,
 		CASE WHEN prlik.prLike = 1 THEN '좋아요' ELSE '좋아요 취소' END AS prLikestat,
@@ -254,10 +255,90 @@
 		WHERE prlik.userId = #{id} AND prlik.prLike = 1		
 	</select>
 	
-	<select id="findAllPrDatas" resultType="PrBoard">
-		SELECT prB.prCareer, prB.prMajor, prB.prLoc, prB.prHash
+	<!-- prBoard에서 'prMajor'컬럼, 'prLoc'컬럼, 'prHash'컬럼 -->
+	<select id="findAllPrCareers" resultType="PrBoard">
+		SELECT DISTINCT prB.prCareer
 		FROM prBoard prB
 	</select>
+	
+	<select id="findAllPrMajors" resultType="PrBoard">
+		SELECT DISTINCT prB.prMajor
+		FROM prBoard prB
+	</select>
+	
+	<select id="findAllPrLocs" resultType="PrBoard">
+		SELECT DISTINCT prB.prLoc
+		FROM prBoard prB
+	</select>
+	
+	<select id="findAllPrHashes" resultType="PrBoard">
+		SELECT DISTINCT prB.prHash
+		FROM prBoard prB
+	</select>
+	
+	<!-- PR 페이지 처리 -->
+	<select id="pagingPR" resultType="Paging">
+		SELECT totalCount, totalPage, currentPage,
+		CASE WHEN currentPage = 0 THEN 1 ELSE 0 END AS isFirst,
+		CASE WHEN currentPage = totalPage - 1 THEN 1 ELSE 0 END AS isLast
+		
+		FROM
+		(SELECT COUNT(*) AS totalCount, CEIL(COUNT(*)/12) AS totalPage,
+		0 AS currentPage, 0 AS isFirst, 0 AS isLast
+		
+		FROM prLike prlik		
+		WHERE prlik.userId = #{id}
+		<if test="keywordVO != null">
+			<if test="keywordVO.prcareerName != null and keywordVO.prcareerName != 'all'">
+				AND prlik.prCareer = #{keywordVO.prcareerName}
+			</if>
+			<if test="keywordVO.prmajorName != null and keywordVO.prmajorName != 'all'">
+				AND prlik.prMajor = #{keywordVO.prmajorName}
+			</if>
+			<if test="keywordVO.prlocName != null and keywordVO.prlocName != 'all'">
+				AND prlik.prLoc = #{keywordVO.prlocName}
+			</if>
+			<if test="keywordVO.prhashName != null and keywordVO.prhashName != 'all'">
+				AND prlik.prHash = #{keywordVO.prhashName}
+			</if>
+		</if>
+		) result	
+	</select>
+	
+	
+	<!-- 키워드값에 따라 한 페이지 당 12 데이터만 가져오게 설정 -->
+	<select id="findAllLikesPR" resultType="LikesListPR">
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY prB.prDate DESC) AS likeno,
+		prlik.userId, prlik.prLikeNo, prlik.prNo,
+		CASE WHEN prlik.prLike = 1 THEN '좋아요' ELSE '좋아요 취소' END AS prLikestat,
+		prB.userId AS prwriterId, prB.prFile, prB.prSub, prB.prText,
+		prB.prCareer, prB.prMajor
+		
+		FROM prLike prlik
+		LEFT OUTER JOIN prBoard prB
+		ON prB.prNo = prlik.prNo
+		
+		WHERE prlik.userId = #{id} AND prlik.prLike = 1
+		<if test="keywordVO != null">
+			<if test="keywordVO.prcareerName != null and keywordVO.prcareerName != 'all'">
+				AND prB.prCareer = #{keywordVO.prcareerName}
+			</if>
+			<if test="keywordVO.prmajorName != null and keywordVO.prmajorName != 'all'">
+				AND prB.prMajor = #{keywordVO.prmajorName}
+			</if>
+			<if test="keywordVO.prlocName != null and keywordVO.prlocName != 'all'">
+				AND prB.prLoc = #{keywordVO.prlocName}
+			</if>
+			<if test="keywordVO.prhashName != null and keywordVO.prhashName != 'all'">
+				AND prB.prHash = #{keywordVO.prhashName}
+			</if>
+		</if>
+		)
+		WHERE likeno BETWEEN #{keywordVO.startNum} AND #{keywordVO.startNum} + 11
+        ORDER BY likeno ASC	
+	</select>
+	
 	
 	
 	<!-- 커뮤니티 글 관리 -->

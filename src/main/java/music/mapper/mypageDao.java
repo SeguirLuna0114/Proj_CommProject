@@ -63,14 +63,30 @@ public interface mypageDao {
 	public List<StatusFinalInfoVO> findFinStat(@Param("id") String id, @Param("keyword") String keyword);
 
 
-//  좋아요 관련
+//  커뮤니티 좋아요 관련
 	// 커뮤니티에 좋아요한 글 정보
 	public List<LikesListCommVO> findLikesComm(@Param("id") String id);
-	// PR게시판에 좋아요 한 글 정보
-	public List<LikesListPRVO> findLikesPR(@Param("id") String id);
-    // PR게시판에 모든 유저들이 작성한 항목 데이터 -> 옵션 사용
-	public List<PrBoardVO> findAllPrDatas();
 	
+	
+// 	PR 좋아요 설정 관련
+	// 유저가 PR페이지에 좋아요 한 내용을 가져옴
+	public List<LikesListPRVO> findLikesPR(@Param("id") String id); 
+	public List<LikesListPRVO> findAllLikesPR(@Param("id") String id, @Param("keywordVO")KeywordVO keywordVO);
+
+    // 모든 유저가 작성한 데이터를 가져옴
+	public List<LikesListPRVO> findLikesPR();
+
+	// 모든 prBoard.prCareer 데이터 가져옴
+	public List<PrBoardVO> findAllPrCareers();
+	// 모든 prBoard.prMajor 데이터 가져옴
+	public List<PrBoardVO> findAllPrMajors();
+	// 모든 prBoard.prLoc 데이터 가져옴
+	public List<PrBoardVO> findAllPrLocs();
+	// 모든 prBoard.prHash 데이터 가져옴
+	public List<PrBoardVO> findAllPrHashes();
+
+	// 페이지 처리
+	public PagingVO pagingPR(@Param("id") String id, @Param("keywordVO")KeywordVO keywordVO);
 	
 // 커뮤니티 글 관리
 	// 작성한 커뮤니티 글 리스트

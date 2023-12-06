@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../layout/header.jsp"%>
+<%-- <%@ include file="../layout/header.jsp"%> --%>
 
 <head>
 <link href="${path}/css/mypage.css" rel="stylesheet" />
@@ -144,11 +144,23 @@
 					</c:forEach>
 					
 					<div class="paging">
-						<ul class="pagaination">
+						<ul class="pagination">
 							<!-- 맨 처음 페이지로 이동 -->
 							<li class="page-item-prev">
 								<a href="mypage_JobBoard.do?page=0&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">◀◀</a>
 							</li>
+							
+							<!-- 첫 페이지 블럭인지 확인(이전 페이지 블럭의 첫번째 페이지로 이동) -->
+							<c:if test="${pagingJobManageVO.pagingVO.currentBlock > 0}">
+								<li class="page-item-prev">
+									<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.startPageNum - 7}&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">◀</a>
+								</li>
+							</c:if>
+							<c:if test="${pagingJobManageVO.pagingVO.currentBlock eq 0}">
+								<li class="page-item-prev-hidden">
+									<a href="mypage_JobBoard.do?page=0&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">◀</a>
+								</li>
+							</c:if>
 							
 							<!-- 첫 페이지 인지 확인 -->
 							<c:if test="${pagingJobManageVO.pagingVO.currentPage eq 0}">
@@ -186,10 +198,17 @@
 								</li>
 							</c:if>
 							
-							<!-- 마지막 페이지로 이동 -->
-							<li class="page-item-next">
-								<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.totalPage - 1}&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">▶▶</a>
-							</li>
+							<!-- 마지막 페이지 블럭인지 확인(다음 페이지 블럭의 마지막 페이지로 이동) -->
+							<c:if test="${pagingJobManageVO.pagingVO.lastPageNum < pagingJobManageVO.pagingVO.totalPage}">
+								<li class="page-item-next">
+									<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.lastPageNum+5}&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">▶</a>
+								</li>
+							</c:if>
+							<c:if test="${pagingJobManageVO.pagingVO.lastPageNum eq pagingJobManageVO.pagingVO.totalPage}">
+								<li class="page-item-next-hidden">
+									<a href="mypage_JobBoard.do?page=${pagingJobManageVO.pagingVO.totalPage-1}&jobplaceName=${empty param.jobplaceName ? 'all' : param.jobplaceName}&jobcdName=${empty param.jobcdName ? 'all' : param.jobcdName}">▶</a>
+								</li>
+							</c:if>
 						</ul>
 						<div>first: ${pagingJobManageVO.pagingVO.first ? "-hidden" : "none"}</div>
 						<div>last: ${pagingJobManageVO.pagingVO.last ? "-hidden" : "none"}</div>
@@ -206,4 +225,4 @@
 	</div>
 </div>
 
-<%@ include file="../layout/footer.jsp"%>
+<%-- <%@ include file="../layout/footer.jsp"%> --%>

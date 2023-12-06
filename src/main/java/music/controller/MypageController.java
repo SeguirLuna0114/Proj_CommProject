@@ -20,6 +20,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingPrListVO;
 import music.model.PrBoardVO;
 import music.model.StatusAllVO;
 import music.model.StatusFinalVO;
@@ -196,21 +197,26 @@ public class MypageController {
 	
 	// 좋아요 설정한 PR글 리스트
 	@RequestMapping("likeListsPR.do")
-	public String likeListsPR(Model model) {
-//		public String likeListsPR(Model model, Integer page) {
+	public String likeListsPR(Model model, KeywordVO keywordVO) {
 		// 세션 id
 		String id = "test2";
 		
 		List<LikesListPRVO> likesListPR = myService.viewLikeListPR(id);
 		model.addAttribute("likesListPR", likesListPR);
 		
-		// 모든 PR데이터
-		List<PrBoardVO> allPrDatas = myService.viewAllPrDatas();
-		model.addAttribute("allPrDatas", allPrDatas);
+		// 모든 PR데이터 - 경력, 전공(포지션), 지역, 해시태그 데이터 가져옴
+		List<PrBoardVO> PrCareers = myService.viewAllPrCareers();
+		model.addAttribute("PrCareers", PrCareers);
+		List<PrBoardVO> PrMajors = myService.viewAllPrMajors();
+		model.addAttribute("PrMajors", PrMajors);
+		List<PrBoardVO> PrLocs = myService.viewAllPrLocs();
+		model.addAttribute("PrLocs", PrLocs);
+		List<PrBoardVO> PrHashes = myService.viewAllPrHashes();
+		model.addAttribute("PrHashes", PrHashes);
 		
 		// 페이징 처리
-//		PagingJobManageVO pagingJobManageVO = myService.pagingViewBoard(id, page);
-//		model.addAttribute("pagingJobManageVO", pagingJobManageVO);
+		PagingPrListVO pagingPrListVO = myService.pagingViewPrLike(keywordVO, id);
+		model.addAttribute("pagingPrListVO", pagingPrListVO);
 		
 		return "mypage/like/likeListsPR";
 	}

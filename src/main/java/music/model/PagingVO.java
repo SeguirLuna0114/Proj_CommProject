@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class PagingVO {
-    private Integer blockCount;		// 상수 한페이지에 페이지 넘수 개수(16) 1-16
+    private Integer blockCount;		// 상수 한페이지에 페이지 넘수 개수(6)
 	private Integer currentBlock; 	// 변수
-	private Integer startPageNum; 	// 변수 1 -> 17 -> 33
-	private Integer lastPageNum;	// 변수 16 -> 32 -> 48
+	private Integer startPageNum; 	// 변수 1 -> 7 -> 13
+	private Integer lastPageNum;	// 변수 6 -> 12 -> 18
 	
 	private Integer totalCount;
 	private Integer totalPage;

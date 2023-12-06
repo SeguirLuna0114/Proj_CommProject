@@ -1,10 +1,7 @@
 package music.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingPrListVO;
 import music.model.PagingVO;
 import music.model.PrBoardVO;
 import music.model.StatusAllVO;
@@ -112,6 +110,7 @@ public class mypageSerciveImpl implements mypageService {
 		PagingVO paging = myDao.paging(id, keywordVO);
 
 		final int blockCount = 6;
+		int currentPage = keywordVO.getPage();
 		int currentBlock = keywordVO.getPage() / blockCount;
 		int startPageNum = 1 + blockCount * currentBlock;	// 1-> 6-> 11
 		int lastPageNum = 6 + blockCount * currentBlock;	// 5 -> 10 -> 15
@@ -121,6 +120,7 @@ public class mypageSerciveImpl implements mypageService {
 		}
 		
 		paging.setBlockCount(blockCount);
+		paging.setCurrentPage(currentPage);
 		paging.setCurrentBlock(currentBlock);
 		paging.setStartPageNum(startPageNum);
 		paging.setLastPageNum(lastPageNum);	
@@ -168,14 +168,16 @@ public class mypageSerciveImpl implements mypageService {
 
 	
 	
-// 좋아요 관련
+// 커뮤티니 좋아요 관련
 	// 커뮤니티에 좋아요 한 글 리스트
 	@Override
 	public List<LikesListCommVO> viewLikeListComm(String id) {
 		List<LikesListCommVO> likeComm = myDao.findLikesComm(id);
 		return likeComm;
 	}
+
 	
+// PR 좋아요 현황 관련	
 	// PR글 좋아요 설정한 리스트
 	@Override
 	public List<LikesListPRVO> viewLikeListPR(String id) {
@@ -183,12 +185,68 @@ public class mypageSerciveImpl implements mypageService {
 		return likePR;
 	}
 	
-	// PR게시판에 모든 유저들이 작성한 항목 데이터 리스트
+	// PR게시판에 모든 유저들이 작성한 항목 데이터 리스트 - 경력, 전공(포지션), 지역, 해시태그
 	@Override
-	public List<PrBoardVO> viewAllPrDatas() {
-		List<PrBoardVO> allPrDatas = myDao.findAllPrDatas();
-		return allPrDatas;
+	public List<PrBoardVO> viewAllPrCareers() {
+		List<PrBoardVO> PRCareers = myDao.findAllPrCareers();
+		return PRCareers;
 	}
+	@Override
+	public List<PrBoardVO> viewAllPrMajors() {
+		List<PrBoardVO> PRMajors = myDao.findAllPrMajors();
+		return PRMajors;
+	}
+	@Override
+	public List<PrBoardVO> viewAllPrLocs() {
+		List<PrBoardVO> PRLocs = myDao.findAllPrLocs();
+		return PRLocs;
+	}
+	@Override
+	public List<PrBoardVO> viewAllPrHashes() {
+		List<PrBoardVO> PRHashes = myDao.findAllPrHashes();
+		return PRHashes;
+	}
+	
+	// PR 좋아요 현황 - 페이지 처리
+	@Override
+	public PagingPrListVO pagingViewPrLike(KeywordVO keywordVO, String id) {
+		if(keywordVO.getPage() == null) {
+			keywordVO.setPage(0);
+		}
+		// 변수 설정
+		int startNum = keywordVO.getPage() * 12 + 1;
+		keywordVO.setStartNum(startNum);
+
+		PagingPrListVO pagingPrListVO = new PagingPrListVO();
+		pagingPrListVO.setPagingVO(pagingPR(keywordVO, id));
+		pagingPrListVO.setLikesListPRVOs(myDao.findAllLikesPR(id, keywordVO));
+
+		return pagingPrListVO;
+	}
+
+// 페이지 처리
+	@Override
+	public PagingVO pagingPR(KeywordVO keywordVO, String id) {
+		PagingVO paging = myDao.pagingPR(id, keywordVO);
+
+		final int blockCount = 12;
+		int currentPage = keywordVO.getPage();
+		int currentBlock = keywordVO.getPage() / blockCount;
+		int startPageNum = 1 + blockCount * currentBlock;
+		int lastPageNum = 12 + blockCount * currentBlock;	
+		
+		if(paging.getTotalPage() < lastPageNum) {
+			lastPageNum = paging.getTotalPage();
+		}
+		
+		paging.setBlockCount(blockCount);
+		paging.setCurrentPage(currentPage);
+		paging.setCurrentBlock(currentBlock);
+		paging.setStartPageNum(startPageNum);
+		paging.setLastPageNum(lastPageNum);	
+
+		return paging;
+	}	
 
 	
 // 커뮤니티 작성 글 관리

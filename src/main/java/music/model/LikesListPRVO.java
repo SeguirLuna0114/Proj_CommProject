@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class LikesListPRVO {
+	// ROWNUM으로 재 정의한 좋아요 한 리스트 번호
+	private Integer likeno;
+	
 	// prLike.userId
 	private String userId;		// 사용자 id
 	
