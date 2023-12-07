@@ -490,6 +490,13 @@
 			#{value}
 		</foreach>	
 	</update>
+	
+	
+	<!-- 메시지 선택 삭제 -->
+	<update id="delMsgNo">
+		UPDATE msg SET msgDelYn = 'Y'
+		WHERE msgNo = #{msgNo}		
+	</update>
 
 
 

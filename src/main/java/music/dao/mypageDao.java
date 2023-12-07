@@ -120,4 +120,7 @@ public interface mypageDao {
 
 	// 체크박스 선택한 쪽지 삭제
 	public int deleteMsg(@Param("msgNoArray") Map<String, Object> msgNoArray);
+	
+	// 선택한 메시지 삭제
+	public int delMsgNo(@Param("msgNo") int msgNo); 
 }

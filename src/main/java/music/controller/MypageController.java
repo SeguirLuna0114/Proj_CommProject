@@ -7,9 +7,12 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -198,7 +201,7 @@ public class MypageController {
 // ajax데이터 처리
 	// parameter에 따라 재검색 후 데이터 반환
 	@RequestMapping("api_likeListsPR.do")
-	public @ResponseBody AjaxRespVO<?> likeListsPRApi(@SessionAttribute("userId") String id, Model model, KeywordVO keywordVO) {	
+	public @ResponseBody AjaxRespVO<PagingPrListVO> likeListsPRApi(@SessionAttribute("userId") String id, Model model, KeywordVO keywordVO) {	
 		// 페이징 처리
 		PagingPrListVO pagingPrListVO = myService.pagingViewPrLike(keywordVO, id);
 		
@@ -337,6 +340,17 @@ public class MypageController {
 		
 		return "redirect:messagebox_rcv.do";
 	}
+	
+	
+	// 선택 삭제
+	@RequestMapping(value="deleteSelectMsg.do", method=RequestMethod.DELETE)
+	public AjaxRespVO<String> delRcvMsg(@RequestParam int msgNo) {
+		int result = myService.delMsgNo(msgNo);
+		
+		return result==1 ? new AjaxRespVO<String>(1, "success delete " +  msgNo + " Msg", HttpStatus.OK.toString())
+						 : new AjaxRespVO<String>(-1, "failure delete Msg", HttpStatus.INTERNAL_SERVER_ERROR.toString());
+	}
+	
 	
 	
 }

@@ -95,4 +95,7 @@ public interface mypageService {
 	public int deleteMyComReplys(String[] delCommReNoArr);
 	// 선택한 쪽지 삭제
 	public int deleteMsg(Map<String, Object> msgNo_array);
+	
+	// 선택한 메시지 삭제
+	public int delMsgNo(int msgNo);
 }

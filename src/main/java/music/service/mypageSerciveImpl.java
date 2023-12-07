@@ -381,4 +381,11 @@ public class mypageSerciveImpl implements mypageService {
 		return result;
 	}
 	
+	// 선택 메시지 삭제
+	@Override
+	public int delMsgNo(int msgNo) {
+		System.out.println("쪽지함에서 선택한 항목 삭제 : "+msgNo);
+		return myDao.delMsgNo(msgNo);
+	}	
+	
 }
