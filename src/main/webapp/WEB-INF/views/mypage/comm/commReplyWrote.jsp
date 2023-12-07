@@ -2,9 +2,9 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/proposal.css?after" rel="stylesheet">
+<link href="${path}/css/mypage/proposal.css?after" rel="stylesheet">
 
-<script src="${path}/js/commWroteList.js"></script>
+<script src="${path}/js/mypage/commWroteList.js"></script>
 
 <style type="text/css">
 	.cp_item_bot {

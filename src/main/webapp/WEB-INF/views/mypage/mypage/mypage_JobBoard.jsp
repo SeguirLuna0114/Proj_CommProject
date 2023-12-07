@@ -3,10 +3,10 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/mypage.css" rel="stylesheet" />
-<link href="${path}/css/subscribes.css" rel="stylesheet" />
-<link href="${path}/css/proposal.css" rel="stylesheet" />
-<link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
+<link href="${path}/css/mypage/mypage.css" rel="stylesheet" />
+<link href="${path}/css/mypage/subscribes.css" rel="stylesheet" />
+<link href="${path}/css/mypage/proposal.css" rel="stylesheet" />
+<link href="${path}/css/mypage/companypage_recruit_manage.css" rel="stylesheet" />
 
 <script>
 	function changePage() {

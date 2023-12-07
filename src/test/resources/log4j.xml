@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.myhome.music">
+	<logger name="com.myhome.controller">
 		<level value="info" />
 	</logger>
 	

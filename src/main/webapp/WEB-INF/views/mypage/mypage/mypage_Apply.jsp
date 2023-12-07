@@ -2,10 +2,10 @@
 	<%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/mypage.css" rel="stylesheet" />
-<link href="${path}/css/companypage_recruit_manage.css" rel="stylesheet" />
+<link href="${path}/css/mypage/mypage.css" rel="stylesheet" />
+<link href="${path}/css/mypage/companypage_recruit_manage.css" rel="stylesheet" />
 			
-<%-- <script src="${path}/js/mypageShift.js" /> --%>
+<%-- <script src="${path}/js/mypage/mypageShift.js" /> --%>
 	
 <script>
 	function changePage() {
@@ -141,7 +141,7 @@
 						</c:choose>
 						
 						<button>
-							<a href="#">프로필 수정하기</a>
+							<a href="prUpdateForm.do?prNo=${userInfoVOs.prNo}">프로필 수정하기</a>
 						</button>
 					</c:forEach>
 				</div>

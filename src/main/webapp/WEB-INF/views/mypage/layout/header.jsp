@@ -9,17 +9,17 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MusicInsite</title>
+<title>Obri</title>
 
-<link rel="shortcut icon" href="${path}/favicon/music_icon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="${path}/favicon/mypage/music_icon.ico" type="image/x-icon" />
 
-<link href="${path}/css/reset.css" rel="stylesheet" />
-<link href="${path}/css/header.css" rel="stylesheet" />
-<link href="${path}/css/footer.css" rel="stylesheet" />
-<link href="${path}/css/main.css" rel="stylesheet" />
-<link href="${path}/css/wanted.css" rel="stylesheet" />
-<link href="${path}/css/wanted-detail.css" rel="stylesheet" />
-<link href="${path}/css/company-detail.css" rel="stylesheet" />
+<link href="${path}/css/mypage/reset.css" rel="stylesheet" />
+<link href="${path}/css/mypage/header.css" rel="stylesheet" />
+<link href="${path}/css/mypage/footer.css" rel="stylesheet" />
+<link href="${path}/css/mypage/main.css" rel="stylesheet" />
+<link href="${path}/css/mypage/wanted.css" rel="stylesheet" />
+<link href="${path}/css/mypage/wanted-detail.css" rel="stylesheet" />
+<link href="${path}/css/mypage/company-detail.css" rel="stylesheet" />
 
 
 <script src="https://kit.fontawesome.com/e264982194.js" crossorigin="anonymous"></script>
@@ -43,14 +43,14 @@
 			</div>
 
 			<h1 class="logo">
-				<a href="#">MusicInsite</a>
+				<a href="#">Obri</a>
 			</h1>
 
 			<ul class="gnb">
-				<li><a href="jobList.do">구인</a></li>
-				<li><a href="prList.do">PR</a></li>
-				<li><a href="communityList.do">커뮤니티</a></li>
-				<li><a href="notification.do">공지사항</a></li>
+				<li><a href="boardListShow.do">구인</a></li>
+				<li><a href="prCardList.do">PR</a></li>
+				<li><a href="board_list.do">커뮤니티</a></li>
+				<li><a href="notice_list.do">공지사항</a></li>
 			</ul>
 
 			<ul class="login">

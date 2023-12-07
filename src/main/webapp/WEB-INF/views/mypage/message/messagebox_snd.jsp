@@ -4,10 +4,10 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/proposal.css?after" rel="stylesheet">
+<link href="${path}/css/mypage/proposal.css?after" rel="stylesheet">
 
 <!-- 메시지 관련 js파일 -->
-<script src="${path}/js/message.js"></script>
+<script src="${path}/js/mypage/message.js"></script>
 
 <script type="text/javascript">
 	function toggleAllCheckboxes() {

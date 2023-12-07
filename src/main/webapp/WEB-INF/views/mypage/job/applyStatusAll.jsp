@@ -2,9 +2,9 @@
 pageEncoding="UTF-8"%> <%@ include file="../layout/header.jsp"%>
 
 <head>
- <link href="${path}/css/application_status_all.css" rel="stylesheet" />
+ <link href="${path}/css/mypage/application_status_all.css" rel="stylesheet" />
 
-<script src="${path}/js/applyStatus.js"></script>
+<script src="${path}/js/mypage/applyStatus.js"></script>
   
 <style type="text/css">
 	.cp_item_bot {

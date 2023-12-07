@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		<!-- 코드 작성 중 원본db손상 방지를 위해 mypage라는 계정 사용 -->
+		
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@13.125.99.245:1521:xe"></property>
@@ -24,38 +24,33 @@
 	<!-- 스프링으로 oracle db 연결 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<!-- configuration.xml파일의 위치를 util/configuration.xml로 조정 -->
-		<property name="configLocation" value="classpath:util/configuration.xml" />
-		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+		<property name="configLocation" value="classpath:configuration.xml" />
+		<property name="mapperLocations" value="classpath:sql/*.xml" />
 	</bean>
 	
-	<!-- dao클래스로 처리할때는 필요하지만, mapper interface로 처리할때는 필요하지 않음 -->
 	<!-- SqlSessionTemplate 객체 생성 -->
-	<!-- <bean id="session" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="session" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
-	</bean> -->	
+	</bean>	
 	
-	<!-- mapper interface의  package설정 -->
-	<mybatis-spring:scan base-package="music.mapper"/>
-	
-	
+	<!-- mapper interface의 package설정 -->
+	<mybatis-spring:scan base-package="music.dao"/>
 	
 	<!-- SET default mail properties -->
-<!-- 	<bean id="jMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.naver.com" />
-		<property name="port" value="465" />
-		<property name="username" value="giduck23" />
-		<property name="password" value="xxxxxxx" />
-		<property value="smtps" name="protocol" />
-		<property value="utf-8" name="defaultEncoding" />
+	<bean id="jMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="info0obri@gmail.com" />
+		<property name="password" value="bibkwvhqwcplnien" />
 		<property name="javaMailProperties">
 			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
-				<prop key="mail.smtps.ssl.trust">*</prop>
 				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtps.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
 			</props>
 		</property>
-	</bean>	 -->
+	</bean>	
 </beans>

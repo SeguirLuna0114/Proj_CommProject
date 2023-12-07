@@ -2,9 +2,9 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/likes.css" rel="stylesheet" />
+<link href="${path}/css/mypage/likes.css" rel="stylesheet" />
 
-<script src="${path}/js/like.js"></script>
+<script src="${path}/js/mypage/like.js"></script>
 </head>
 
 <div class="container">

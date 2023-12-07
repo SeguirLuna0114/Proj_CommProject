@@ -2,9 +2,9 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<link href="${path}/css/application_status.css" rel="stylesheet" />
+<link href="${path}/css/mypage/application_status.css" rel="stylesheet" />
 
-<script src="${path}/js/applyStatus.js"></script>
+<script src="${path}/js/mypage/applyStatus.js"></script>
 
 <style type="text/css">
 	.cp_item_bot {

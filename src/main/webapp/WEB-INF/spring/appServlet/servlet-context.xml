@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- <resources> 설정 : static 리소스(CSS, JS, image파일과 같은 동적으로 생성되지 않는 파일) -->
-	<!-- HTTP GET 요청에서 mapping속성으로 시작되는 요청 처리 -->
-	<!-- src/main/webapp 디렉토리는 웹 애플리케이션의 루트 디렉토리로 간주 -->
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/js/**" location="/js/" />
@@ -23,40 +25,61 @@
 	<!-- favicon파일 루트 설정 -->
 	<resources mapping="/favicon/**" location="/favicon/" />
 
-
-	<!-- ViewResolver: 컨트롤러가 반환하는 뷰 이름을 기반으로 어떤 JSP 파일을 사용할지 결정 -->
-	<!-- InternalResourceViewResolver: JSP 파일을 찾기 위한 내부 리소스 뷰 리졸버 -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- prefix : JSP 파일의 경로의 앞에 붙는 접두어 -->
 		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<!-- suffix :  JSP 파일의 확장자 -->
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
-
+	
 	<context:component-scan base-package="music" />
-
-	<!-- 인터셉터 설정 : 요청 전/후에 수행해야 하는 공통 작업을 정의 -->
-	<!-- SessionCheckInter 클래스의 인스턴스를 생성 => 이후, Interceptor에서 참조됨 -->
-<!-- 	<beans:bean id="sessionChk" class="music.controller.SessionCheckInter" />
-	interceptor 태그 :인터셉터를 설정
+	
+	<!-- 인터셉터 설정 -->	
+	<beans:bean id="sessionChk"
+		class="music.controller.SessionCheckInter" />
 	<interceptors>
 		<interceptor>
-			나열된 URL에 대한 인터셉터 설정
-			<mapping path="/member_edit.do" />
-			<mapping path="/member_edit_ok.do" />
-			<mapping path="/member_del.do" />
-			<mapping path="/member_del_ok.do" />
-			<mapping path="/member_logout.do" />
+			<mapping path="/editCheck.do" />
+			<mapping path="/editPw.do" />
+			<mapping path="/editMemOk.do" />
+			<mapping path="/editMem.do" />
+			<mapping path="/editPwOk.do" />
+			<mapping path="/delCheckOk.do" />
+			<mapping path="/delMem.do" />
+
+			<mapping path="/qna_form.do" />
+
+
 			<beans:ref bean="sessionChk" />
 		</interceptor>
-	</interceptors> -->
-
-	<!-- 파일 업로드 설정 
-		 CommonsMultipartResolver를 사용하여 멀티파트 파일을 처리 -->
+	</interceptors>
+	
+		<!-- 인터셉터 설정 -->	
+	<beans:bean id="adminSessionChk"
+		class="music.controller.AdminSessionCheckInter" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin_notice.do" />
+			<mapping path="/notice_write.do" />
+			<mapping path="/notice_delete_selected.do" />
+			<mapping path="/admin_notice_read.do" />
+			<mapping path="/notice_edit.do" />
+			<mapping path="/admin_qna.do" />
+			<mapping path="/qna_read.do" />
+			<mapping path="/admin_memberlist.do" />
+			<mapping path="/admin_user_view.do" />
+			<mapping path="/admin_job.do" />
+			<mapping path="/admin_job_read.do" />
+			<mapping path="/admin_pr.do" />
+			<mapping path="/admin_pr_read.do" />
+			<mapping path="/admin_comm.do" />
+			<mapping path="/admin_comm_read.do" />
+			<beans:ref bean="adminSessionChk" />
+		</interceptor>
+	</interceptors>
+	
+	<!-- 파일 업로드  설정 --> <!-- 이 빈객체가 있어야 업로드가 가능하다 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!--  업로드되는 파일의 최대 크기를 설정 => 10,000,000 바이트(약 10MB) -->
-		<beans:property name="maxUploadSize" value="10000000" />
+		<beans:property name="maxUploadSize" value="10000000"/>	
 	</beans:bean>
-
+	
 </beans:beans>

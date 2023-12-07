@@ -2,7 +2,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <head>
-<%-- <script src="${path}/js/like.js"></script> --%>
+<%-- <script src="${path}/js/mypage/like.js"></script> --%>
 
 <script>
 	var path = "${pageContext.request.contextPath}";

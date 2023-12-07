@@ -1,0 +1,40 @@
+:root{
+	--text-color: #444;
+	--background-color: #F8F9FA;
+	--accent-color: #A490D5;
+}
+
+.header{
+	background: url('../images/violin.jpg');
+	background-position: center;
+	background-size: cover;
+	height: 220px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	left: 0;
+	right: 0;
+	width: 100%;
+}
+
+.header .title{
+	text-align: center;
+}
+
+.header .title h1{
+	font-size: 36px;
+	color: var(--background-color);
+	letter-spacing: 0.2em;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px){
+	.header .title h1{
+		font-size: 28px;
+		color: var(--background-color);
+		letter-spacing: 0.2em;
+		margin-top: 0;
+		margin-bottom: 0;
+}

@@ -11,8 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<!-- /music패키지 하위에 있는 클래스 내에서 로깅 설정 -->
-	<logger name="com.myhome.music">
+	<logger name="com.myhome.controller">
 		<level value="info" />
 	</logger>
 	
