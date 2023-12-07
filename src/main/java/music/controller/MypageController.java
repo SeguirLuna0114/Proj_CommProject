@@ -1,5 +1,6 @@
 package music.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingMsgListVO;
 import music.model.PagingPrListVO;
 import music.model.PrBoardVO;
 import music.model.StatusAllVO;
@@ -223,6 +225,7 @@ public class MypageController {
 		return "mypage/like/likeListsPR";
 	}
 	
+	
 // ajax데이터 처리
 	// parameter에 따라 재검색 후 데이터 반환
 	@RequestMapping("api_likeListsPR.do")
@@ -275,9 +278,41 @@ public class MypageController {
 	
 // 메시지 관리
 	// 받은 메시지 함
+	@RequestMapping("messagebox_rcv.do")
+	public String MessageboxRcv(Model model, KeywordVO keywordVO) {
+		// 세션 id
+		String id = "test2";
+		
+		// 메시지 리스트 with 페이징 처리
+		PagingMsgListVO pagingMsgRcvListVO = myService.pagingViewRcvMsg(keywordVO, id);
+		model.addAttribute("pagingMsgRcvListVO", pagingMsgRcvListVO);
+
+		// KeyInTxt를 세션에 저장 -> 다음 페이지에서 활용
+		Map<String, Object> referer = new HashMap<String, Object>();
+		referer.put("keyInTxt", keywordVO.getKeyInTxt());
+		session.setAttribute("referer", referer);
+		
+		return "mypage/message/messagebox_rcv";
+	}		
 	
 	
 	// 보낸 메시지 함
+	@RequestMapping("messagebox_snd.do")
+	public String MessageboxSnd(Model model, KeywordVO keywordVO) {
+		// 세션 id
+		String id = "test2";
+		
+		// 메시지 리스트 with 페이징 처리
+		PagingMsgListVO pagingMsgSndListVO = myService.pagingViewSndMsg(keywordVO, id);
+		model.addAttribute("pagingMsgSndListVO", pagingMsgSndListVO);
+
+		// KeyInTxt를 세션에 저장 -> 다음 페이지에서 활용
+		Map<String, Object> referer = new HashMap<String, Object>();
+		referer.put("keyInTxt", keywordVO.getKeyInTxt());
+		session.setAttribute("referer", referer);
+		
+		return "mypage/message/messagebox_snd";
+	}
 	
 	
 // 삭제 관련
@@ -323,7 +358,37 @@ public class MypageController {
 		return "mypage/comm/commReplyWrote";
 	}
 	
-	// 선택한 메시지 삭제
+	// 메시지 삭제
+//	@RequestMapping("deleteRcvMsg.do")
+//	public String deleteRcvMsg(@RequestParam(value = "msgNo") String msgNo) {
+//		
+//		// 쉼표로 구분된 문자열을 파싱하여 정수 배열로 변환
+////		Integer[] msgNoArray = Arrays.stream(msgNo.split(","))
+////									 .map(Integer::parseInt)
+////									 .toArray(Integer[]::new);
+//		
+//		// Arrays의 private 정적 클래스인 ArrayList 리턴
+//		List<Integer> delMList = Arrays.asList(msgNo);
+//		System.out.println(delMList);
+//		
+//		// 삭제 메소드 실행
+//		myService.deleteMsg(delMList);
+//		
+//		return "redirect:messagebox_rcv.do";
+//	}
+	
+	// 선택 삭제
+	@RequestMapping("delete_RcvMsg_select.do")
+	public String deleteRcvMsg(@RequestParam(value = "msgNoArray") String[] msgNoArray) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msgNo_array", msgNoArray);
+		
+		// 삭제 메소드 실행
+		int result = myService.deleteMsg(map);
+		
+		return "redirect:messagebox_rcv.do";
+	}
 	
 	
 }

@@ -2,6 +2,7 @@ package music.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingMsgListVO;
 import music.model.PagingPrListVO;
 import music.model.PagingVO;
 import music.model.PrBoardVO;
@@ -269,6 +271,80 @@ public class mypageSerciveImpl implements mypageService {
 		commReplysVO.setId(id);
 		return commReplysVO;
 	}
+	
+	
+	
+// 메시지 관련
+	// 받은 메시지함 리스트
+	@Override
+	public PagingMsgListVO pagingViewRcvMsg(KeywordVO keywordVO, String id) {
+		if(keywordVO.getPage() == null) {
+			keywordVO.setPage(0);
+		}
+		
+		// userId가 받은 메시지
+		keywordVO.setUserRCV(id);
+		keywordVO.setUserSND(null);
+		
+		// 변수 설정
+		int startNum = keywordVO.getPage() * 8 + 1;
+		keywordVO.setStartNum(startNum);
+
+		PagingMsgListVO pagingMsgListVO = new PagingMsgListVO();
+		pagingMsgListVO.setPagingVO(pagingBlk(8, keywordVO, id));
+		pagingMsgListVO.setMessageInfoVOs(myDao.findAllMsgs(id, keywordVO));
+
+		return pagingMsgListVO;
+	}
+	
+	
+	// 보낸 메시지함 리스트
+	@Override
+	public PagingMsgListVO pagingViewSndMsg(KeywordVO keywordVO, String id) {
+		if(keywordVO.getPage() == null) {
+			keywordVO.setPage(0);
+		}
+		
+		// userId가 보낸 메시지
+		keywordVO.setUserSND(id);
+		keywordVO.setUserRCV(null);
+		
+		// 변수 설정
+		int startNum = keywordVO.getPage() * 8 + 1;
+		keywordVO.setStartNum(startNum);
+		
+		PagingMsgListVO pagingMsgListVO = new PagingMsgListVO();
+		pagingMsgListVO.setPagingVO(pagingBlk(8, keywordVO, id));
+		pagingMsgListVO.setMessageInfoVOs(myDao.findAllMsgs(id, keywordVO));
+		
+		return pagingMsgListVO;
+	}
+
+	
+// 페이지 처리
+	@Override
+	public PagingVO pagingBlk(Integer Setblock, KeywordVO keywordVO, String id) {
+		PagingVO paging = myDao.pagingM(keywordVO);
+
+		final int blockCount = Setblock;
+		int currentPage = keywordVO.getPage();
+		int currentBlock = keywordVO.getPage() / blockCount;
+		int startPageNum = 1 + blockCount * currentBlock;	// 1-> 6-> 11
+		int lastPageNum = Setblock + blockCount * currentBlock;	// 5 -> 10 -> 15
+		
+		if(paging.getTotalPage() < lastPageNum) {
+			lastPageNum = paging.getTotalPage();
+		}
+		
+		paging.setBlockCount(blockCount);
+		paging.setCurrentPage(currentPage);
+		paging.setCurrentBlock(currentBlock);
+		paging.setStartPageNum(startPageNum);
+		paging.setLastPageNum(lastPageNum);	
+
+		return paging;
+	}	
+	
 
 	
 // 삭제 관련
@@ -292,6 +368,17 @@ public class mypageSerciveImpl implements mypageService {
 		commReMap.put("commReMap", commReMap);
 		
 		return myDao.deleteMyComReplys(commReMap);
+	}
+	
+	
+	// 선택한 메시지 삭제
+	@Override
+	public int deleteMsg(Map<String, Object> msgNo_array) {
+		System.out.println("쪽지함에서 선택한 항목 삭제");
+		int result = 0;
+		// mapper의 메소드 실행
+		result = myDao.deleteMsg(msgNo_array);
+		return result;
 	}
 	
 }

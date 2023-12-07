@@ -68,7 +68,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="messagebox.do">
+								<a href="messagebox_rcv.do">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>

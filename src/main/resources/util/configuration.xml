@@ -33,6 +33,10 @@
 		<typeAlias alias="CommReplyInfo" type="music.model.CommReplyInfoVO"/>
 		
 		
+		<!-- 쪽지함 관련 -->
+		<typeAlias alias="MessageInfo" type="music.model.MessageInfoVO"/>
+		
+		
 		<!-- other -->
 		
 	</typeAliases>

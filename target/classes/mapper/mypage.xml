@@ -384,6 +384,84 @@
 		</if>
 		ORDER BY comrply.commReUpdate DESC
 	</select>
+	
+	
+	
+	<!-- 쪽지 관련 -->
+	<select id="findAllMsgs" resultType="MessageInfo">
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY m.msgNo DESC) AS mNo,
+		(SELECT COUNT(CASE WHEN m1.msgDelYn != 'Y' AND m1.sendSt = 1 THEN 1 ELSE NULL END) AS totalSndMsg		
+		FROM msg m1
+		WHERE m1.userId = #{id}) AS totalSndMsg,
+		(SELECT COUNT(CASE WHEN m2.msgDelYn != 'Y' AND m2.readSt = 1 THEN 1 ELSE NULL END) AS totalRcvMsg		
+		FROM msg m2
+		WHERE m2.recvId = #{id}) AS totalRcvMsg,
+		(SELECT COUNT(CASE WHEN m3.readSt = 1 AND m3.msgCheck = 0 THEN 1 ELSE NULL END) AS totalUncheckMsg		
+		FROM msg m3
+		WHERE m3.recvId = #{id} AND m3.msgDelYn != 'Y') AS totalUncheckMsg,
+		m.msgNo AS msgNo, m.userId AS sendUserId, m.recvId AS rcvUserId,
+		m.msgText AS msgContents, m.readSt AS isRcv, m.sendSt AS isSnd,
+		m.msgCheck AS isCheck, m.msgDate AS msgDate, m.msgDelYn AS isMsgDel
+		
+		FROM msg m
+		WHERE m.msgDelYn != 'Y'
+		<if test="keywordVO != null">
+			<if test="keywordVO.userRCV != null and keywordVO.userRCV != 'all'">
+				AND m.recvId = #{keywordVO.userRCV}
+			</if>
+			<if test="keywordVO.userSND != null and keywordVO.userSND != 'all'">
+				AND m.userId = #{keywordVO.userSND}
+			</if>
+			<if test="keywordVO.startDate != null and keywordVO.startDate != 'all'">
+				AND m.msgDate &gt;= #{keywordVO.startDate}
+			</if>
+			<if test="keywordVO.endDate != null and keywordVO.endDate != 'all'">
+				AND m.msgDate &lt;= #{keywordVO.endDate}
+			</if>
+			<if test="keywordVO.keyInTxt != null and keywordVO.keyInTxt != 'all'">
+				AND m.msgText LIKE '%' || #{keywordVO.keyInTxt} || '%'
+			</if>
+		</if>
+		)
+        WHERE mNo BETWEEN #{keywordVO.startNum} AND #{keywordVO.startNum} + 7
+        ORDER BY msgNo DESC
+	</select>
+	
+	
+	<!-- 보낸/받은 쪽지함 페이지 처리 -->
+	<select id="pagingM" resultType="Paging">
+		SELECT totalCount, totalPage, currentPage,
+		CASE WHEN currentPage = 0 THEN 1 ELSE 0 END AS isFirst,
+		CASE WHEN currentPage = totalPage - 1 THEN 1 ELSE 0 END AS isLast
+		
+		FROM
+		(SELECT COUNT(*) AS totalCount, CEIL(COUNT(*)/8) AS totalPage,
+		0 AS currentPage, 0 AS isFirst, 0 AS isLast
+		
+		FROM msg ms		
+		WHERE ms.msgDelYn != 'Y'
+		<if test="keywordVO != null">
+			<if test="keywordVO.userRCV != null and keywordVO.userRCV != 'all'">
+				AND ms.recvId = #{keywordVO.userRCV}
+			</if>
+			<if test="keywordVO.userSND != null and keywordVO.userSND != 'all'">
+				AND ms.userId = #{keywordVO.userSND}
+			</if>
+			<if test="keywordVO.startDate != null and keywordVO.startDate != 'all'">
+				AND ms.msgDate &gt;= #{keywordVO.startDate}
+			</if>
+			<if test="keywordVO.endDate != null and keywordVO.endDate != 'all'">
+				AND ms.msgDate &lt;= #{keywordVO.endDate}
+			</if>
+			<if test="keywordVO.keyInTxt != null and keywordVO.keyInTxt != 'all'">
+				AND ms.msgText LIKE '%' || #{keywordVO.keyInTxt} || '%'
+			</if>
+		</if>
+		) result	
+	</select>	
+	
+	
 
 <!-- 삭제 설정 관련 -->
 	<!-- 커뮤니티 게시판 글 삭제 -->
@@ -405,11 +483,11 @@
 	</update>
 	
 	<!-- 쪽지 선택 삭제 -->
-	<update id="deleteMSGs">
+	<update id="deleteMsg" parameterType="java.util.Map">
 		UPDATE msg SET msgDelYn = 'Y'
 		WHERE msgNo IN
-		<foreach collection="delmgsNoArr" item="item" index="index" separator="," open="(" close=")">
-			#{item}
+		<foreach collection="msgNoArray" item="value" index="index" separator="," open="(" close=")">
+			#{value}
 		</foreach>	
 	</update>
 

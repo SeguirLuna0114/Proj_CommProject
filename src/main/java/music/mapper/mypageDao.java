@@ -2,6 +2,7 @@ package music.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // Mapper클래스 사용
 import org.apache.ibatis.annotations.Mapper;
@@ -14,6 +15,7 @@ import music.model.JobInfoVO;
 import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
+import music.model.MessageInfoVO;
 import music.model.PagingVO;
 import music.model.PrBoardVO;
 import music.model.StatusCountVO;
@@ -52,9 +54,9 @@ public interface mypageDao {
 	public List<jobBoardVO> findAllJobCDs();
 	
 	// 페이지 처리
-//	public PagingVO paging(Integer page);
 	public PagingVO paging(@Param("id") String id, @Param("keywordVO")KeywordVO keywordVO);
 
+	
     
 // 구인 현황 상세페이지
 	// 전체, 현재 진행중(상태=대기), 최종 승인(상태=승인)
@@ -62,10 +64,12 @@ public interface mypageDao {
 	public List<StatusWaitingInfoVO> findWaitingStat(@Param("id") String id, @Param("keyword") String keyword);
 	public List<StatusFinalInfoVO> findFinStat(@Param("id") String id, @Param("keyword") String keyword);
 
+	
 
 //  커뮤니티 좋아요 관련
 	// 커뮤니티에 좋아요한 글 정보
 	public List<LikesListCommVO> findLikesComm(@Param("id") String id);
+	
 	
 	
 // 	PR 좋아요 설정 관련
@@ -88,12 +92,24 @@ public interface mypageDao {
 	// 페이지 처리
 	public PagingVO pagingPR(@Param("id") String id, @Param("keywordVO")KeywordVO keywordVO);
 	
+	
+	
 // 커뮤니티 글 관리
 	// 작성한 커뮤니티 글 리스트
 	public List<CommInfoVO> findCommList(@Param("id") String id, @Param("keyword") String keyword);	
 	// 작성한 커뮤니티 댓글 리스트
 	public List<CommReplyInfoVO> findCommReplyList(@Param("id") String id, @Param("keyword") String keyword);	
 
+
+	
+// 쪽지함 관리
+	// 작성한 쪽지함 정보 리스트
+	public List<MessageInfoVO> findAllMsgs(@Param("id") String id, @Param("keywordVO") KeywordVO keywordVO);
+	// 페이지 처리
+	public PagingVO pagingM(@Param("keywordVO")KeywordVO keywordVO);	
+	
+	
+	
 	
 // 체크박스 선택 시, 삭제
 	// 체크박스 여러개 선택 시, 커뮤니티 게시판 글 삭제
@@ -101,4 +117,6 @@ public interface mypageDao {
 	// 체크박스 여러개 선택 시, 커뮤니티 댓글 삭제
 	public int deleteMyComReplys(HashMap<String, Object> delCommReNoArr);
 
+	// 체크박스 선택한 쪽지 삭제
+	public int deleteMsg(@Param("msgNoArray") Map<String, Object> msgNoArray);
 }

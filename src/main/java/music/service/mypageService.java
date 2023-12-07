@@ -1,6 +1,7 @@
 package music.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -11,6 +12,7 @@ import music.model.KeywordVO;
 import music.model.LikesListCommVO;
 import music.model.LikesListPRVO;
 import music.model.PagingJobManageVO;
+import music.model.PagingMsgListVO;
 import music.model.PagingPrListVO;
 import music.model.PagingVO;
 import music.model.PrBoardVO;
@@ -73,10 +75,24 @@ public interface mypageService {
 	// 커뮤니티 댓글 리스트
 	public CommReplysVO viewCommReplyLists(String id, String keyword);
 
+	
+	
+// 메시지 관련
+	// 받은 메시지함 리스트
+	public PagingMsgListVO pagingViewRcvMsg(KeywordVO keywordVO, String id);
+	// 보낸 메시지함 리스트
+	public PagingMsgListVO pagingViewSndMsg(KeywordVO keywordVO, String id);
+	// 페이지 처리
+	public PagingVO pagingBlk(Integer Setblock, KeywordVO keywordVO, String id);
+	
+	
+	
+	
 // 삭제 관련
 	// 작성한 커뮤니티 글 삭제
 	public int deleteMyComms(String[] delCommNoArr);
 	// 작성한 커뮤니티 댓글 삭제
 	public int deleteMyComReplys(String[] delCommReNoArr);
-	
+	// 선택한 쪽지 삭제
+	public int deleteMsg(Map<String, Object> msgNo_array);
 }

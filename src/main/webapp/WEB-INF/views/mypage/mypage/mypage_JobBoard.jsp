@@ -65,7 +65,7 @@
 									<div class="mp_status_li2">좋아요 한 PR</div>
 									<div>${infoCountVOs.prlikesCount}</div>
 							</a></li>
-							<li><a href="messagebox_send.do">
+							<li><a href="messagebox_snd.do">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>
