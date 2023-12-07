@@ -3,23 +3,23 @@ package music.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.RequestParam;
+import music.model.mypage.CommReplysVO;
+import music.model.mypage.CommsVO;
+import music.model.mypage.InfoAllVO;
+import music.model.mypage.KeywordVO;
+import music.model.mypage.LikesListCommVO;
+import music.model.mypage.LikesListPRVO;
+import music.model.mypage.PagingJobManageVO;
+import music.model.mypage.PagingMsgListVO;
+import music.model.mypage.PagingPrListVO;
+import music.model.mypage.PagingVO;
+import music.model.mypage.PrBoardVO;
+import music.model.mypage.StatusAllVO;
+import music.model.mypage.StatusFinalVO;
+import music.model.mypage.StatusWaitingVO;
+import music.model.mypage.jobBoardVO;
 
-import music.model.CommReplysVO;
-import music.model.CommsVO;
-import music.model.InfoAllVO;
-import music.model.KeywordVO;
-import music.model.LikesListCommVO;
-import music.model.LikesListPRVO;
-import music.model.PagingJobManageVO;
-import music.model.PagingMsgListVO;
-import music.model.PagingPrListVO;
-import music.model.PagingVO;
-import music.model.PrBoardVO;
-import music.model.StatusAllVO;
-import music.model.StatusFinalVO;
-import music.model.StatusWaitingVO;
-import music.model.jobBoardVO;
+
 
 // 서비스 인터페이스 설계
 public interface mypageService {

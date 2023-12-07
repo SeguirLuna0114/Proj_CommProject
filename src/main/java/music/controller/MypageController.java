@@ -1,6 +1,5 @@
 package music.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,26 +9,25 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import music.model.AjaxRespVO;
-import music.model.CommReplysVO;
-import music.model.CommsVO;
-import music.model.InfoAllVO;
-import music.model.KeywordVO;
-import music.model.LikesListCommVO;
-import music.model.LikesListPRVO;
-import music.model.PagingJobManageVO;
-import music.model.PagingMsgListVO;
-import music.model.PagingPrListVO;
-import music.model.PrBoardVO;
-import music.model.StatusAllVO;
-import music.model.StatusFinalVO;
-import music.model.StatusWaitingVO;
-import music.model.jobBoardVO;
+import music.model.mypage.AjaxRespVO;
+import music.model.mypage.CommReplysVO;
+import music.model.mypage.CommsVO;
+import music.model.mypage.InfoAllVO;
+import music.model.mypage.KeywordVO;
+import music.model.mypage.LikesListCommVO;
+import music.model.mypage.LikesListPRVO;
+import music.model.mypage.PagingJobManageVO;
+import music.model.mypage.PagingMsgListVO;
+import music.model.mypage.PagingPrListVO;
+import music.model.mypage.PrBoardVO;
+import music.model.mypage.StatusAllVO;
+import music.model.mypage.StatusFinalVO;
+import music.model.mypage.StatusWaitingVO;
+import music.model.mypage.jobBoardVO;
 import music.service.mypageService;
 
 @Controller
