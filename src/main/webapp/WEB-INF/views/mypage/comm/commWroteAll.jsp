@@ -158,7 +158,7 @@
 			<p class="pp_sub_title">작성 글</p>
 			<div class="pp_search">
 				<form name="searchProposal" action="commWroteAll.do">
-					<input id="keyword" type="text" placeholder="글 제목 검색" name="keyword" value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}">
+					<input id="keyword" type="text" placeholder="글 제목/내용 검색" name="keyword" value="${sessionScope.referer != null ? sessionScope.referer.keyword : ''}">
 					<%-- <input type="hidden" name="id" value="${commsVO.id}" /> --%>
 					<button class="btn_search" type="submit"></button>
 				</form>
