@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<!-- jsp파일에서 프로퍼티 설정 -->
+<%-- <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@property('naverId.login.develApp.key')" var="client_Id"/> --%>
+
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
@@ -39,12 +44,12 @@
 </script>
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
-	<main class="form-signin w-500 m-auto">
+<body class="d-flex align-items-center justify-content-center min-vh-100 py-4 bg-body-tertiary">
+    <main class="form-signin w-500 m-auto">
 		<form method="post" action="checkLogin.do" onsubmit="return check()">
 			<input type="hidden" name="login_ok" value="1" />
 			<div id="logo">
-				<img src="images/184.png" alt="" width="100" height="100"
+				<img src="./images/logo.png" alt="Logo" width="100px" height="40px"
 					onclick="location.href='home.do'" style="cursor: pointer;">
 			</div>
 			<br>
@@ -71,9 +76,11 @@
 				<!-- 네이버 로그인-->
 				<div id="naver_id_login"></div>
 				<script type="text/javascript">
-					var naver_id_login = new naver_id_login(
-							"",
+				
+				// .gitignore 
+					var naver_id_login = new naver_id_login("",
 							"http://localhost/obriProject/loginNaver.do");
+				
 					var state = naver_id_login.getUniqState();
 					naver_id_login.setButton("green", 1, 40);
 					naver_id_login
@@ -91,7 +98,10 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+			
+			// .gitignore  
 				Kakao.init('');
+			
 				//console.log(Kakao.isInitialized());
 
 				function loginWithKakao() {
@@ -173,7 +183,7 @@
 				아니신가요?&nbsp;<a href="join.do" style="color: gray">회원가입</a>
 			</p>
 
-			<p class="mt-5 mb-3 text-body-secondary" align="center"
+			<p class="mt-3 mb-3 text-body-secondary" align="center"
 				style="font-size: 80%">&copy; 2023. 1조</p>
 		</form>
 	</main>

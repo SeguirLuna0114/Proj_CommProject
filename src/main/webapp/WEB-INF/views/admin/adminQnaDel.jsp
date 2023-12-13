@@ -40,7 +40,7 @@ td {
 			<c:import url="/WEB-INF/views/admin/adminsidenav.jsp" />
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<script type="text/javascript">
-					alert("삭제 성공");
+					alert("처리 완료");
 					location.href = "admin_qna.do?pageNum="+${pageNum};
 				</script>
 			</main>
