@@ -48,7 +48,7 @@
 			</h1>
 
 			<ul class="gnb">
-				<li><a href="boardListShow.do">구인</a></li>
+				<li><a href="joblist.do">구인</a></li>
 				<li><a href="prCardList.do">PR</a></li>
 				<li><a href="boardList.do">커뮤니티</a></li>
 				<li><a href="notice_list.do">공지사항</a></li>
