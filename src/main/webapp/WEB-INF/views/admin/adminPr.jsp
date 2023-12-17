@@ -23,6 +23,8 @@
 	type="text/css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/adminForm.css"
 	type="text/css">
+	<!-- 사용자 정의 스타일 -->
+<link rel="stylesheet" href="./css/custom-styles.css">
 </head>
 <body>
 	<div class="container-fluid">
@@ -157,7 +159,7 @@
 		function submitDeleteForm() {
 			// 'notNoToDelete' 값을 가져와서 'deleteForm'에 추가
 			var prNoToDelete = document.getElementById('prNoToDelete').value;
-			document.getElementById('deleteForm').action = 'pr_delete_selected.do?prNo='
+			document.getElementById('deleteForm').action = 'admin_pr_delete_selected.do?prNo='
 					+ prNoToDelete;
 			document.getElementById('deleteForm').submit();
 		}

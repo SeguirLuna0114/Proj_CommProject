@@ -46,6 +46,24 @@
 		form.submit();
 	}
 </script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var contentElement = document.querySelector('#consub');
+		var contentText = contentElement.innerText
+				|| contentElement.textContent;
+
+		var formattedContent = formatText(contentText, 70);
+		contentElement.innerHTML = formattedContent;
+
+		function formatText(text, length) {
+			var result = '';
+			for (var i = 0; i < text.length; i += length) {
+				result += text.slice(i, i + length) + '<br>';
+			}
+			return result;
+		}
+	});
+</script>
 </head>
 
 <body class="bg-body-tertiary">
@@ -76,13 +94,14 @@
 				</div>
 			</div>
 
-			<table class="table-hover" align="center" width="100%">
+			<table class="table-hover" align="center">
 				<thead>
 					<tr>
 						<th width="10%">번호</th>
-						<th width="30%">제목</th>
-						<th width="20%">작성자</th>
-						<th width="15%">모집마감일</th>
+						<th width="20%">제목</th>
+						<th width="15%">작성자</th>
+						<th width="15%">작성일</th>
+						<th width="15%">구인마감일</th>
 						<th width="15%">공연일</th>
 						<th width="10%">조회수</th>
 					</tr>
@@ -90,16 +109,23 @@
 				<tbody>
 					<c:forEach var="job" items="${list}">
 						<tr>
-							<td width="10%">${job['JOBNO']}</td>
-							<td width="30%" id="subject"><a
+							<td>${job['JOBNO']}</td>
+							<td id="subject"><a
 								href="job_board_view.do?jobNo=${job['JOBNO']}&pageNum=${pp.currentPage}&state=cont"
-								class="text">${job['JOBSUB']}</a></td>
-							<td width="20%">${job['USERNAME']}</td>
-							<td width="15%"><fmt:formatDate value="${job['JOBENDDATE']}"
+								class="truncate-text" id="consub">
+									<%-- ${job['JOBSUB']}  --%>
+									<c:set var="truncatedSub"
+										value="${fn:substring(job['JOBSUB'], 0, 15)}" />
+									${truncatedSub} <c:if test="${fn:length(job['JOBSUB']) > 15}">...</c:if>
+							</a></td>
+							<td>${job['USERNAME']}</td>
+							<td><fmt:formatDate value="${job['JOBDATE']}"
 									pattern="yyyy-MM-dd" /></td>
-							<td width="15%"><fmt:formatDate value="${job['JOBCONCERT']}"
+							<td><fmt:formatDate value="${job['JOBENDDATE']}"
 									pattern="yyyy-MM-dd" /></td>
-							<td width="10%">${job['JOBRCOUNT']}</td>
+							<td><fmt:formatDate value="${job['JOBCONCERT']}"
+									pattern="yyyy-MM-dd" /></td>
+							<td>${job['JOBRCOUNT']}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -131,17 +157,17 @@
 					<c:if test="${empty keyword}">
 						<c:if test="${pp.startPage > pp.pagePerBlk }">
 							<li><a href="joblist.do?pageNum=${pp.startPage - 1}"> <span
-									aria-hidden="true">&laquo;</span></a></li>
+									aria-hidden="true" class="page-link">&laquo;</span></a></li>
 						</c:if>
 
 						<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
 							<li <c:if test="${pp.currentPage == i}"></c:if>><a
-								href="joblist.do?pageNum=${i}">${i}</a></li>
+								href="joblist.do?pageNum=${i}" class="page-link">${i}</a></li>
 						</c:forEach>
 
 						<c:if test="${pp.endPage < pp.totalPage}">
-							<li><a href="joblist.do?pageNum=${pp.endPage + 1}"><span
-									aria-hidden="true">&raquo;</span></a></li>
+							<li><a href="joblist.do?pageNum=${pp.endPage + 1}"
+								class="page-link"><span aria-hidden="true">&raquo;</span></a></li>
 						</c:if>
 					</c:if>
 				</ul>

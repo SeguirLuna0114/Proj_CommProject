@@ -102,7 +102,8 @@ var sessionId = '<%=(String) session.getAttribute("userId")%>;
 						<c:forEach var="community" items="${list }">
 							<c:if test="${community.commDelYn != 'Y' }">
 								<tr align="center">
-									<td width="10%">${no1}<c:set var="no1" value="${no1-1}" />
+									<td width="10%"> ${community.commNo}
+									<!-- ${no1}<c:set var="no1" value="${no1-1}" /> -->
 									</td>
 									<td class="truncate-text" align="center" width="30%"><fmt:formatDate
 											var="today" value="<%=new Date()%>" pattern="yy/MM/dd" /> <fmt:formatDate
@@ -112,10 +113,7 @@ var sessionId = '<%=(String) session.getAttribute("userId")%>;
 											<c:set var="truncatedSub"
 												value="${fn:substring(community.commSub, 0, 15)}" />
 											${truncatedSub} <c:if
-												test="${fn:length(community.commSub) > 15}">...</c:if> <!-- 오늘 작성된 글이면  -->
-											<c:if test="${dbtoday == today }">
-												<img alt="" src="images/new.png" width="30" height="20">
-											</c:if>
+												test="${fn:length(community.commSub) > 15}">...</c:if> 
 									</a></td>
 									<td width="20%">${community.userId}</td>
 									<td width="20%"><fmt:formatDate

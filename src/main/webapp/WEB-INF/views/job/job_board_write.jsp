@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>커뮤니티 글작성</title>
+<title>구인</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,7 @@
 <!-- 사용자 정의 스타일 -->
 <link rel="stylesheet" href="./css/viewpage.css">
 
-<script src="<%=request.getContextPath()%>/js/job_board.js"></script>
+<script src="./js/board/job_write_board.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	function openDaumPostcode() {
@@ -61,12 +61,12 @@
 					</tr>
 					<tr>
 						<th>모집마감일</th>
-						<td><input type="date" name="jobConcert1"
+						<td><input type="date" name="jobEndDate1"
 							class="form-control col-sm-8"></td>
 					</tr>
 					<tr>
-						<th>공연일</th>
-						<td><input type="date" name="jobEndDate1"
+						<th>행사일</th>
+						<td><input type="date" name="jobConcert1"
 							class="form-control col-sm-8"></td>
 					</tr>
 					<tr>
@@ -89,16 +89,14 @@
 						<th>분류</th>
 						<td><input type="radio" name="jobCd" id="e1" value="결혼식">&nbsp;결혼식&nbsp;&nbsp;
 							<input type="radio" name="jobCd" id="e2" value="종교행사">&nbsp;종교행사&nbsp;&nbsp;
-							<input type="radio" name="jobCd" id="e3" value="사내행사">&nbsp;사내행사&nbsp;&nbsp;
-							<input type="radio" name="jobCd" id="e4" value="기내행사">&nbsp;기내행사&nbsp;&nbsp;
-							</td>
+							<input type="radio" name="jobCd" id="e3" value="공연">&nbsp;공연&nbsp;&nbsp;
+							<input type="radio" name="jobCd" id="e4" value="기타">&nbsp;기타&nbsp;&nbsp;
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><div class="col-sm-10">
-								<input type="text" class="form-control" id="jobSub"
-									name="jobSub">
-							</div></td>
+						<td><input type="text" class="form-control col-sm-10"
+							id="jobSub" name="jobSub"></td>
 					</tr>
 					<tr>
 						<th>내용</th>

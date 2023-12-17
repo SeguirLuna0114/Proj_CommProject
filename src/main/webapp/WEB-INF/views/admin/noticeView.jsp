@@ -20,6 +20,26 @@
 
 <!-- 사용자 정의 스타일 -->
 <link rel="stylesheet" href="./css/viewpage.css">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var contentElement = document.querySelector('#content');
+    var contentText = contentElement.innerText || contentElement.textContent;
+  
+    var formattedContent = formatText(contentText, 82);
+    contentElement.innerHTML = formattedContent;
+
+    function formatText(text, length) {
+        // 기존 줄바꿈을 유지하도록 수정
+        var lines = text.split('\n');
+        var result = '';
+        for (var i = 0; i < lines.length; i++) {
+            result += lines[i].slice(0, length) + '<br>';
+        }
+        return result;
+    }
+});
+</script>
+
 </head>
 <body class="bg-body-tertiary">
 	<!-- header -->
@@ -47,13 +67,14 @@
 								value="${map['NOTRCOUNT']}" /></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="text-start pl-5" height="300px"><pre>${map['NOTTEXT']}</pre>
+						<td colspan="2" id ="content" class="text-start pl-5" height="300px">
+						<pre style="white-space: pre-line;">${map['NOTTEXT']}</pre>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<div align="center">
+			<div align="right" style="margin-right:10px;">
 				<input type="button" class="btn" value="목록"
 					onclick="location.href='notice_list.do?page=${page}'">
 			</div>

@@ -98,7 +98,8 @@
 
 		<!-- intro start -->
 		<section class="intro p-2">
-			<div class="container mb-3">
+		<div class="d-flex justify-content-center">
+			<div class="container mt-3 mb-3">
 				<div class="banner">
 					<div class="bann_icon">
 						<i class="fa-solid fa-magnifying-glass"></i>
@@ -108,15 +109,15 @@
 					</div>
 				</div>
 				<div class="item">
-					<iframe src="boardListShow.do" frameborder="0" scrolling="no"
+					<iframe src="jobboardListShow.do" frameborder="0" scrolling="no"
 						style="width: 500px; height: 300px;" class="no-margin"></iframe>
 				</div>
-				<div class="btn_plus" onclick="location.href='boardList.do'"
+				<div class="btn_plus" onclick="location.href='joblist.do'"
 					style="cursor: pointer;">
 					<span class="fa-solid fa-plus fa-2xl"></span>
 				</div>
 			</div>
-			<div class="container mb-3">
+			<div class="container mt-3 mb-3">
 				<div class="banner">
 					<div class="bann_icon">
 						<i class="fa-regular fa-comments"></i>
@@ -126,13 +127,14 @@
 					</div>
 				</div>
 				<div class="item">
-					<iframe src="boardListShow.do" frameborder="0" scrolling="no"
+					<iframe src="commboardListShow.do" frameborder="0" scrolling="no"
 						style="width: 500px; height: 300px;" class="no-margin"></iframe>
 				</div>
 				<div class="btn_plus" onclick="location.href='boardList.do'"
 					style="cursor: pointer;">
 					<span class="fa-solid fa-plus fa-2xl"></span>
 				</div>
+			</div>
 			</div>
 		</section>
 		<br> <br>

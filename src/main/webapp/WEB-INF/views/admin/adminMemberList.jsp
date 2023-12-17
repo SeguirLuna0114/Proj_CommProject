@@ -20,8 +20,18 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/adminForm.css"
 	type="text/css">
 <style>
-.btg{
-	text-align: right;
+body {
+    display: flex;
+	justify-content: center;
+	font-family: Arial, sans-serif;
+	background-color: #F8F9FA;
+	color: #444;
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+.btn{
+	justify-content: right;
+	margin-right: 5px;
 }
 .tb{
 	padding = 20px;
@@ -45,19 +55,21 @@
 					<table class="table table-sm">
 						<thead class="table-primary">
 							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">이름</th>
-								<th scope="col">생성일</th>
-								<th scope="col">상태</th>
-								<th scope="col"></th>
+								<th scope="col" width="8%"></th>
+								<th scope="col" width="32%">ID</th>
+								<th scope="col" width="15%">이름</th>
+								<th scope="col" width="20%">생성일</th>
+								<th scope="col" width="10%">상태</th>
+								<th scope="col" width="15%"></th>
 							</tr>
 						</thead>
 						<tbody class="tb">
 							<c:forEach var="m" items="${memberlist}">
 								<tr>
-									<td>${m['USERID']}</td>
-									<td><a href="admin_user_view.do?userId=${m['USERID']}&pageNum=${pageNum}&state=cont">${m['USERNAME']}</a></td>
-									<td>${m['USERDATE']}</td>
+									<td onclick="location.href='admin_user_view.do?userId=${m['USERID']}&pageNum=${pageNum}&state=cont'"></td>
+									<td onclick="location.href='admin_user_view.do?userId=${m['USERID']}&pageNum=${pageNum}&state=cont'">${m['USERID']}</td>
+									<td onclick="location.href='admin_user_view.do?userId=${m['USERID']}&pageNum=${pageNum}&state=cont'">${m['USERNAME']}</td>
+									<td onclick="location.href='admin_user_view.do?userId=${m['USERID']}&pageNum=${pageNum}&state=cont'">${m['USERDATE']}</td>
 									<td><c:if test="${m['USERDELYN'].trim() eq 'Y'}">탈퇴</c:if>
 										<c:if test="${m['USERDELYN'].trim() eq 'X'}">정지</c:if> <c:if
 											test="${m['USERDELYN'].trim() eq 'N'}">정상</c:if></td>

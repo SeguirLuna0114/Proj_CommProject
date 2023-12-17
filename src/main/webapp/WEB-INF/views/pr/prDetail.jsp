@@ -6,13 +6,14 @@
 
 <html>
 <head>
-	
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홍보</title>
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no">
-<title>홍보 상세 페이지</title>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 
@@ -98,7 +99,9 @@
             console.log(data);
             if(data == 1){
                 alert("전송 성공하였습니다.");
-                j('#myModal').modal('hide');
+                document.getElementById('myModal').style.display = 'none';
+                document.body.classList.remove('modal-open'); // 배경 어두움 제거
+                document.querySelector('.modal-backdrop').remove(); // 배경 요소 제거
             } else {
                 alert("전송 실패하였습니다.");
             }
@@ -131,7 +134,26 @@
         });
     }
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var contentElement = document.querySelector('#content');
+    var contentText = contentElement.innerText || contentElement.textContent;
+  
+    var formattedContent = formatText(contentText, 82);
+    contentElement.innerHTML = formattedContent;
 
+    function formatText(text, length) {
+        // 기존 줄바꿈을 유지하도록 수정
+        var lines = text.split('\n');
+        var result = '';
+        for (var i = 0; i < lines.length; i++) {
+            result += lines[i].slice(0, length) + '<br>';
+        }
+        return result;
+    }
+});
+</script>
+</head>
 <body>
 	<!-- header -->
 	<c:import url="/WEB-INF/views/navbar.jsp" />
@@ -139,74 +161,85 @@
 	<input type="hidden" value="${map['PRNO']}" />
 	<input type="hidden" value="${map['USERID']}" id="detailId" />
 	<!-- Main -->
-	<main style="margin-bottom: 50px;">
+	<main style="margin-bottom: 50px; background-color: #f8f9fa;">
 		<div class="container" style="max-width: 960px; padding: 40px;">
 			<!-- Content -->
-			<section>
+			<section style="background-color: #fff;">
 				<header class="main" style="padding-top: 20px;">
 					<h2>${map['PRSUB']}</h2>
 				</header>
 
-				<div class="row">
-					<div class="col-6 col-12-small prDetailImage">
-					<c:if test="${empty map['PRFILE']}">				
-						<img src="<%=request.getContextPath() %>/images/pr/basicProfile.png"
-							class="imga" alt="사진들어갈곳" />
-					</c:if>
-					
-					<c:if test="${!empty map['PRFILE']}">				
-						<img src="<%=request.getContextPath() %>/upload/${map['PRFILE']}"
-							class="imga" alt="사진들어갈곳" />
-					</c:if>
+				<div class="row d-flex align-items-center">
+					<div
+						class="col-6 col-12-small prDetailImage d-flex flex-column align-items-center">
+						<c:if test="${empty map['PRFILE']}">
+							<img
+								src="<%=request.getContextPath()%>/images/pr/basicProfile.png"
+								class="imga" alt="사진들어갈곳" />
+						</c:if>
+
+						<c:if test="${!empty map['PRFILE']}">
+							<img src="<%=request.getContextPath() %>/upload/${map['PRFILE']}"
+								class="imga" alt="사진들어갈곳" />
+						</c:if>
 					</div>
 					<!-- 좋아요! -->
 					<div class="col-5 col-11-small prDetailSub">
 						<h3>${map['USERNAME']}
-						<span><img id="likeImage"
-								class="likeImage" src="./images/pr/prLikeBlack.png"
-								onclick="prLike()" width="20px" height="20px"></span>
+							<span><img id="likeImage" class="likeImage"
+								src="./images/pr/prLikeBlack.png" onclick="prLike()"
+								width="20px" height="20px"></span>
 						</h3>
 						<br>
-
 						<div>활동지역 : ${map['PRLOC']}</div>
-						<div>좋아요수 : ${prlikeNumber} 오브리수 :</div>
+						<div>좋아요 : ${prlikeNumber}</div>
 						<div>조회수 : ${map['PRRCOUNT']}</div>
 						<br>
 						<div>
-							<button class="btn" type="button" data-toggle="modal"
-								id="messageBtn" data-target="#myModal">쪽지보내기</button>
+							<input type="button" class="btn" data-toggle="modal"
+								id="messageBtn" data-target="#myModal" value="쪽지보내기"
+								style="width: 100px; font-size: 14px; font-weight: bold;">
 						</div>
 					</div>
 				</div>
 
 				<hr>
-				<div class="box basic">
-					<h3>기본 정보</h3>
-					<div class="box basic ml-3">
-					경력 : ${map['PRCAREER']}년<br> 세부 분야 : ${map['USERMAJOR']}
+				<div class="box basic row ml-5">
+					<h5 class="col-3">
+						<b>경력 & 전공</b>
+					</h5>
+					<div class="col-9">
+						<div>경력 : ${map['PRCAREER']}년</div>
+						<div>세부분야 : ${map['USERMAJOR']}</div>
+						<%-- 경력 : ${map['PRCAREER']}년<br> 세부 분야 : ${map['USERMAJOR']} --%>
 					</div>
 				</div>
 
 				<hr>
+				<div class="box basic row ml-5">
+					<h5 class="col-3">
+						<b>자기소개</b>
+					</h5>
+					<div class="col-9" id="content">
+						<pre style="white-space: pre-line;">${map['PRTEXT']}</pre>
+					</div>
+				</div>
 
-				<div class="box basic">
-					<h3>글 내용</h3>
-					<div class="box basic ml-3">
-					<pre>${map['PRTEXT']}</pre>
-					</div>
-				</div>
 				<hr>
-				<div id="iframeExist">
-				<h3>동영상</h3>
-				<div class="box basic" style="text-align: center;">
-					<div style="width: 100%; max-width: 600px; margin: 0 auto;">
-						<iframe src="https://www.youtube.com/embed/${map['PRVIDEO']}"
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-							allowfullscreen style="width: 100%; height: 340px;"></iframe>
+				<div class="box basic row ml-5" id="iframeExist">
+					<h5 class="col-3">
+						<b>홍보영상</b>
+					</h5>
+					<div class="col-9" style="text-align: center;">
+						<div style="width: 100%; max-width: 600px; margin: 0 auto;">
+							<iframe src="https://www.youtube.com/embed/${map['PRVIDEO']}"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								allowfullscreen style="width: 100%; height: 340px;"></iframe>
+						</div>
 					</div>
 				</div>
-				</div>
+
 
 				<div class="row justify-content-end mb-3 mt-3" id="updelButton">
 					<button type="button" class="btn"
@@ -214,7 +247,11 @@
 					<button type="button" class="btn ml-2 mr-3"
 						onclick="prDelete(${map['PRNO']})">삭제</button>
 				</div>
-			</section>
+				<div align="right">
+					<input type="button" class="btn" value="목록"
+						onclick="location.href='prCardList.do?page=${page}'">
+				</div>
+		</section>
 		</div>
 	</main>
 	<!-- footer -->
