@@ -577,10 +577,12 @@
 
 <!-- 쪽지 알림 -->
 	<!-- 읽지 않은 받은메시지 수 출력 -->
-	<select id="cntMgsAlert" resultType="String">
-		SELECT count(*) FROM msg
-		WHERE recvId = #{id} AND msgDelYn != 'Y' AND msgCheck = 0
+	<select id="cntUncheckMsg" resultType="int">
+		SELECT COUNT(CASE WHEN m.readSt = 1 AND m.msgCheck = 0 THEN 1 ELSE NULL END)
+		FROM msg m
+		WHERE m.recvId = #{id}
 	</select>
+	
 
 
 

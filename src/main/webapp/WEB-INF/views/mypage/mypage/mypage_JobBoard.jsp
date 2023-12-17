@@ -8,6 +8,11 @@
 <link href="${path}/css/mypage/proposal.css" rel="stylesheet" />
 <link href="${path}/css/mypage/companypage_recruit_manage.css" rel="stylesheet" />
 
+<!-- CDN을 통해 라이브러리 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/t1fWCfW8fEwiHNgsVtLkPnhGwqcx5x0YcGepE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/dist/stomp.min.js"></script>
+
 <script>
 	function changePage() {
 		var select = document.getElementById("cp_option_select");
@@ -59,6 +64,7 @@
 						<ul>
 							<li><a href="writeJobStatusAll.do">
 									<div class="cp_status_li2">구인 현황</div>
+									<p class="application_notifications"></p>
 									<div>${infoCountVOs.jobstatusAll}</div>
 							</a></li>
 							<li><a href="likeListsPR.do">

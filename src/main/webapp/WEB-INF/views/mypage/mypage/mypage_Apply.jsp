@@ -1,12 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<%@ include file="../layout/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../layout/header.jsp"%>
 
 <head>
 <link href="${path}/css/mypage/mypage.css" rel="stylesheet" />
 <link href="${path}/css/mypage/companypage_recruit_manage.css" rel="stylesheet" />
-			
-<%-- <script src="${path}/js/mypage/mypageShift.js" /> --%>
-	
+
+<!-- CDN을 통해 라이브러리 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/t1fWCfW8fEwiHNgsVtLkPnhGwqcx5x0YcGepE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/dist/stomp.min.js"></script>
+
 <script>
 	function changePage() {
 		var select = document.getElementById("cp_option_select");
@@ -18,26 +22,9 @@
 			window.location.href = "mypage_JobBoard.do";
 		}
 	}
+
 </script>
 
-<!-- 쪽지 알림 -->
-<script type="text/javascript">
-	var socket = null;
-	var sock = new SockJS("/our-websocket");
-	
-	function connect() {
-		socket = sock;
-		
-		sock.onopen = function() {
-			console.log("connection opened.");
-		};
-		
-		sock.onmessage = function(e) {
-			var split
-		}
-	}
-</script>
-			
 </head>
 
 
@@ -64,8 +51,10 @@
 				</div>
 
 				<div class="cp_menu">
-					<select name="cp_option" id="cp_option_select" onchange="changePage()">
-						<option value="applyStatus_main" selected="selected">지원 공고 관리</option>
+					<select name="cp_option" id="cp_option_select"
+						onchange="changePage()">
+						<option value="applyStatus_main" selected="selected">지원
+							공고 관리</option>
 						<option value="recruitStatus_main">작성 공고 관리</option>
 					</select>
 				</div>
@@ -73,38 +62,27 @@
 				<div class="mp_status">
 					<c:forEach var="infoCountVOs" items="${infoAllDto.infoCountVOs}">
 						<ul>
-							<li>
-								<a href="applyStatusAll.do">
+							<li><a href="applyStatusAll.do">
 									<div class="mp_status_li1">지원 현황</div>
-									<p class="application_notifications"></p>
 									<div>${infoCountVOs.applystatusAll}</div>
-								</a>
-							</li>
-							<li>
-								<a href="likeListsComm.do">
+							</a></li>
+							<li><a href="likeListsComm.do">
 									<div class="mp_status_li2">좋아요 한 커뮤니티</div>
 									<div>${infoCountVOs.commlikesCount}</div>
-								</a>
-							</li>
-							<li>
-								<a href="messagebox_rcv.do">
+							</a></li>
+							<li><a href="messagebox_rcv.do">
 									<div class="mp_status_li3">쪽지함</div>
 									<p class="proposal_notifications"></p>
 									<div>${infoCountVOs.messagesCount}</div>
-								</a>
-							</li>
-							<li>
-								<a href="commWroteAll.do">
+							</a></li>
+							<li><a href="commWroteAll.do">
 									<div class="mp_status_li4">커뮤니티 글 관리</div>
 									<div>${infoCountVOs.commCountAll}</div>
-								</a>
-							</li>
-							<li>
-								<a href="myQnALists.do">
+							</a></li>
+							<li><a href="myQnALists.do">
 									<div class="mp_status_li4">문의 글 관리</div>
 									<div>${infoCountVOs.qnaCountAll}</div>
-								</a>
-							</li>
+							</a></li>
 						</ul>
 					</c:forEach>
 				</div>
@@ -152,19 +130,26 @@
 					<c:forEach var="userInfoVOs" items="${infoAllDto.userInfoVOs}">
 						<c:choose>
 							<c:when test="${userInfoVOs.userPosition == 'none'}">
-								<p class="mp_profile_position">선호하는 <span>포지션</span>을 설정해주세요</p>
+								<p class="mp_profile_position">
+									선호하는 <span>포지션</span>을 설정해주세요
+								</p>
 								<button>
 									<a href="prInsertForm.do">PR 글 작성하기</a>
 								</button>
 							</c:when>
 							<c:when test="${userInfoVOs.prNo == -1}">
-								<p class="mp_profile_position">선호하는 <span>포지션</span>을 설정해주세요</p>
+								<p class="mp_profile_position">
+									선호하는 <span>포지션</span>을 설정해주세요
+								</p>
 								<button>
 									<a href="prInsertForm.do">PR 글 작성하기</a>
 								</button>
 							</c:when>
-							<c:when test="${userInfoVOs.userPosition != none && userInfoVOs.prNo != -1}">
-								<p class="mp_profile_position">현재 설정한 포지션은 <span><b>${userInfoVOs.userPosition}</b></span></p>
+							<c:when
+								test="${userInfoVOs.userPosition != none && userInfoVOs.prNo != -1}">
+								<p class="mp_profile_position">
+									현재 설정한 포지션은 <span><b>${userInfoVOs.userPosition}</b></span>
+								</p>
 								<button>
 									<a href="prUpdateForm.do?prNo=${userInfoVOs.prNo}">프로필 수정하기</a>
 								</button>
@@ -182,12 +167,12 @@
 							<a href="#?jobNo=${jobInfoVOs.jobNo}">
 								<div class="mp_reco${jobInfoVOs.no}_1">
 									<img src="https://via.placeholder.com/250x250" />
-<!-- 									<img src="https://picsum.photos/250/250" /> -->
+									<!-- 									<img src="https://picsum.photos/250/250" /> -->
 								</div>
-	
+
 								<p class="mp_reco_com_title">${jobInfoVOs.jobSub}</p>
 								<p class="mp_reco_com_content">${jobInfoVOs.jobText}</p>
-	
+
 								<div class="mp_company">
 									<p class="mp_company_name">${jobInfoVOs.userId}</p>
 								</div>
