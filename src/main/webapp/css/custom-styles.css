@@ -10,7 +10,7 @@ body {
 }
 
 .container-sm {
-	max-width: 	960px; /* 부트스트랩 container-sm의 max-width 값과 동일하게 설정 */
+	max-width: 840px; /* 부트스트랩 container-sm의 max-width 값과 동일하게 설정 */
 	margin-right: auto;
 	margin-left: auto;
 	padding-right: 15px;
@@ -21,6 +21,7 @@ body {
 @media ( max-width : 576px) {
 	.container-sm {
 		max-width: 100%; /* 화면 너비에 따라 최대 너비 100%로 조정 */
+		margin: 0 auto;
 	}
 }
 
@@ -31,8 +32,10 @@ table {
 	margin-bottom: 20px;
 	background-color: #fff;
 	border-radius: 8px;
-	overflow: hidden;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	white-space: no-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 th, td {
@@ -40,6 +43,9 @@ th, td {
 	text-align: left;
 	border-bottom: 1px solid #ddd;
     line-height: 16px;
+	white-space: no-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 th {
@@ -148,6 +154,18 @@ td a {
     display: flex;
 }
 
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.btn-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 .btn {
     width: 80px;
     height: 44px;
@@ -157,7 +175,7 @@ td a {
     text-align: center;
     user-select: none;
     padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     line-height: 1.5;
     border-radius: 10px;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -173,14 +191,4 @@ td a {
     background-color: transparent;
     border: 1px solid #A490D5;
     color: #A490D5;
-}
-.community-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-#commInsert {
-    display: inline-block;
-    margin-right: 10px;
 }
